@@ -1,24 +1,18 @@
 import asyncio
 import websockets
+import json
 
-async def handle_client(websocket, path):
-    try:
-        print(f"Connection from {websocket.remote_address}")
-        # Простой пример: отправляем клиенту приветствие
-        await websocket.send("Hello from the server!")
+async def handle_websocket(websocket, path):
+    # Принимаем данные от клиента
+    data = await websocket.recv()
+    received_data = json.loads(data)
+    print(f"Received data from client: {received_data}")
 
-        # Бесконечный цикл получения и отправки сообщений
-        async for message in websocket:
-            print(f"Received message: {message}")
-            # Пример обработки сообщения и отправки ответа
-            response = f"Received your message: {message}"
-            await websocket.send(response)
-    except websockets.exceptions.ConnectionClosed:
-        print(f"Connection with {websocket.remote_address} closed.")
+    # Делаем что-то с полученными данными, например, отправляем обратно
+    response_data = {"message": "Data received successfully"}
+    await websocket.send(json.dumps(response_data))
 
-# Запуск WebSocket-сервера
-start_server = websockets.serve(handle_client, "192.168.0.10", 8888)
+start_server = websockets.serve(handle_websocket, "localhost", 8765)
 
-# Запуск основного цикла событий
 asyncio.get_event_loop().run_until_complete(start_server)
 asyncio.get_event_loop().run_forever()

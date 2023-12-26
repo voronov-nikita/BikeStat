@@ -4,3 +4,5 @@
 # The database is used to process user requests, 
 # save personal results, open and close access, etc.
 # 
+
+import sqlite3

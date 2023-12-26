@@ -12,9 +12,13 @@
 # >> python server.py
 # 
 
+from datarequest import *
+from database import *
+
 import websockets
 import asyncio
 import socket
+import json
 
 
 IP:str = socket.gethostbyname(socket.gethostname())
@@ -24,29 +28,35 @@ PORT:int = 8090
 print(f"IP SERVER: {IP}\nPORT: {PORT}\n")
 
 
-async def main(websocket, path):
+async def main(websocket, path) -> None:
     '''
-    
+    A function describing how the server request handler works.
     '''
     
     try:
-        print(f"Connection from {websocket.remote_address}")
+        # получаем полный запрос от клиента
+        fromClient = await websocket.recv()
+        # обработанный ответ
+        data = json.loads(fromClient)
+        print(data)
         
-        # отправка
-        await websocket.send("Hello from the server!")
-
-        # Бесконечный цикл получения и отправки сообщений
-        async for message in websocket:
-            print(f"Received message: {message}")
-            response = f"Received your message: {message}"
-            await websocket.send(response)
-            
-    except websockets.exceptions.ConnectionClosed:
-        print(f"Connection with {websocket.remote_address} closed.")
+        task = data[0]
+        
+        # если пришел запрос на авторизацию
+        if task=="SignIn":
+            print(data[1], data[2])
+        else:
+            print("Неизвестный тип запроса")
+        
+    except websockets.exceptions.ConnectionClosedOK:
+        print("Disconnect")
+        return 
+    
     
 
 
 if __name__=="__main__":
+    # обработчик запросов
     servercode = websockets.serve(main, IP, PORT)
     asyncio.get_event_loop().run_until_complete(servercode)
     asyncio.get_event_loop().run_forever()

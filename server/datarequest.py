@@ -6,3 +6,6 @@
 # It turns out the answer, we can process it in 
 # json format using the built-in python json library
 #
+
+import requests
+import json
