@@ -7,26 +7,23 @@ const App = () => {
   const [socket, setSocket] = useState(null);
 
   const connectServer = () => {
-    const newSocket = new WebSocket(host);
-    newSocket.onopen = () => {
+    const socket = new WebSocket(host);
+    socket.onopen = () => {
       console.log('WebSocket connected');
-      setSocket(newSocket);
+      setSocket(socket);
     };
   }
 
   const sendDataToServer = () => {
     connectServer();
     if (socket && socket.readyState === WebSocket.OPEN) {
-      const dataToSend = ["Logining", "login", "password"];
+      const dataToSend = ["SignIn", "login", "password"];
       socket.send(JSON.stringify(dataToSend));
-      console.log('Data sent to server:', dataToSend);
     }
-    socket.close(1000, 'Normal closure');
-    setWs(null);
   };
 
   // переда началом всей работы подключимся к серверу, чтобы потом не было проблемм
-  connectServer();
+  // connectServer();
   return (
     <View>
       <Text>WebSocket Example</Text>

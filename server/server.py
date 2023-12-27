@@ -25,6 +25,7 @@ IP:str = socket.gethostbyname(socket.gethostname())
 # 0-65535
 PORT:int = 8090
 
+
 print(f"IP SERVER: {IP}\nPORT: {PORT}\n")
 
 
@@ -38,18 +39,26 @@ async def main(websocket, path) -> None:
         fromClient = await websocket.recv()
         # обработанный ответ
         data = json.loads(fromClient)
-        print(data)
-        
+        # оформление запроса
         task = data[0]
         
-        # если пришел запрос на авторизацию
-        if task=="SignIn":
+        # если пришел запрос на авторизацию пользователя
+        if task == "SignIn":
             print(data[1], data[2])
-        else:
-            print("Неизвестный тип запроса")
+            if data[1] == data[2]:
+                await websocket.send("Success")
+            else:
+                await websocket.send("Failed")
         
-    except websockets.exceptions.ConnectionClosedOK:
-        print("Disconnect")
+        # обработка запроса на регистрацию пользователя
+        elif task == "SignUp":
+            print("SignUp:", data[1], data[2])
+            # if data[1] not in database:
+            
+        else:
+            print(f"Неизвестный тип запроса: {task}")
+        
+    except:
         return 
     
     

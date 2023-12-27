@@ -1,36 +1,51 @@
 
-// адрес сервера с портом, протокол обязательно должен быть Websoket
-const adressServer = "ws://192.168.0.10:8090"
+const URL = "ws://192.168.0.10:8090"
 
 
-export function connectServer(){
-  
-  const newSocket = new WebSocket(host);
+// отправляем данные на сервер
+const sendDataToServer = (data) => {
+  const socket = new WebSocket(URL);
 
-  newSocket.onopen = () => {
-    console.log('WebSocket connected.');
-    setSocket(newSocket);
-  };
-
-  newSocket.onmessage = (event) => {
-    const receivedData = JSON.parse(event.data);
-    console.log('Received data from server:', receivedData);
-  };
-}
-
-
-export function sendServer(data){
-  connectServer();
-
-  if (socket && socket.readyState === WebSocket.OPEN) {
+  socket.onopen = () => {
     socket.send(JSON.stringify(data));
-  }
+  };
 
-  socket.close();
-  setWs(null);
+  socket.onmessage = (dataFrom) => {
+    console.log(dataFrom);
+  };
+
+  return socket;
 };
 
 
-export function getServer(){
-  ;
+// получаем данные от сервера
+const getDataFromServer = (type) => {
+  return new Promise((resolve) => {
+    const socket = new WebSocket(URL);
+
+    // открываем мост для соединения с сервером
+    socket.onopen = () => {
+      socket.send(JSON.stringify(type));
+    };
+
+    // слушаем полученные сообщения
+    socket.onmessage = (fromServer) => {
+      const parsedData = fromServer.data;
+      resolve(parsedData);
+      socket.close();
+    };
+  });
+};
+
+
+const Sockets = {
+  sendServer: (data) => {
+    sendDataToServer(data);
+  },
+
+  getServer: (type) => {
+    return getDataFromServer(type);
+  }
 }
+
+export default Sockets;

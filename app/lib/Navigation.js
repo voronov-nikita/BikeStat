@@ -1,30 +1,21 @@
 import React from 'react';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 
-import Screen1 from './LoginingPage';
-import Screen2 from './test';
+import LoginingScreen from './LoginingPage';
+import HomeScreen from './MainPage';
 
-const Tab = createBottomTabNavigator();
+const Stack = createStackNavigator();
 
-const BottomTabNavigator = () => {
+const AppNavigator = () => {
     return (
-    <Tab.Navigator>
-        <Tab.Screen name="Screen1" component={Screen1} />
-        <Tab.Screen name="Screen2" component={Screen2} />
-        <Tab.Screen name="Screen3" component={Screen2} />
-    </Tab.Navigator>
+        <NavigationContainer>
+            <Stack.Navigator initialRouteName="Logining">
+                <Stack.Screen name="Logining" component={LoginingScreen} />
+                <Stack.Screen name="Home" component={HomeScreen} />
+            </Stack.Navigator>
+        </NavigationContainer>
     );
 };
 
-// const BottomTabNavigator = () => {
-//     return (
-//     <Tab.Navigator>
-//         <Tab.Screen name="Screen1" component={Screen1} />
-//         <Tab.Screen name="Screen2" component={Screen2} />
-//         <Tab.Screen name="Screen3" component={Screen2} />
-//     </Tab.Navigator>
-//     );
-// };
-
-
-export default BottomTabNavigator;
+export default AppNavigator;

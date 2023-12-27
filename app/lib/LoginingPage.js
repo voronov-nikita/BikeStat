@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
 import { StyleSheet, Image, View, SafeAreaView, TextInput, Button } from 'react-native';
-import { connectServer, sendServer, getServer } from './Socket.js';
+import Sockets from './Socket';
 
 
-export default function Logining() {
+export default function Logining({ navigation }) {
 
     const [login, setInputLogin] = useState('');
     const [password, setInputPassword] = useState('');
@@ -19,8 +19,15 @@ export default function Logining() {
     }
 
     // функция отправки запроса на авторизацию
-    const authorization = () => {
-        sendServer(["SignIn", login, password]);
+    const authorization = async () => {
+        const answer = await Sockets.getServer(["SignIn", login, password]);
+        console.log(answer);
+
+        if (answer=="Success"){
+            navigation.navigate('Home');
+        }else{
+            console.log('NO DATA');
+        }
         
     };
 
