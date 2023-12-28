@@ -3,6 +3,21 @@ import { StyleSheet, Image, View, SafeAreaView, TextInput, Button } from 'react-
 import Sockets from './Socket';
 
 
+const showWebNotification = (title, options) => {
+    if ('Notification' in window) {
+        if (Notification.permission === 'granted') {
+            new Notification(title, options);
+        } else if (Notification.permission !== 'denied') {
+            Notification.requestPermission().then((permission) => {
+            if (permission === 'granted') {
+                new Notification(title, options);
+            }
+        });
+        }
+    }
+};
+
+
 export default function Logining({ navigation }) {
 
     const [login, setInputLogin] = useState('');
@@ -24,7 +39,7 @@ export default function Logining({ navigation }) {
         console.log(answer);
 
         if (answer=="Success"){
-            navigation.navigate('Home');
+            navigation.navigate('Main');
         }else{
             console.log('NO DATA');
         }
@@ -32,8 +47,23 @@ export default function Logining({ navigation }) {
     };
 
     // функция отправки запроса на регестрацию
-    const registaration = () => {
-        console.log(login, password);
+    const registaration = async () => {
+        const answer = await Sockets.getServer(["SignUp", login, password]);
+        console.log(answer);
+        
+        if (answer=="Success"){
+            const title = 'Успешно';
+            const options = {
+            body: 'Вы успешно зарегистривовали нового пользователя,\nтеперь вы можете авторизоваться',
+            };
+            showWebNotification(title, options);
+        } else{
+            const title = 'Ошибка';
+            const options = {
+            body: 'Вы не можете зарегистрироваться прямо сейчас.\nПопробуйте снова, позже',
+            };
+            showWebNotification(title, options);
+        }
     };
 
     // основной внешний вид
@@ -90,7 +120,7 @@ export default function Logining({ navigation }) {
     );
     }
 
-    const styles = StyleSheet.create({
+const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#fff',

@@ -1,21 +1,53 @@
 
 import React from 'react';
-import { SafeAreaView, Text, Button } from 'react-native';
 
-import ButtomBar from './ButtomNavigation';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-const HomePage = ({ navigation }) => {
+import Plan from './PlanWayPage';
+import History from './HistoryPage';
+import Start from './StartPage';
+
+const Tab = createBottomTabNavigator();
+
+const HomePage = () => {
 
     return (
-        <ButtomBar />
-        // <SafeAreaView>
-        //     <Text>Second Screen</Text>
-        //     <Button
-        //         title="Go back to Home"
-        //         onPress={() => navigation.navigate('Logining')}
-        //     />
-        // </SafeAreaView>
+        <Tab.Navigator 
+        
+            tabBarOptions={{
+                labelStyle: styles.labelStyle,
+            }}>
+
+            <Tab.Screen 
+                name="Plan Trip" 
+                component={Plan}
+            />
+
+            <Tab.Screen 
+                name="Start Trip" 
+                component={Start} 
+            />
+
+            <Tab.Screen 
+                name="History" 
+                component={History} 
+            />
+        </Tab.Navigator>
     );
+};
+
+
+const styles = {
+    labelStyle: {
+        fontSize: 16,
+        textAlign: 'center',
+    },
+    focusedLabel: {
+        color: 'blue',
+    },
+    normalLabel: {
+        color: 'black',
+    },
 };
 
 export default HomePage;

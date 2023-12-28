@@ -53,7 +53,10 @@ async def main(websocket, path) -> None:
         # обработка запроса на регистрацию пользователя
         elif task == "SignUp":
             print("SignUp:", data[1], data[2])
-            # if data[1] not in database:
+            if data[1] == data[2]:
+                await websocket.send("Success")
+            else:
+                await websocket.send("Failed")
             
         else:
             print(f"Неизвестный тип запроса: {task}")
