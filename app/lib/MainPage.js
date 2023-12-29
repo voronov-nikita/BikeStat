@@ -1,10 +1,8 @@
-
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import React from 'react';
 
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-
-import Plan from './PlanWayPage';
 import History from './HistoryPage';
+import Plan from './PlanWayPage';
 import Start from './StartPage';
 
 const Tab = createBottomTabNavigator();

@@ -35,7 +35,7 @@ def createDataBaseUsers() -> None:
     db.close()
 
 
-def addDataBaseUsers(login:str, password:str) -> str:
+def addUsers(login:str, password:str) -> str:
     '''
     
     Adds data to the user database. 
@@ -77,9 +77,8 @@ def getUserPassword(login:str) -> str:
         SELECT password FROM users WHERE login='{login}'
     """)
     
-    db.close()
     
-    return data.fetchone()
+    return data.fetchone()[0]
 
 
 def getUsers() -> list:
@@ -93,16 +92,18 @@ def getUsers() -> list:
     cursor = db.cursor()
     
     data = cursor.execute(f"""
-        SELECT * FROM users
+        SELECT login FROM users
     """)
+
     
-    db.close()
-    
-    return data.fetchall()
+    return [i[0] for i in data.fetchall()]
 
 
 def deleteUser(login:str) -> None:
     '''
+    
+    Deletes the user from the database. 
+    This is necessary to clear user accounts if they wish.
     
     '''
     
@@ -191,14 +192,21 @@ def getHistory(login:str) -> tuple:
         SELECT * FROM history WHERE login='{login}'
     """)
     
-    db.close()
     return data.fetchone()
 
 
 # <-------------- ROUTES -------------->
 def createDataBaseRoute() -> None:
     '''
-
+    Creates a table with routes to track their status in the current position.
+    The data is sorted in the following order:
+    - unique identifier
+    - user login
+    - path name (entered by the user)
+    - departure date (generated automatically)
+    - estimated difficulty level (neural network)
+    - starting and ending points of the route
+    
     '''
     
     db = sqlite3.connect("users.db")
@@ -222,6 +230,13 @@ def createDataBaseRoute() -> None:
 
 def addRoute(login:str, name:str, level:int, startPoint:str, endPoint:str) -> None:
     '''
+    Adds a new route to the route table. 
+    Used when planning a route for some future.
+    
+    It includes the login parameter of the current user, 
+    the name of the route, 
+    the estimated difficulty, 
+    the starting and ending points of the route
     
     '''
     
@@ -241,16 +256,20 @@ def addRoute(login:str, name:str, level:int, startPoint:str, endPoint:str) -> No
     db.close()
 
 
-def deleteRoute(id:int) -> bool:
+def deleteRoute(name:str) -> bool:
     '''
+    Deletes a route from the current one. 
+    It is used in cases when the route has already been completed and 
+    it needs to be moved to the history table.
     
+    It takes into account the NAME of our route.
     '''
     
     db = sqlite3.connect("users.db")
     cursor = db.cursor()
     
     cursor.execute(f"""
-        DELETE FROM routes WHERE id={id}
+        DELETE FROM routes WHERE name='{name}'
     """)
     
     db.commit()
@@ -262,6 +281,9 @@ def deleteRoute(id:int) -> bool:
 def getRoutes(login:str) -> list:
     '''
     
+    Get all current routes for a given user by their unique username. 
+    It is used where it is necessary to display all the planned routes of the user.
+    
     '''
     
     db = sqlite3.connect("users.db")
@@ -270,8 +292,7 @@ def getRoutes(login:str) -> list:
     data = cursor.execute(f"""
         SELECT * FROM routes WHERE login='{login}'
     """)
-    
-    db.close()
+
 
     return data.fetchall()
 

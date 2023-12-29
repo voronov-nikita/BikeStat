@@ -1,7 +1,6 @@
-
-import React from 'react';
-import { SafeAreaView, Text } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { SafeAreaView, Text } from 'react-native';
+import React from 'react';
 
 const StartRoute = () => {
 

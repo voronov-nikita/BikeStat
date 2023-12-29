@@ -1,5 +1,6 @@
-import React, {useState} from 'react';
 import { StyleSheet, Image, View, SafeAreaView, TextInput, Button } from 'react-native';
+import React, {useState} from 'react';
+
 import Sockets from './Socket';
 
 
@@ -71,10 +72,11 @@ export default function Logining({ navigation }) {
         <SafeAreaView style={styles.container}>
         {/* Иконка велосипедаиста */}
         <Image
-        style={styles.mainIcon}
             source={require('../assets/images/cycling.png')}
+            style={styles.image}
         />
 
+        <View style={styles.space} />
 
         {/* Поле ввода логина пользователя */}
         <TextInput
@@ -147,7 +149,9 @@ const styles = StyleSheet.create({
         height: 5,
     },
 
-    mainIcon:{
-
-    }
+    image: {
+        width: 80,
+        height: 80,
+        resizeMode: 'cover',
+    },
 });

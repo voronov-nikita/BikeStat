@@ -41,19 +41,17 @@ async def main(websocket, path) -> None:
         data = json.loads(fromClient)
         # оформление запроса
         task = data[0]
-        
         # если пришел запрос на авторизацию пользователя
         if task == "SignIn":
-            print(data[1], data[2])
-            if data[1] == data[2]:
+            # если пользователь есть и пароль подходит
+            if data[1] in getUsers() and data[2]==getUserPassword(data[1]):
                 await websocket.send("Success")
             else:
                 await websocket.send("Failed")
         
         # обработка запроса на регистрацию пользователя
         elif task == "SignUp":
-            print("SignUp:", data[1], data[2])
-            if data[1] == data[2]:
+            if addUsers(data[1], data[2]) == "Success":
                 await websocket.send("Success")
             else:
                 await websocket.send("Failed")
@@ -68,6 +66,10 @@ async def main(websocket, path) -> None:
 
 
 if __name__=="__main__":
+    createDataBaseUsers()
+    createDataBaseRoute()
+    createDataBaseHistory()
+
     # обработчик запросов
     servercode = websockets.serve(main, IP, PORT)
     asyncio.get_event_loop().run_until_complete(servercode)

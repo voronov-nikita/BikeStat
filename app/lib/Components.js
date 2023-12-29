@@ -1,6 +1,7 @@
-import React from 'react';
-import { Button } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+
+import { Button } from 'react-native';
+import React from 'react';
 
 
 // Кнопка, которая будет отобраджаться в верхнем 
@@ -21,11 +22,11 @@ export const ProfileButton = () => {
 export const HomeButton = () => {
     const navigation = useNavigation();
 
-    const navigateToProfile = () => {
+    const navigateToHome = () => {
         navigation.navigate('Main');
     };
 
     return (
-        <Button title='HOME' onPress={navigateToProfile}/>
+        <Button title='HOME' onPress={navigateToHome}/>
     );
 };

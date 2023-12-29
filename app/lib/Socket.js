@@ -1,7 +1,6 @@
 
 const URL = "ws://192.168.0.10:8090"
 
-
 // отправляем данные на сервер
 const sendDataToServer = (data) => {
   const socket = new WebSocket(URL);
