@@ -1,13 +1,19 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { Image } from 'react-native';
 import React from 'react';
+
 
 import History from './HistoryPage';
 import Plan from './PlanWayPage';
 import Start from './StartPage';
 
+
 const Tab = createBottomTabNavigator();
 
-const HomePage = () => {
+const HomePage = ({route}) => {
+
+    const { login, password } = route.params;
+    console.log(login, password);
 
     return (
         <Tab.Navigator 
@@ -19,16 +25,43 @@ const HomePage = () => {
             <Tab.Screen 
                 name="Plan Trip" 
                 component={Plan}
+                options={{
+                    headerShown: false,
+                    tabBarIcon: () => (
+                    <Image
+                        source={require('../assets/images/plans.png')}
+                        style={{ width: 20, height: 20 }}
+                    />
+                    ),
+                }}
             />
 
             <Tab.Screen 
                 name="Start Trip" 
-                component={Start} 
+                component={Start}
+                options={{
+                    headerShown:false,
+                    tabBarIcon: () => (
+                        <Image
+                            source={require('../assets/images/cycling.png')}
+                            style={{ width: 20, height: 20 }}
+                        />
+                    ),
+                }}
             />
 
-            <Tab.Screen 
-                name="History" 
-                component={History} 
+            <Tab.Screen
+                name="History"
+                component={History}
+                options={{
+                    headerShown:false,
+                    tabBarIcon: () => (
+                        <Image
+                            source={require('../assets/images/history.png')}
+                            style={{ width: 20, height: 20 }}
+                        />
+                    ),
+                }}
             />
         </Tab.Navigator>
     );

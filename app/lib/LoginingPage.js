@@ -1,7 +1,8 @@
-import { StyleSheet, Image, View, SafeAreaView, TextInput, Button } from 'react-native';
+import { StyleSheet, Image, View, SafeAreaView, TextInput, Button, Text } from 'react-native';
 import React, {useState} from 'react';
 
 import Sockets from './Socket';
+
 
 
 const showWebNotification = (title, options) => {
@@ -21,6 +22,7 @@ const showWebNotification = (title, options) => {
 
 export default function Logining({ navigation }) {
 
+    const [message, setMessage] = useState('Введите логин и пароль');
     const [login, setInputLogin] = useState('');
     const [password, setInputPassword] = useState('');
 
@@ -37,12 +39,11 @@ export default function Logining({ navigation }) {
     // функция отправки запроса на авторизацию
     const authorization = async () => {
         const answer = await Sockets.getServer(["SignIn", login, password]);
-        console.log(answer);
 
         if (answer=="Success"){
-            navigation.navigate('Main');
+            navigation.navigate('Main', {login, password});
         }else{
-            console.log('NO DATA');
+            setMessage("Неверный логин или пароль, попробуйте снова.")
         }
         
     };
@@ -64,6 +65,7 @@ export default function Logining({ navigation }) {
             body: 'Вы не можете зарегистрироваться прямо сейчас.\nПопробуйте снова, позже',
             };
             showWebNotification(title, options);
+            setMessage("Пользователь с таким логином уже зарегистривован.")
         }
     };
 
@@ -75,6 +77,10 @@ export default function Logining({ navigation }) {
             source={require('../assets/images/cycling.png')}
             style={styles.image}
         />
+
+        <View style={styles.space} />
+        {/* Сообщение о состоянии пользовательской авторизации */}
+        <Text>{message}</Text>
 
         <View style={styles.space} />
 
@@ -109,11 +115,11 @@ export default function Logining({ navigation }) {
             {/* Отступ между кнопками */}
             <View style={styles.space} />
 
-            {/* Кнопка отправки запроса на регестрацию */}
+            {/* Кнопка отправки запроса на регистрацию */}
             <Button
             style={styles.buttonInput}
             color="#000"
-            title="Зарегестрироваться"
+            title="Зарегистрироваться"
             onPress={registaration} 
             />
         </View>
@@ -135,7 +141,7 @@ const styles = StyleSheet.create({
         height: 40,
         borderColor: 'gray', 
         borderWidth: 1,
-        marginBottom: 20,
+        marginBottom: 10,
         padding: 10,
     },
 
@@ -147,6 +153,7 @@ const styles = StyleSheet.create({
     space:{
         width: 20,
         height: 5,
+        marginBottom: 10
     },
 
     image: {

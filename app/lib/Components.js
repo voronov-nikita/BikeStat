@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 
-import { Button } from 'react-native';
+import { TouchableOpacity, Image, StyleSheet, View, TextInput, Text } from 'react-native';
 import React from 'react';
 
 
@@ -13,7 +13,15 @@ export const ProfileButton = () => {
     };
 
     return (
-        <Button title='PROFILE' onPress={navigateToProfile}/>
+        <TouchableOpacity 
+            onPress={navigateToProfile}
+        >
+            <Image 
+                source={require('../assets/images/profile.png')} 
+                style={{ width: 35, height: 35, marginRight: 15 }} 
+            />
+
+        </TouchableOpacity>
     );
 };
 
@@ -27,6 +35,14 @@ export const HomeButton = () => {
     };
 
     return (
-        <Button title='HOME' onPress={navigateToHome}/>
+        <TouchableOpacity 
+            onPress={navigateToHome}
+        >
+            <Image 
+                source={require('../assets/images/home.png')} 
+                style={{ width: 35, height: 35, marginLeft: 25 }} 
+            />
+
+        </TouchableOpacity>
     );
 };

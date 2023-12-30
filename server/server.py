@@ -25,6 +25,7 @@ IP:str = socket.gethostbyname(socket.gethostname())
 # 0-65535
 PORT:int = 8090
 
+SENDREQUEST:bool = False
 
 print(f"IP SERVER: {IP}\nPORT: {PORT}\n")
 
@@ -46,6 +47,7 @@ async def main(websocket, path) -> None:
             # если пользователь есть и пароль подходит
             if data[1] in getUsers() and data[2]==getUserPassword(data[1]):
                 await websocket.send("Success")
+                
             else:
                 await websocket.send("Failed")
         
@@ -55,12 +57,25 @@ async def main(websocket, path) -> None:
                 await websocket.send("Success")
             else:
                 await websocket.send("Failed")
+                
+        elif task == "GetHistory":
+            await list(getHistory(data[1]))
+            
+        elif task == "GetPlans":
+            await list(getRoutes(data[1]))
+            
+        elif task == "DeleteAccount":
+            if getUserPassword(data[1]) == data[2]:
+                deleteUser(data[1])
+                await "Success"
+            else:
+                await "Failed"
             
         else:
             print(f"Неизвестный тип запроса: {task}")
         
     except:
-        return 
+        print("Disconnect")
     
     
 

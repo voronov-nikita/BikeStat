@@ -16,6 +16,12 @@ const AppNavigator = () => {
         <NavigationContainer>
             <Stack.Navigator 
                 initialRouteName="Logining"
+                screenOptions={{
+                    headerStyle: {
+                        backgroundColor: '#000',
+                        color: '#fff',
+                    },
+                }}
                 >
 
                 <Stack.Screen 
@@ -30,7 +36,7 @@ const AppNavigator = () => {
                     options={{
                         headerTitle: ' ',
                         headerRight: () => <ProfileButton />,
-                        headerLeft: () => <HomeButton/>
+                        headerLeft: () => <HomeButton/>,
                     }}
                 />
                 <Stack.Screen 
