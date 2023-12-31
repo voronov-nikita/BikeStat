@@ -70,9 +70,14 @@ async def main(websocket, path) -> None:
                 await "Success"
             else:
                 await "Failed"
+        
+        elif task == "CreatePlan":
+            addRoute(data[1], data[2], data[3], data[4], data[5])
+            await "Success"
             
         else:
             print(f"Неизвестный тип запроса: {task}")
+            await "Failed"
         
     except:
         print("Disconnect")

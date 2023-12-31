@@ -1,7 +1,8 @@
 import { useNavigation } from '@react-navigation/native';
-import { SafeAreaView, Text } from 'react-native';
+import { Button, SafeAreaView, Text } from 'react-native';
 import React from 'react';
 
+import { ButtonDialog } from './Components';
 
 const PlanWay = () => {
 
@@ -9,6 +10,7 @@ const PlanWay = () => {
 
     return (
         <SafeAreaView>
+            <ButtonDialog/>
             <Text>Plan Way</Text>
         </SafeAreaView>
     );

@@ -4,7 +4,6 @@ import React, {useState} from 'react';
 import Sockets from './Socket';
 
 
-
 const showWebNotification = (title, options) => {
     if ('Notification' in window) {
         if (Notification.permission === 'granted') {
@@ -117,10 +116,10 @@ export default function Logining({ navigation }) {
 
             {/* Кнопка отправки запроса на регистрацию */}
             <Button
-            style={styles.buttonInput}
-            color="#000"
-            title="Зарегистрироваться"
-            onPress={registaration} 
+                style={styles.buttonInput}
+                color="#000000"
+                title="Зарегистрироваться"
+                onPress={registaration} 
             />
         </View>
 
@@ -131,7 +130,7 @@ export default function Logining({ navigation }) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
+        backgroundColor: '#ffffff',
         alignItems: 'center',
         justifyContent: 'center',
         padding: 10,

@@ -11,14 +11,19 @@ import Start from './StartPage';
 const Tab = createBottomTabNavigator();
 
 const HomePage = ({route}) => {
-
-    const { login, password } = route.params;
+    try {
+        const { login, password } = route.params;
     console.log(login, password);
+    } catch (error) {
+        
+    }
+    
 
     return (
         <Tab.Navigator 
-        
+            initialRouteName='Start Trip'
             tabBarOptions={{
+                
                 labelStyle: styles.labelStyle,
             }}>
 
