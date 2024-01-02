@@ -61,7 +61,7 @@ export const ButtonDialog = () => {
 
     const saveDatas = async () => {
 
-        const answer = await Sockets.getServer(["Save"]);
+        const answer = await Sockets.getServer(["CreatePlan", nameWay, dateWay]);
         console.log(answer);
 
         setModalVisible(!isModalVisible);
@@ -89,9 +89,11 @@ export const ButtonDialog = () => {
                         value={nameWay}
                     />
 
+                    <View style={styles.space}></View>
+
                     <TextInput
                         style={styles.textInput}
-                        placeholder="Дата: "
+                        placeholder="Дата поездки: "
                         autoFocus={true}
                         onChangeText={changeDate}
                         value={dateWay}
@@ -117,6 +119,10 @@ export const ButtonDialog = () => {
 };
 
 const styles = StyleSheet.create({
+    space: {
+        marginBottom: 8,
+    },
+
     PlanContainer: {
         flex: 1,
         backgroundColor: 'rgba(0, 0, 0, 0.85)',

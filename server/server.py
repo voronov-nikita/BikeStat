@@ -72,6 +72,7 @@ async def main(websocket, path) -> None:
                 await "Failed"
         
         elif task == "CreatePlan":
+            print(*data)
             addRoute(data[1], data[2], data[3], data[4], data[5])
             await "Success"
             
