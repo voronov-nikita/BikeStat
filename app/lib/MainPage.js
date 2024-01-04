@@ -10,14 +10,7 @@ import Start from './StartPage';
 
 const Tab = createBottomTabNavigator();
 
-const HomePage = ({route}) => {
-    try {
-        const { login, password } = route.params;
-    console.log(login, password);
-    } catch (error) {
-        
-    }
-    
+const HomePage = () => {
 
     return (
         <Tab.Navigator 

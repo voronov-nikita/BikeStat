@@ -149,7 +149,7 @@ def createDataBaseHistory() -> None:
     db.close()
 
 
-def addHistory(login:str, name:str, level:int, startPoint:str, endPoint:str) -> None:
+def addHistory(login:str, name:str, level:int, date:str, startPoint:str, endPoint:str) -> None:
     '''
     Add new user activity data to the history table. 
     
@@ -163,10 +163,6 @@ def addHistory(login:str, name:str, level:int, startPoint:str, endPoint:str) -> 
     
     db = sqlite3.connect("users.db")
     cursor = db.cursor()
-    
-    # subtract the current date and time
-    currentTime = datetime.datetime.now()
-    date = f"{currentTime.day}.{currentTime.month}.{currentTime.year}"
     
     cursor.execute(f"""
         INSERT INTO history (login, name, date, level, startPoint, endPoint) \
@@ -228,7 +224,7 @@ def createDataBaseRoute() -> None:
     db.close()
 
 
-def addRoute(login:str, name:str, level:int, startPoint:str, endPoint:str) -> None:
+def addRoute(login:str, name:str, level:int, date:str, startPoint:str, endPoint:str) -> None:
     '''
     Adds a new route to the route table. 
     Used when planning a route for some future.
@@ -242,10 +238,6 @@ def addRoute(login:str, name:str, level:int, startPoint:str, endPoint:str) -> No
     
     db = sqlite3.connect("users.db")
     cursor = db.cursor()
-    
-    # subtract the current date and time
-    currentTime = datetime.datetime.now()
-    date = f"{currentTime.day}.{currentTime.month}.{currentTime.year}"
     
     cursor.execute(f"""
         INSERT INTO routes (login, name, date, level, startPoint, endPoint) \

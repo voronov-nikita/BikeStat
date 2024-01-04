@@ -71,9 +71,22 @@ async def main(websocket, path) -> None:
             else:
                 await "Failed"
         
-        elif task == "CreatePlan":
+        elif task == "AddPlan":
             print(*data)
-            addRoute(data[1], data[2], data[3], data[4], data[5])
+            login = data[1]
+            name = data[2]
+            date = data[3]
+            
+            one = data[4]['coordinate']
+            two = data[5]['coordinate']
+            # пусть координаты будут выглядеть так:
+            #       X1;Y1
+            #       X2;Y2
+            startPoint = str(one['latitude']) + ";" + str(one['longitude'])
+            endPoint = str(two['latitude']) + ";" + str(two['longitude'])
+            
+            level = 1
+            addRoute(login, name, level,date, startPoint, endPoint)
             await "Success"
             
         else:
@@ -91,6 +104,7 @@ if __name__=="__main__":
     createDataBaseRoute()
     createDataBaseHistory()
 
+    addUsers("login", "1234")
     # обработчик запросов
     servercode = websockets.serve(main, IP, PORT)
     asyncio.get_event_loop().run_until_complete(servercode)

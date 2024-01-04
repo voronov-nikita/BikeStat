@@ -4,6 +4,8 @@ import React, {useState} from 'react';
 import Sockets from './Socket';
 
 
+let userData = [];
+
 const showWebNotification = (title, options) => {
     if ('Notification' in window) {
         if (Notification.permission === 'granted') {
@@ -40,7 +42,8 @@ export default function Logining({ navigation }) {
         const answer = await Sockets.getServer(["SignIn", login, password]);
 
         if (answer=="Success"){
-            navigation.navigate('Main', {login, password});
+            userData = [login, password];
+            navigation.navigate('Main');
         }else{
             setMessage("Неверный логин или пароль, попробуйте снова.")
         }
@@ -55,13 +58,14 @@ export default function Logining({ navigation }) {
         if (answer=="Success"){
             const title = 'Успешно';
             const options = {
-            body: 'Вы успешно зарегистривовали нового пользователя,\nтеперь вы можете авторизоваться',
+                body: 'Вы успешно зарегистривовали нового пользователя,\nтеперь вы можете авторизоваться',
             };
             showWebNotification(title, options);
+
         } else{
             const title = 'Ошибка';
             const options = {
-            body: 'Вы не можете зарегистрироваться прямо сейчас.\nПопробуйте снова, позже',
+                body: 'Вы не можете зарегистрироваться прямо сейчас.\nПопробуйте снова, позже',
             };
             showWebNotification(title, options);
             setMessage("Пользователь с таким логином уже зарегистривован.")
@@ -71,61 +75,66 @@ export default function Logining({ navigation }) {
     // основной внешний вид
     return (
         <SafeAreaView style={styles.container}>
-        {/* Иконка велосипедаиста */}
-        <Image
-            source={require('../assets/images/cycling.png')}
-            style={styles.image}
-        />
-
-        <View style={styles.space} />
-        {/* Сообщение о состоянии пользовательской авторизации */}
-        <Text>{message}</Text>
-
-        <View style={styles.space} />
-
-        {/* Поле ввода логина пользователя */}
-        <TextInput
-            style={styles.textInput}
-            placeholder="Login: "
-            autoFocus={true}
-            onChangeText={changeLogin}
-            value={login}
-        />
-
-
-        {/* Поле ввода пароля пользователя */}
-        <TextInput
-            style={styles.textInput}
-            placeholder="Password: "
-            secureTextEntry={true}
-            onChangeText={changePassword}
-            value={password}
-        />
-
-        <View>
-            {/* Кнопка отправки запроса на вход */}
-            <Button 
-                style={styles.buttonInput}
-                title="Войти"
-                color="#000"
-                onPress={authorization} 
+            {/* Иконка велосипедаиста */}
+            <Image
+                source={require('../assets/images/cycling.png')}
+                style={styles.image}
             />
 
-            {/* Отступ между кнопками */}
+            <View style={styles.space} />
+            {/* Сообщение о состоянии пользовательской авторизации */}
+            <Text>{message}</Text>
+
             <View style={styles.space} />
 
-            {/* Кнопка отправки запроса на регистрацию */}
-            <Button
-                style={styles.buttonInput}
-                color="#000000"
-                title="Зарегистрироваться"
-                onPress={registaration} 
+            {/* Поле ввода логина пользователя */}
+            <TextInput
+                style={styles.textInput}
+                placeholder="Login: "
+                autoFocus={true}
+                onChangeText={changeLogin}
+                value={login}
             />
-        </View>
+
+
+            {/* Поле ввода пароля пользователя */}
+            <TextInput
+                style={styles.textInput}
+                placeholder="Password: "
+                secureTextEntry={true}
+                onChangeText={changePassword}
+                value={password}
+            />
+
+            <View>
+                {/* Кнопка отправки запроса на вход */}
+                <Button 
+                    style={styles.buttonInput}
+                    title="Войти"
+                    color="#000"
+                    onPress={authorization} 
+                />
+
+                {/* Отступ между кнопками */}
+                <View style={styles.space} />
+
+                {/* Кнопка отправки запроса на регистрацию */}
+                <Button
+                    style={styles.buttonInput}
+                    color="#000000"
+                    title="Зарегистрироваться"
+                    onPress={registaration} 
+                />
+            </View>
 
         </SafeAreaView>
     );
-    }
+}
+
+// фунция получения введенного логина и пароля
+export const getUserData = () =>{
+    return userData;
+}
 
 const styles = StyleSheet.create({
     container: {
