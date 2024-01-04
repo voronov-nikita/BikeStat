@@ -1,9 +1,8 @@
 import { useNavigation } from '@react-navigation/native';
 
-import { TouchableOpacity, Image, StyleSheet, View, Text, Modal, Button, TextInput } from 'react-native';
-import React, {useState} from 'react';
+import { TouchableOpacity, Image} from 'react-native';
+import React from 'react';
 
-import Sockets from './Socket';
 
 // Кнопка, которая будет отобраджаться в верхнем 
 export const ProfileButton = () => {

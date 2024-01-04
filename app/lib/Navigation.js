@@ -2,15 +2,18 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
 
+import {ProfileButton, HomeButton} from './Components'
+
 import LoginingScreen from './LoginingPage';
 import Profile from './ProfilePage';
 import Main from './MainPage';
 
-import {ProfileButton, HomeButton} from './Components'
 
-
+// создаем экхемпляр объекта навигатора состояний 
 const Stack = createStackNavigator();
 
+// обрабатываем первичный запрос пользователя
+// По умолчанию откроются данные для ввода логина и пароля
 const AppNavigator = () => {
     return (
         <NavigationContainer>

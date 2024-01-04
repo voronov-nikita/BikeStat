@@ -7,9 +7,11 @@ import History from './HistoryPage';
 import Plan from './PlanWayPage';
 import Start from './StartPage';
 
-
+// создаем объект навигатора для перехода между вкладками
 const Tab = createBottomTabNavigator();
 
+// обработчик основного запроса пользователя на страницу
+// По умолчанию откроется центральная вкладка (Начать поездку)
 const HomePage = () => {
 
     return (

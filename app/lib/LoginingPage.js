@@ -4,8 +4,12 @@ import React, {useState} from 'react';
 import Sockets from './Socket';
 
 
+// в переменной будут храниться последние введенные данные об успешной авторизации
+// Это нужно для переноса параметров в другие файлы приложения
 let userData = [];
 
+
+// функция вызова уведомления операционной системы
 const showWebNotification = (title, options) => {
     if ('Notification' in window) {
         if (Notification.permission === 'granted') {
@@ -20,7 +24,7 @@ const showWebNotification = (title, options) => {
     }
 };
 
-
+// основная функция обработки пользовательского запроса на домашнюю страницу
 export default function Logining({ navigation }) {
 
     const [message, setMessage] = useState('Введите логин и пароль');
@@ -132,6 +136,7 @@ export default function Logining({ navigation }) {
 }
 
 // фунция получения введенного логина и пароля
+// для оптимизации доставки данных в другие файлы
 export const getUserData = () =>{
     return userData;
 }

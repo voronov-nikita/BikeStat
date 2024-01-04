@@ -1,18 +1,21 @@
-import { useNavigation } from '@react-navigation/native';
 import { Button, TextInput, Text, View, StyleSheet } from 'react-native';
 import React, {useState} from 'react';
 
-import Map, {getMarkers} from './MapComponent';
 import { getUserData } from './LoginingPage';
+import Map, {getMarkers} from './ElemMap';
 import Sockets from './Socket';
 
+// основная функция обработки запроса пользователя на получение данных для регистрации
+// нового "плана"
 const PlanWay = () => {
 
+    // отслеживаем состояние изменения переменных даты и названия пути
     const [nameWay, changeName] = useState('');
     const [dateWay, changeDate] = useState('');
 
+    // обработчик кнопки сохранить
     const savePlans = async () => {
-        
+        // сбор данных для отправки
         const login = getUserData()[0];
         const startPoint = getMarkers()[0];
         const endPoint = getMarkers()[1];
@@ -21,7 +24,8 @@ const PlanWay = () => {
         console.log(answer);
     }
 
-    // удалит данные об имени и дате поезки
+    // обработчик кнопки отмена
+    // удалить данные об имени и дате поездки
     const clearPlans = () => {
         changeName("");
         changeDate("");
@@ -104,7 +108,7 @@ const styles = StyleSheet.create({
     buttons:{
         flexDirection: 'row',
         justifyContent: 'space-between',
-        paddingHorizontal: 5,
+        paddingHorizontal: 8,
     }
 });
 
