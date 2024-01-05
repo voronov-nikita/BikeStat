@@ -57,24 +57,30 @@ async def main(websocket, path) -> None:
                 await websocket.send("Success")
             else:
                 await websocket.send("Failed")
-                
+        
+        
+        # получение данных об истории
         elif task == "GetHistory":
-            await list(getHistory(data[1]))
-            
+            await  websocket.send(list(getHistory(data[1])))
+        
+        # получить данные о всех планах
         elif task == "GetPlans":
-            await list(getRoutes(data[1]))
+            result = getRoutes(data[1])
+            await websocket.send(json.dumps(result, ensure_ascii=False))
             
+        
         elif task == "DeleteAccount":
             if getUserPassword(data[1]) == data[2]:
                 deleteUser(data[1])
-                await "Success"
+                await websocket.send("Success")
             else:
-                await "Failed"
+                await websocket.send("Failed")
         
         elif task == "AddPlan":
-            print(*data)
             login = data[1]
             name = data[2]
+            
+            # дата в формет {ГОД-МЕСЯЦ-ДЕНЬ}
             date = data[3]
             
             one = data[4]['coordinate']
@@ -82,16 +88,28 @@ async def main(websocket, path) -> None:
             # пусть координаты будут выглядеть так:
             #       X1;Y1
             #       X2;Y2
-            startPoint = str(one['latitude']) + ";" + str(one['longitude'])
-            endPoint = str(two['latitude']) + ";" + str(two['longitude'])
+            startPoint = str(one['latitude']) + "; " + str(one['longitude'])
+            endPoint = str(two['latitude']) + "; " + str(two['longitude'])
             
             level = 1
-            addRoute(login, name, level,date, startPoint, endPoint)
-            await "Success"
+            addRoute(login, name, level, date, startPoint, endPoint)
+            
+            await websocket.send("Success")
+                        
+        elif task == "CompletePlan":
+            login = data[1]
+            name = data[2]
+            
+            # получаем данные о плане
+            plans:tuple = getOneRoute(login, name)
+            deleteRoute(login, name)
+            addHistory(*plans)
+            
+            await websocket.send("Success")
             
         else:
             print(f"Неизвестный тип запроса: {task}")
-            await "Failed"
+            await websocket.send("Failed")
         
     except:
         print("Disconnect")

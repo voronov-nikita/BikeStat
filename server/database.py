@@ -248,7 +248,7 @@ def addRoute(login:str, name:str, level:int, date:str, startPoint:str, endPoint:
     db.close()
 
 
-def deleteRoute(name:str) -> bool:
+def deleteRoute(login:str, name:str) -> bool:
     '''
     Deletes a route from the current one. 
     It is used in cases when the route has already been completed and 
@@ -261,7 +261,7 @@ def deleteRoute(name:str) -> bool:
     cursor = db.cursor()
     
     cursor.execute(f"""
-        DELETE FROM routes WHERE name='{name}'
+        DELETE FROM routes WHERE name='{name}' AND login='{login}'
     """)
     
     db.commit()
@@ -285,9 +285,21 @@ def getRoutes(login:str) -> list:
         SELECT * FROM routes WHERE login='{login}'
     """)
 
-
     return data.fetchall()
 
 
+def getOneRoute(login:str, name:str) -> tuple:
+    '''
+    
+    '''
+    
+    db = sqlite3.connect("users.db")
+    cursor = db.cursor()
+    
+    data = cursor.execute(f"""
+        SELECT * FROM routes WHERE login='{login} AND name='{name}'
+    """)
 
+
+    return data.fetchone()
 

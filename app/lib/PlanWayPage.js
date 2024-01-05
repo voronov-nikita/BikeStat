@@ -1,6 +1,7 @@
 import { Button, TextInput, Text, View, StyleSheet } from 'react-native';
 import React, {useState} from 'react';
 
+import MyCalendar, {getDate} from './CalendarComponent';
 import { getUserData } from './LoginingPage';
 import Map, {getMarkers} from './ElemMap';
 import Sockets from './Socket';
@@ -11,16 +12,16 @@ const PlanWay = () => {
 
     // отслеживаем состояние изменения переменных даты и названия пути
     const [nameWay, changeName] = useState('');
-    const [dateWay, changeDate] = useState('');
 
     // обработчик кнопки сохранить
     const savePlans = async () => {
         // сбор данных для отправки
         const login = getUserData()[0];
+        const date = getDate();
         const startPoint = getMarkers()[0];
         const endPoint = getMarkers()[1];
 
-        const answer = await Sockets.getServer(["AddPlan", login, nameWay, dateWay, startPoint, endPoint]);
+        const answer = await Sockets.getServer(["AddPlan", login, nameWay, date, startPoint, endPoint]);
         console.log(answer);
     }
 
@@ -28,7 +29,6 @@ const PlanWay = () => {
     // удалить данные об имени и дате поездки
     const clearPlans = () => {
         changeName("");
-        changeDate("");
     }
 
     return (
@@ -46,12 +46,8 @@ const PlanWay = () => {
                 value={nameWay}
             />
 
-            <TextInput
-                style={styles.textInput}
-                placeholder="Дата для поездки: "
-                onChangeText={changeDate}
-                value={dateWay}
-            />
+            <MyCalendar/>
+            
             <View style={styles.containerMap}>
                 <Map/>
             </View>

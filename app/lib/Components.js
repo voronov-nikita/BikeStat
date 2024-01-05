@@ -1,10 +1,10 @@
+import { TouchableOpacity, Image, Text } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-
-import { TouchableOpacity, Image} from 'react-native';
 import React from 'react';
 
 
-// Кнопка, которая будет отобраджаться в верхнем 
+// Кнопка, которая будет отобраджаться в верхнем правом углу
+// Кнопка переводит пользователя в профиль с его инфомрацией
 export const ProfileButton = () => {
     const navigation = useNavigation();
 
@@ -26,7 +26,8 @@ export const ProfileButton = () => {
 };
 
 
-// Кнопка, которая будет отобраджаться в верхнем 
+// Кнопка, которая будет отобраджаться в верхнем левом углу
+// Кнопка переводит пользователя на домашнюю страницу
 export const HomeButton = () => {
     const navigation = useNavigation();
 
@@ -46,3 +47,37 @@ export const HomeButton = () => {
         </TouchableOpacity>
     );
 };
+
+
+// Интерактивый блок с данными от пользовательской активности
+// нужно для отображения нескольких блоков одновременно
+// условно это единый пример того, как должны выглядеть все блоки поездок
+export const InteractiveBlock = ({ data }) => {
+
+    const startWay = () => {
+        console.log("ЧТОООООООООООООООО");
+    }
+
+    return (
+        <TouchableOpacity 
+            style={styles.containerInterfaceBlock}
+            onPress={startWay}
+        >
+            <Text>Title: {data.title}</Text>
+            <Text>Date: {data.date}</Text>
+            <Text>Start Point: {data.startPoint}</Text>
+            <Text>End Point: {data.endPoint}</Text>
+            <Text>Level: {data.level}</Text>
+        </TouchableOpacity>
+    );
+};
+
+const styles = {
+    containerInterfaceBlock: {
+        padding: 20,
+        borderWidth: 1,
+        borderColor: '#ccc',
+        margin: 20,
+    },
+};
+
