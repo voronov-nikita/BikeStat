@@ -6,11 +6,10 @@
 # 
 
 
-import datetime
 import sqlite3
 
 
-# <-------------- USERS -------------->
+# <----------------------- USERS --------------------->
 
 def createDataBaseUsers() -> None:
     '''
@@ -118,7 +117,7 @@ def deleteUser(login:str) -> None:
     db.close()
 
 
-# <-------------------- HISTORY ------------------>
+# <---------------------------- HISTORY ------------------------------->
 def createDataBaseHistory() -> None:
     '''
     
@@ -141,7 +140,10 @@ def createDataBaseHistory() -> None:
             date TEXT NOT NULL,
             level INTEGER NOT NULL,
             startPoint TEXT NOT NULL,
-            endPoint TEXT NOT NULL
+            endPoint TEXT NOT NULL,
+            maxPulse FLOAT NOT NULL,
+            minPulse FLOAT NOT NULL,
+            averagePulse FLOAT NOT NULL
         )
     """)
     
@@ -149,7 +151,7 @@ def createDataBaseHistory() -> None:
     db.close()
 
 
-def addHistory(login:str, name:str, level:int, date:str, startPoint:str, endPoint:str) -> None:
+def addHistory(login:str, name:str, level:int, date:str, startPoint:str, endPoint:str, maxPulse:float, minPulse:float, averagePulse:float) -> None:
     '''
     Add new user activity data to the history table. 
     
@@ -165,8 +167,8 @@ def addHistory(login:str, name:str, level:int, date:str, startPoint:str, endPoin
     cursor = db.cursor()
     
     cursor.execute(f"""
-        INSERT INTO history (login, name, date, level, startPoint, endPoint) \
-            VALUES('{login}', '{name}', '{date}', {level}, '{startPoint}', '{endPoint}')
+        INSERT INTO history (login, name, date, level, startPoint, endPoint, maxPulse, minPulse, averagePulse) \
+            VALUES('{login}', '{name}', '{date}', {level}, '{startPoint}', '{endPoint}', {maxPulse}, {minPulse}, {averagePulse})
     """)
     
     db.commit()
@@ -287,19 +289,4 @@ def getRoutes(login:str) -> list:
 
     return data.fetchall()
 
-
-def getOneRoute(login:str, name:str) -> tuple:
-    '''
-    
-    '''
-    
-    db = sqlite3.connect("users.db")
-    cursor = db.cursor()
-    
-    data = cursor.execute(f"""
-        SELECT * FROM routes WHERE login='{login} AND name='{name}'
-    """)
-
-
-    return data.fetchone()
 

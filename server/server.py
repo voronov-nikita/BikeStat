@@ -12,6 +12,7 @@
 # >> python server.py
 # 
 
+
 from datarequest import *
 from database import *
 
@@ -99,11 +100,16 @@ async def main(websocket, path) -> None:
         elif task == "CompletePlan":
             login = data[1]
             name = data[2]
+            level = data[3]
+            startPoint = data[4]
+            endPoint = data[5]
+            maxPulse = data[6]
+            minPulse = data[7]
+            averagePulse = data[8]
             
-            # получаем данные о плане
-            plans:tuple = getOneRoute(login, name)
+            
             deleteRoute(login, name)
-            addHistory(*plans)
+            addHistory(login, name, level, startPoint, endPoint, maxPulse, minPulse, averagePulse)
             
             await websocket.send("Success")
             
