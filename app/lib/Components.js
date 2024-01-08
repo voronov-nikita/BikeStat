@@ -76,7 +76,7 @@ const styles = {
     containerInterfaceBlock: {
         padding: 20,
         borderWidth: 1,
-        borderColor: '#ccc',
+        borderColor: '#cccссс',
         margin: 20,
     },
 };

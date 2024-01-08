@@ -115,7 +115,7 @@ export default function Logining({ navigation }) {
                 <Button 
                     style={styles.buttonInput}
                     title="Войти"
-                    color="#000"
+                    color="#000000"
                     onPress={authorization} 
                 />
 
