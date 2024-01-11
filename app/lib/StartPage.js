@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ScrollView } from 'react-native';
+import { ScrollView, View, Text, StyleSheet } from 'react-native';
 
 import { InteractiveBlock } from './Components';
 
@@ -7,9 +7,12 @@ import { getUserData } from './LoginingPage';
 import Sockets from "./Socket";
 
 
+export let timeArray = [];
+
+
 const StartRoute = () => {
 
-    const [dataArray, changeDataArray] = useState([{}]);
+    const [dataArray, changeDataArray] = useState([]);
 
     useEffect(() => {
         getArray();
@@ -30,25 +33,45 @@ const StartRoute = () => {
 
     // функция отправляет запрос на сервер и заполняет массив с данными
     const getArray = async () => {
+
         const login = getUserData()[0];
         let answer = await Sockets.getServer(["GetPlans", login]);
         answer = JSON.parse(answer);
+
         if (answer.length != 0){
-            dataArray.shift();
-        }
-        for (let i = 0; i < answer.length; i++) {
-            const newData = transformData(answer[i]);
-            changeDataArray(dataArray => [...dataArray, newData]);
+            for (let i = 0; i < answer.length; i++) {
+                const newData = transformData(answer[i]);
+                changeDataArray(dataArray => [...dataArray, newData]);
+            }
         }
     }
 
     return (
-        <ScrollView>
-            {dataArray.map((data, index) => (
-                <InteractiveBlock key={index} data={data} />
-            ))}
-        </ScrollView>
+        <View>
+            {dataArray.length > 0 ? (
+                <ScrollView>
+                    {dataArray.map((data, index) => (
+                        <InteractiveBlock key={index} data={data} />
+                    ))}
+                </ScrollView>
+            ) : (
+                <Text style={styles.textNoneWay}>Маршрутов пока не запланировано</Text>
+            )
+            }
+        </View>
     );
 };
+
+
+
+const styles = StyleSheet.create({
+    textNoneWay:{
+        textAlign: 'center',
+        justifyContent:'center',
+        fontSize: 26,
+        margin: 30
+    }
+});
+
 
 export default StartRoute;

@@ -18,43 +18,42 @@ const Stack = createStackNavigator();
 const AppNavigator = () => {
     return (
         <NavigationContainer>
-            <Stack.Navigator 
-                initialRouteName="Logining"
-                screenOptions={{
-                    headerStyle: {
-                        backgroundColor: '#000',
-                        color: '#fff',
-                    },
-                }}
-                >
-
-                <Stack.Screen 
-                    name="Logining" 
-                    component={LoginingScreen}
-                    options={{ headerShown: false }}
-                />
-
-                <Stack.Screen 
-                    name="Main" 
-                    component={Main}
-                    options={{
-                        headerTitle: ' ',
-                        headerRight: () => <ProfileButton />,
-                        headerLeft: () => <HomeButton/>,
+                <Stack.Navigator 
+                    initialRouteName="Logining"
+                    screenOptions={{
+                        headerStyle: {
+                            backgroundColor: '#000',
+                            color: '#fff',
+                        },
                     }}
-                />
-                <Stack.Screen 
-                    name="Profile" 
-                    component={Profile}
-                    
-                />
+                    >
 
-                <Stack.Screen 
-                    name="Starting" 
-                    component={Starting}
-                />
-            </Stack.Navigator>
+                    <Stack.Screen 
+                        name="Logining" 
+                        component={LoginingScreen}
+                        options={{ headerShown: false }}
+                    />
 
+                    <Stack.Screen 
+                        name="Main" 
+                        component={Main}
+                        options={{
+                            headerTitle: ' ',
+                            headerRight: () => <ProfileButton />,
+                            headerLeft: () => <HomeButton/>,
+                        }}
+                    />
+                    <Stack.Screen 
+                        name="Profile" 
+                        component={Profile}
+                        
+                    />
+
+                    <Stack.Screen 
+                        name="Starting" 
+                        component={Starting}
+                    />
+                </Stack.Navigator>
         </NavigationContainer>
     );
 };

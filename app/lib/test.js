@@ -1,26 +1,22 @@
-// import React, { useState } from "react";
-// import { SafeAreaView, Button, Text } from "react-native";
+// PointChart.js
+import React from 'react';
+import { View } from 'react-native';
+import { LineChart, Grid } from 'react-native-svg-charts';
 
-// // import 
+const PointChart = () => {
+    const data = [10, 20, 30, 40, 25, 35, 15];
+    return (
+        <View style={{ height: 200, padding: 20 }}>
+        <LineChart
+            style={{ flex: 1 }}
+            data={data}
+            svg={{ stroke: 'rgb(134, 65, 244)' }}
+            contentInset={{ top: 20, bottom: 20 }}
+        >
+            <Grid />
+        </LineChart>
+        </View>
+    );
+};
 
-// const Starting = ({login, nameWay, startPoint, endPoint}) =>{
-
-//   const [buttonText, changeText] = useState("Start");
-    
-//     const func = () => {
-//       Sockets.getServer()
-//       changeText("Stop");
-//     };
-
-//     return (
-//         <SafeAreaView>
-//           <Text>Нажми на кнопку</Text>
-//             <Button
-//               title=
-//               onPress={func}
-//             />
-//         </SafeAreaView>
-//     );
-// }
-
-// export default Starting;
+export default PointChart;

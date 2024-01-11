@@ -13,6 +13,7 @@ const MyCalendar = () => {
 
     const onDayPress = (day) => {
         setSelectedDate(day.dateString);
+        console.log(selectedDate);
     };
 
     const handleOkPress = () => {
@@ -20,23 +21,25 @@ const MyCalendar = () => {
         GlobalDate = selectedDate;
         // Закрываем модальное окно
         setIsVisible(false);
-        setSelectedDate('');
     };
 
     const handleCancelPress = () => {
         // Обработка нажатия кнопки "Отмена"
-        setSelectedDate('');
         setIsVisible(false);
     };
 
     return (
     <View>
+        <View style={styles.oneLine}>
+            <Button
+                title="Выбрать дату"
+                color="#000000"
+                onPress={() => setIsVisible(true)} 
+            />
 
-        <Button
-            title="Выбрать дату"
-            color="#000000"
-            onPress={() => setIsVisible(true)} 
-        />
+            <Text style={styles.textDate}>{selectedDate}</Text>
+
+        </View>
 
         <Modal
             transparent={true}
@@ -97,6 +100,16 @@ const styles = StyleSheet.create({
         justifyContent: 'space-around',
         marginTop: 20,
     },
+    oneLine:{
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+    },
+    textDate:{
+        textAlign: 'center',
+        justifyContent: 'center',
+        marginLeft: 12,
+        fontSize: 20,
+    }
 });
 
 export default MyCalendar;

@@ -15,14 +15,34 @@ const PlanWay = () => {
 
     // обработчик кнопки сохранить
     const savePlans = async () => {
+
         // сбор данных для отправки
         const login = getUserData()[0];
         const date = getDate();
-        const startPoint = getMarkers()[0];
-        const endPoint = getMarkers()[1];
+        const markerList = getMarkers();
+        // условие проверки данных на пустоту
+        // Это нужно чтобы не отображать непонятные(пустые) данные, пришедшие от БД
+        if (nameWay!="" && date!="" && markerList.length==2){
 
-        const answer = await Sockets.getServer(["AddPlan", login, nameWay, date, startPoint, endPoint]);
-        console.log(answer);
+            // полный сбор данных перед отправкой
+            const startPoint = markerList[0];
+            const endPoint = markerList[1];
+
+            const answer = await Sockets.getServer(["AddPlan", login, nameWay, date, startPoint, endPoint]);
+            
+            const title = 'Успешно';
+            const options = {
+                body: 'Вы успешно запланировали поездку.',
+            };
+            showWebNotification(title, options);
+
+        } else{
+            const title = 'Ошибка';
+            const options = {
+                body: 'Вы заполинили не все данные',
+            };
+            showWebNotification(title, options);
+        }
     }
 
     // обработчик кнопки отмена
@@ -45,7 +65,7 @@ const PlanWay = () => {
                 onChangeText={changeName}
                 value={nameWay}
             />
-
+            
             <MyCalendar/>
             
             <View style={styles.containerMap}>
@@ -67,6 +87,22 @@ const PlanWay = () => {
             </View>
         </View>
     );
+};
+
+
+// функция вызова уведомления операционной системы
+const showWebNotification = (title, options) => {
+    if ('Notification' in window) {
+        if (Notification.permission === 'granted') {
+            new Notification(title, options);
+        } else if (Notification.permission !== 'denied') {
+            Notification.requestPermission().then((permission) => {
+            if (permission === 'granted') {
+                new Notification(title, options);
+            }
+        });
+        }
+    }
 };
 
 

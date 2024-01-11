@@ -65,21 +65,27 @@ export const InteractiveBlock = ({ data }) => {
             style={styles.containerInterfaceBlock}
             onPress={startWay}
         >
-            <Text>Title: {data.title}</Text>
-            <Text>Date: {data.date}</Text>
-            <Text>Start Point: {data.startPoint}</Text>
-            <Text>End Point: {data.endPoint}</Text>
-            <Text>Level: {data.level}</Text>
+            <Text style={styles.textTitle}>Название: {"\t"}{data.title}</Text>
+            <Text style={styles.textTitle}>Дата: {"\t"}{data.date}</Text>
+            <Text style={styles.textTitle}>Сложность: {"\t"}{data.level}</Text>
         </TouchableOpacity>
     );
 };
 
 const styles = {
     containerInterfaceBlock: {
-        padding: 20,
+        backgroundColor: 'white',
+        borderRadius: 10,
         borderWidth: 1,
-        borderColor: '#cccссс',
-        margin: 20,
+        borderColor: '#cccccc',
+        padding: 10,
+        margin: 7,
     },
+    textTitle:{
+        fontSize: 16,
+        fontWeight: 'bold',
+        alignContent: 'center',
+        justifyContent: 'center'
+    }
 };
 
