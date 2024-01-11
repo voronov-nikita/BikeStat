@@ -6,6 +6,7 @@ import {ProfileButton, HomeButton} from './Components'
 
 import LoginingScreen from './LoginingPage';
 import Profile from './ProfilePage';
+import Starting from './StartingPage';
 import Main from './MainPage';
 
 
@@ -46,6 +47,11 @@ const AppNavigator = () => {
                     name="Profile" 
                     component={Profile}
                     
+                />
+
+                <Stack.Screen 
+                    name="Starting" 
+                    component={Starting}
                 />
             </Stack.Navigator>
 

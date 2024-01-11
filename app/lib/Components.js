@@ -54,8 +54,10 @@ export const HomeButton = () => {
 // условно это единый пример того, как должны выглядеть все блоки поездок
 export const InteractiveBlock = ({ data }) => {
 
+    const navigation = useNavigation();
+
     const startWay = () => {
-        console.log("ЧТОООООООООООООООО");
+        navigation.navigate("Starting", data);
     }
 
     return (

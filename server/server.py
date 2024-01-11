@@ -40,7 +40,7 @@ async def main(websocket, path) -> None:
         # получаем полный запрос от клиента
         fromClient = await websocket.recv()
         # обработанный ответ
-        data = json.loads(fromClient)
+        data:dict = json.loads(fromClient)
         # оформление запроса
         task = data[0]
         # если пришел запрос на авторизацию пользователя
