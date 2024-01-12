@@ -57,7 +57,7 @@ export const InteractiveBlock = ({ data }) => {
     const navigation = useNavigation();
 
     const startWay = () => {
-        navigation.navigate("Starting", data);
+        navigation.navigate("Starting", {data});
     }
 
     return (

@@ -1,22 +1,43 @@
-// // PointChart.js
-// import React from 'react';
-// import { View } from 'react-native';
-// import { LineChart, Grid } from 'react-native-svg-charts';
+import React from 'react';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 
-// const PointChart = () => {
-//     const data = [10, 20, 30, 40, 25, 35, 15];
-//     return (
-//         <View style={{ height: 200, padding: 20 }}>
-//         <LineChart
-//             style={{ flex: 1 }}
-//             data={data}
-//             svg={{ stroke: 'rgb(134, 65, 244)' }}
-//             contentInset={{ top: 20, bottom: 20 }}
-//         >
-//             <Grid />
-//         </LineChart>
-//         </View>
-//     );
-// };
+import { View } from 'react-native';
 
-// export default PointChart;
+
+const LineChartExample = () => {
+    // Ваши данные точек
+    const data = [
+        { name: '1', value: 10 },
+        { name: '2', value: 15 },
+        { name: '3', value: 7 },
+        { name: '4', value: 12 },
+        // ... добавьте свои данные
+    ];
+
+    // Ваши данные точек
+    const atad = [
+        { name: '1', value: 1 },
+        { name: '2', value: 2 },
+        { name: '3', value: 3 },
+        { name: '4', value: 4 },
+        { name: '5', value: 0 },
+        { name: '6', value: 0 },
+        { name: '7', value: 0 },
+        { name: '8', value: 0 },
+        // ... добавьте свои данные
+    ];
+
+    return (
+        <LineChart width={400} height={300}>
+            <XAxis dataKey="name" />
+            <YAxis />
+            <CartesianGrid stroke="#eee" strokeDasharray="10 10" />
+            <Line type="monotone" dataKey="value" stroke="blue" data={data} name="График 1" />
+            <Line type="monotone" dataKey="value" stroke="red" data={atad} name="График 2" />
+            <Tooltip />
+            <Legend />
+        </LineChart>
+    );
+};
+
+export default LineChartExample;
