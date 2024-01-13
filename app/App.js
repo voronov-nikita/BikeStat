@@ -5,8 +5,8 @@ import Testing from './lib/test';
 
 const App = () => {
   return (
-    // <Testing/>
-    <AppNavigator />
+    <Testing/>
+    // <AppNavigator />
   );
 };
 

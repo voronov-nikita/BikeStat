@@ -93,8 +93,9 @@ async def main(websocket, path) -> None:
             endPoint = str(two['latitude']) + "; " + str(two['longitude'])
             
             level = 1
-            addRoute(login, name, level, date, startPoint, endPoint)
-            
+            length = 100.0
+            time = 3600
+            addRoute(login, name, level, date, startPoint, endPoint, length, time)
             await websocket.send("Success")
                         
         elif task == "CompletePlan":
@@ -106,10 +107,12 @@ async def main(websocket, path) -> None:
             maxPulse = data[6]
             minPulse = data[7]
             averagePulse = data[8]
+            lengthWay = data[9]
+            time = data[10]
             
             
             deleteRoute(login, name)
-            addHistory(login, name, level, startPoint, endPoint, maxPulse, minPulse, averagePulse)
+            addHistory(login, name, level, startPoint, endPoint, maxPulse, minPulse, averagePulse, lengthWay, time)
             
             await websocket.send("Success")
             

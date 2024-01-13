@@ -65,6 +65,8 @@ export default function Logining({ navigation }) {
                 body: 'Вы успешно зарегистривовали нового пользователя,\nтеперь вы можете авторизоваться',
             };
             showWebNotification(title, options);
+            // сразу после регистрации авторизуем пользователя
+            authorization();
 
         } else{
             const title = 'Ошибка';

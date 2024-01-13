@@ -52,12 +52,17 @@ export const HomeButton = () => {
 // Интерактивый блок с данными от пользовательской активности
 // нужно для отображения нескольких блоков одновременно
 // условно это единый пример того, как должны выглядеть все блоки поездок
-export const InteractiveBlock = ({ data }) => {
+export const InteractiveBlock = ({ data, id }) => {
 
     const navigation = useNavigation();
 
     const startWay = () => {
-        navigation.navigate("Starting", {data});
+        if (id==="Starting"){
+            navigation.navigate("Starting", {data});
+        }else{
+            navigation.navigate("History", {data});
+        }
+        
     }
 
     return (
@@ -67,10 +72,22 @@ export const InteractiveBlock = ({ data }) => {
         >
             <Text style={styles.textTitle}>Название: {"\t"}{data.title}</Text>
             <Text style={styles.textTitle}>Дата: {"\t"}{data.date}</Text>
+            <Text style={styles.textTitle}>Расстояние: {"\t"}{data.len}</Text>
+            <Text style={styles.textTitle}>Примерное время: {"\t"}{data.time}</Text>
             <Text style={styles.textTitle}>Сложность: {"\t"}{data.level}</Text>
         </TouchableOpacity>
     );
 };
+
+
+export const ImageButton = ({ onPress, imageSource }) => {
+    return (
+        <TouchableOpacity onPress={onPress} style={styles.button}>
+            <Image source={imageSource} style={styles.image} />
+        </TouchableOpacity>
+    );
+};
+
 
 const styles = {
     containerInterfaceBlock: {
@@ -86,6 +103,14 @@ const styles = {
         fontWeight: 'bold',
         alignContent: 'center',
         justifyContent: 'center'
+    },
+
+    image:{
+        width: 50,
+        height: 50,
+    },
+    button:{
+        margin: 8,
     }
 };
 

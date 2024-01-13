@@ -1,0 +1,57 @@
+.dropdown-container {
+    position: relative;
+    z-index: 1;
+}
+
+.dropdown-button {
+    background-color: #1c1c1c;
+    color: white;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    z-index: 1;
+}
+
+.icon {
+    width: 20px; /* Установите размер иконки по вашему усмотрению */
+    height: 20px;
+    margin-right: 8px; /* Расстояние между иконкой и текстом кнопки */
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    top: 40px;
+    left: 0;
+    background-color: #fff; /* Цвет фона для выпадающего меню */
+    border: 1px solid #ccc;
+    padding: 10px;
+    animation: fadeIn 0.3s ease-in-out;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Добавление тени */
+    z-index: 3;
+}
+
+.open .dropdown-content {
+    display: block; 
+}
+
+.checkbox-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

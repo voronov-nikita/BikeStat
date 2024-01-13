@@ -2,32 +2,31 @@ import React, { useState } from "react";
 import { useRoute } from '@react-navigation/native';
 import { SafeAreaView, Button, Text } from "react-native";
 
+import Timer from "./Timer";
 import Sockets from "./Socket";
+import { getUserData } from "./LoginingPage";
+
 
 const Starting = () =>{
 
     const route = useRoute();
     const { data } = route.params;
-
-    const [buttonText, changeText] = useState("Start");
     
     const func = () => {
+        const login = getUserData()[0];
 
-        if (buttonText === "Start"){
-            changeText("Stop");
-        } else{
-            changeText("Start");
-        }
+        Sockets.sendServer(["CompletePlan", ]);
         
     };
     
     return (
         <SafeAreaView style={styles.container}>
             <Text style={styles.textTitle}>{data.title}</Text>
+            <Timer time={10}/>
             <Button
-                title={buttonText}
+                title="Завершить маршрут"
                 onPress={func}
-                color="#000000"
+                color="#010101"
                 style={styles.buttonAction}
             />
         </SafeAreaView>

@@ -143,7 +143,9 @@ def createDataBaseHistory() -> None:
             endPoint TEXT NOT NULL,
             maxPulse FLOAT NOT NULL,
             minPulse FLOAT NOT NULL,
-            averagePulse FLOAT NOT NULL
+            averagePulse FLOAT NOT NULL,
+            lengthWay FLOAT NOT NULL,
+            time INTEGER NOT NULL
         )
     """)
     
@@ -151,7 +153,7 @@ def createDataBaseHistory() -> None:
     db.close()
 
 
-def addHistory(login:str, name:str, level:int, date:str, startPoint:str, endPoint:str, maxPulse:float, minPulse:float, averagePulse:float) -> None:
+def addHistory(login:str, name:str, level:int, date:str, startPoint:str, endPoint:str, maxPulse:float, minPulse:float, averagePulse:float, lengthWay:float, time:int) -> None:
     '''
     Add new user activity data to the history table. 
     
@@ -167,8 +169,8 @@ def addHistory(login:str, name:str, level:int, date:str, startPoint:str, endPoin
     cursor = db.cursor()
     
     cursor.execute(f"""
-        INSERT INTO history (login, name, date, level, startPoint, endPoint, maxPulse, minPulse, averagePulse) \
-            VALUES('{login}', '{name}', '{date}', {level}, '{startPoint}', '{endPoint}', {maxPulse}, {minPulse}, {averagePulse})
+        INSERT INTO history (login, name, date, level, startPoint, endPoint, maxPulse, minPulse, averagePulse, lengthWay) \
+            VALUES('{login}', '{name}', '{date}', {level}, '{startPoint}', '{endPoint}', {maxPulse}, {minPulse}, {averagePulse}, {lengthWay}, {time})
     """)
     
     db.commit()
@@ -218,7 +220,9 @@ def createDataBaseRoute() -> None:
             date TEXT NOT NULL,
             level INTEGER NOT NULL,
             startPoint TEXT NOT NULL,
-            endPoint TEXT NOT NULL
+            endPoint TEXT NOT NULL,
+            lengthWay FLOAT NOT NULL,
+            time INTEGER NOT NULL
         )
     """)
     
@@ -226,7 +230,7 @@ def createDataBaseRoute() -> None:
     db.close()
 
 
-def addRoute(login:str, name:str, level:int, date:str, startPoint:str, endPoint:str) -> None:
+def addRoute(login:str, name:str, level:int, date:str, startPoint:str, endPoint:str, length:float, time:int) -> None:
     '''
     Adds a new route to the route table. 
     Used when planning a route for some future.
@@ -242,8 +246,8 @@ def addRoute(login:str, name:str, level:int, date:str, startPoint:str, endPoint:
     cursor = db.cursor()
     
     cursor.execute(f"""
-        INSERT INTO routes (login, name, date, level, startPoint, endPoint) \
-            VALUES('{login}', '{name}', '{date}', {level}, '{startPoint}', '{endPoint}')
+        INSERT INTO routes (login, name, date, level, startPoint, endPoint, lengthWay, time) \
+            VALUES('{login}', '{name}', '{date}', {level}, '{startPoint}', '{endPoint}', {length}, {time})
     """)
     
     db.commit()

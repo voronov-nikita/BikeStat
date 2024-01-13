@@ -29,7 +29,6 @@ const PlanWay = () => {
             const endPoint = markerList[1];
 
             const answer = await Sockets.getServer(["AddPlan", login, nameWay, date, startPoint, endPoint]);
-            
             const title = 'Успешно';
             const options = {
                 body: 'Вы успешно запланировали поездку.',
