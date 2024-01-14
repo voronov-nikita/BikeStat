@@ -1,3 +1,25 @@
+# 
+# The file describes separate testing of database functions. 
+# 
+# For testing, individual examples of 
+# the interaction of the user's request 
+# on the database response in accordance with the expected response were taken
+# 
+
+
+# прописываем добавленные пути, 
+# чтобы разрешить импорты из дргуих подмодулей
+import sys
+sys.path.append('../')
+
+# импортируем цветовые фильтры 
+# для разделения результатов тестов
+from colorama import init, Fore
+init(autoreset=True)
+
+
+from server.database import *
+
 n = 0
 def testing(func, p, targetAnswer):
     global n
@@ -67,25 +89,3 @@ testing(getUserPassword, ("chloe_fisher", ), "SecurePwd456")
 
 t =["login", "john_doe","alice_smith","bob_jenkins","emma_brown","charlie_white","olivia_jones","jack_wilson","lily_thompson","michael_davis","sophia_miller","ethan_martin","ava_jackson","noah_clark","amelia_hall","owen_baker","mia_walker","james_wright","grace_adams","logan_evans","chloe_fisher",]
 testing(getUsers, [], t)
-# 
-# The file describes separate testing of database functions. 
-# 
-# For testing, individual examples of 
-# the interaction of the user's request 
-# on the database response in accordance with the expected response were taken
-# 
-
-
-# прописываем добавленные пути, 
-# чтобы разрешить импорты из дргуих подмодулей
-import sys
-sys.path.append('../')
-
-# импортируем цветовые фильтры 
-# для разделения результатов тестов
-from colorama import init, Fore
-init(autoreset=True)
-
-
-from server.database import *
-
