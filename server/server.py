@@ -83,18 +83,18 @@ async def main(websocket, path) -> None:
             
             # дата в формет {ГОД-МЕСЯЦ-ДЕНЬ}
             date = data[3]
-            
-            one = data[4]['coordinate']
-            two = data[5]['coordinate']
+            print(data)
+            one = data[4]
+            two = data[5]
             # пусть координаты будут выглядеть так:
             #       X1;Y1
             #       X2;Y2
-            startPoint = str(one['latitude']) + "; " + str(one['longitude'])
-            endPoint = str(two['latitude']) + "; " + str(two['longitude'])
+            startPoint = str(one[0]) + "; " + str(one[1])
+            endPoint = str(two[0]) + "; " + str(two[1])
             
             level = 1
-            length = 100.0
-            time = 3600
+            length = data[6]
+            time = data[7]
             addRoute(login, name, level, date, startPoint, endPoint, length, time)
             await websocket.send("Success")
                         

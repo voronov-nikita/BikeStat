@@ -2,8 +2,8 @@ import { Button, TextInput, Text, View, StyleSheet } from 'react-native';
 import React, {useState} from 'react';
 
 import MyCalendar, {getDate} from './CalendarComponent';
-import { getUserData } from './LoginingPage';
-import Map, {getMarkers} from './ElemMap';
+import { getUserData} from './LoginingPage';
+import Map, {getMarkers, getDataWay} from './ElemMap';
 import Sockets from './Socket';
 
 // основная функция обработки запроса пользователя на получение данных для регистрации
@@ -20,6 +20,7 @@ const PlanWay = () => {
         const login = getUserData()[0];
         const date = getDate();
         const markerList = getMarkers();
+        const jsonDataWay = getDataWay();
         // условие проверки данных на пустоту
         // Это нужно чтобы не отображать непонятные(пустые) данные, пришедшие от БД
         if (nameWay!="" && date!="" && markerList.length==2){
@@ -28,7 +29,7 @@ const PlanWay = () => {
             const startPoint = markerList[0];
             const endPoint = markerList[1];
 
-            const answer = await Sockets.getServer(["AddPlan", login, nameWay, date, startPoint, endPoint]);
+            const answer = await Sockets.getServer(["AddPlan", login, nameWay, date, startPoint, endPoint, jsonDataWay['distanceInKilometers'], jsonDataWay['timeInSeconds']]);
             const title = 'Успешно';
             const options = {
                 body: 'Вы успешно запланировали поездку.',

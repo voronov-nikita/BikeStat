@@ -22,7 +22,7 @@ const Starting = () =>{
     return (
         <SafeAreaView style={styles.container}>
             <Text style={styles.textTitle}>{data.title}</Text>
-            <Timer time={10}/>
+            <Timer time={data.time}/>
             <Button
                 title="Завершить маршрут"
                 onPress={func}

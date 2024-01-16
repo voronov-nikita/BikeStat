@@ -1,100 +1,115 @@
-import MapView, { Marker } from '@teovilla/react-native-web-maps';
-import React, { useState, useEffect } from 'react';
-import { View } from 'react-native';
+import { YMaps, Map, Placemark, RoutePanel } from '@pbe/react-yandex-maps';
+import React, { useState } from 'react';
+import axios from 'axios';
 
 
+let routeData;
 let listMarkers = [];
 
 
-const ViewMap = () => {
+const MapWithRoute = () => {
+    const apiKey = "57c7a565-032b-462e-a08a-7a39eff08ebb";
 
-    // отслеживание состояния маркера и локации пользователя в реальном времени
+    const [route, setRoute] = useState(null);
+    const [routeInfo, setRouteInfo] = useState(null);
     const [markers, setMarkers] = useState([]);
-    const [userLocation, setUserLocation] = useState(null);
 
-    // считываю текщее положение пользователя (по возможности)
-    useEffect(() => {
-        // Получение текущего местоположения пользователя
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-        (position) => {
-            setUserLocation({
-                latitude: position.coords.latitude,
-                longitude: position.coords.longitude,
-            });
-        },
-        (error) => console.error(error.message),
-        { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
-        );
-    } else {
-        console.error('Ваш браузер не поддерживает Geolocation API');
-    }
-    }, []);
+    const getBicycleRouteInfo = async (startCoords, endCoords) => {
+        try {
+            const osrmUrl = 'https://router.project-osrm.org/route/v1/bicycle/';
+            const waypoints = `${startCoords[1]},${startCoords[0]};${endCoords[1]},${endCoords[0]}`;
 
-    // если на карту будет произведено нажатие, то создаться новый маркер
-    const handleMapPress = (event) => {
-        // переменная для хранения данных о маркере
-        let updatedMarkers;
+            const response = await axios.get(`${osrmUrl}${waypoints}?steps=false&geometries=geojson&overview=full`);
+            const data = response.data;
 
-        // если количество выбранных точек меньше 2-х, то добавить новый маркер
-        if (markers.length < 2){
-            updatedMarkers = [
-            ...markers,
-            {
-                coordinate: event.nativeEvent.coordinate,
-                title: `Маркер`,
-            },
-            ];
+            if (data.routes && data.routes.length > 0) {
+                const timeInSeconds = data.routes[0].duration;
+                const distanceInKilometers = (data.routes[0].distance / 1000).toFixed(2);
 
-        // иначе удалить первый маркер и добавить новый
-        } else{
-            updatedMarkers = [
-            ...markers.slice(1),
-            {
-                coordinate: event.nativeEvent.coordinate,
-                title: `Маркер`,
-            },
-            ];
+                return {
+                    timeInSeconds,
+                    distanceInKilometers,
+                };
+            } else {
+                throw new Error('Не удалось получить маршрут');
+            }
+        } catch (error) {
+            console.error('Ошибка запроса:', error.message);
+            throw error;
         }
-        // изменить массив маркеров
-        listMarkers = updatedMarkers;
-        setMarkers(updatedMarkers);
+    };
 
+    const handleMapClick = async (event) => {
+        const coordinates = event.get('coords');
+
+        if (markers.length === 0) {
+            // Если это первая точка, просто добавьте ее в список маркеров
+            setMarkers([coordinates]);
+        } else if (markers.length === 1) {
+
+            // Если это вторая точка, установите маршрут и получите информацию о маршруте
+            const startCoords = markers[0];
+            // Обновите список маркеров
+            setMarkers([startCoords, coordinates]);
+
+            // записываем глобальные переменные для дальнейшего импорта
+            listMarkers = [startCoords, coordinates];
+
+
+            setRoute({
+                from: startCoords,
+                to: coordinates,
+            });
+
+            try {
+                const info = await getBicycleRouteInfo(startCoords, coordinates);
+                setRouteInfo(info);
+                routeData = info;
+                console.log(info)
+
+            } catch (error) {
+                console.error('Произошла ошибка при получении информации о маршруте:', error.message);
+                setRouteInfo(null);
+            }
+        }
     };
 
     return (
-        <View style={{ flex: 1 }}>
-            <MapView
-                style={{ flex: 1 }}
-                provider="google"
-                googleMapsApiKey="AIzaSyDCLjvzoAkX4iMGyi3cXu6-ilcWI4FkFgc"
-                initialRegion={{ latitude: 55.7558, longitude: 37.6176, latitudeDelta: 0.02, longitudeDelta: 0.02 }}
-                onPress={handleMapPress}
-                >
+        <YMaps query={{ apikey: apiKey }}>
+            <Map
+                defaultState={{
+                    center: [55.751574, 37.573856],
+                    zoom: 10,
+                }}
+                width="100%"
+                height="600px"
+                onClick={handleMapClick}
+            >
                 {markers.map((marker, index) => (
-                    <Marker
-                    key={index}
-                    coordinate={marker.coordinate}
-                    title={marker.title}
+                    <Placemark
+                        key={`marker-${index}`}
+                        geometry={marker}
+                        options={{
+                            preset: 'islands#circleDotIcon',
+                        }}
                     />
                 ))}
 
-                {userLocation && (
-                    <Marker
-                    coordinate={{ latitude: userLocation.latitude, longitude: userLocation.longitude }}
-                    title="Ваше местоположение"
-                    description="Текущее местоположение пользователя"
-                    />
-                )}
-            </MapView>
-        </View>
+                {route && <RoutePanel route={route} />}
+
+            </Map>
+        </YMaps>
     );
 };
 
-// функция получения массива маркеров
+
 export const getMarkers = () => {
     return listMarkers;
+};
+
+export const getDataWay = () =>{
+    return routeData;
 }
 
-export default ViewMap;
 
+export default MapWithRoute;

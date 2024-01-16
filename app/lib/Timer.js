@@ -58,7 +58,7 @@ const Timer = ({time}) => {
     const formatTime = (totalSeconds) => {
         const hours = Math.floor(totalSeconds / 3600);
         const minutes = Math.floor((totalSeconds % 3600) / 60);
-        const remainingSeconds = totalSeconds % 60;
+        const remainingSeconds = Math.floor(totalSeconds % 60);
 
         const pad = (value) => (value < 10 ? `0${value}` : value);
 
