@@ -1,5 +1,5 @@
 import { YMaps, Map, Placemark, RoutePanel } from '@pbe/react-yandex-maps';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 
@@ -7,7 +7,7 @@ let routeData;
 let listMarkers = [];
 
 
-const MapWithRoute = () => {
+const MapWithRoute = ({startPoint, endPoint}) => {
     const apiKey = "57c7a565-032b-462e-a08a-7a39eff08ebb";
 
     const [route, setRoute] = useState(null);
@@ -65,7 +65,6 @@ const MapWithRoute = () => {
                 const info = await getBicycleRouteInfo(startCoords, coordinates);
                 setRouteInfo(info);
                 routeData = info;
-                console.log(info)
 
             } catch (error) {
                 console.error('Произошла ошибка при получении информации о маршруте:', error.message);
@@ -73,6 +72,16 @@ const MapWithRoute = () => {
             }
         }
     };
+
+    useEffect(() => {
+        
+        if (startPoint && endPoint){
+            setRoute({
+                from: startPoint,
+                to: endPoint,
+            });
+        }
+    }, [route]);
 
     return (
         <YMaps query={{ apikey: apiKey }}>
@@ -102,6 +111,9 @@ const MapWithRoute = () => {
     );
 };
 
+export const getRoute = () => {
+    return route;
+}
 
 export const getMarkers = () => {
     return listMarkers;

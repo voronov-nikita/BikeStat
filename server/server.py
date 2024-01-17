@@ -59,7 +59,17 @@ async def main(websocket, path) -> None:
             else:
                 await websocket.send("Failed")
         
-        
+        elif task=="GetPulse":
+            pulses = get_data_from_server()['data']['pulse']
+            
+            minPulse = pulses['min']
+            maxPulse = pulses['max']
+            avgPulse = pulses['avg']
+            
+            # отправляем данные
+            data = [minPulse, maxPulse, avgPulse]
+            await websocket.send(json.dumps(data, ensure_ascii=False))
+            
         # получение данных об истории
         elif task == "GetHistory":
             await  websocket.send(list(getHistory(data[1])))
@@ -115,6 +125,7 @@ async def main(websocket, path) -> None:
             addHistory(login, name, level, startPoint, endPoint, maxPulse, minPulse, averagePulse, lengthWay, time)
             
             await websocket.send("Success")
+        
             
         else:
             print(f"Неизвестный тип запроса: {task}")
