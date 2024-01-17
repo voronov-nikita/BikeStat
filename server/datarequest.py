@@ -9,3 +9,13 @@
 
 import requests
 import json
+
+
+def get_data_from_server():
+   s = requests.Session()
+   headers = {"x-access-tokens": 'az4fvf7nzi1XPIsYiMEu'}
+   req = s.get("https://dt.miet.ru/ppo_it/api/watch/", headers=headers)
+   return req.text
+
+
+print(json.loads(get_data_from_server()))
