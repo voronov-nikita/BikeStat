@@ -2,7 +2,7 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'r
 import React from 'react';
 
 
-const LineChartExample = ({width, height, color, dataArray}) => {
+const LineChartExample = ({width=500, height=500, color="red", dataArray}) => {
 
     return (
         <LineChart width={width} height={height}>
