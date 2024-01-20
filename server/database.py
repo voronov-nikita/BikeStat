@@ -169,7 +169,7 @@ def addHistory(login:str, name:str, level:int, date:str, startPoint:str, endPoin
     cursor = db.cursor()
     
     cursor.execute(f"""
-        INSERT INTO history (login, name, date, level, startPoint, endPoint, maxPulse, minPulse, averagePulse, lengthWay) \
+        INSERT INTO history (login, name, date, level, startPoint, endPoint, maxPulse, minPulse, averagePulse, lengthWay, time) \
             VALUES('{login}', '{name}', '{date}', {level}, '{startPoint}', '{endPoint}', {maxPulse}, {minPulse}, {averagePulse}, {lengthWay}, {time})
     """)
     
@@ -177,7 +177,7 @@ def addHistory(login:str, name:str, level:int, date:str, startPoint:str, endPoin
     db.close()
 
 
-def getHistory(login:str) -> tuple:
+def getHistory(login:str) -> list:
     '''
     
     Get the full history of the user that was passed as a parameter. 
@@ -192,7 +192,7 @@ def getHistory(login:str) -> tuple:
         SELECT * FROM history WHERE login='{login}'
     """)
     
-    return data.fetchone()
+    return data.fetchall()
 
 
 # <-------------- ROUTES -------------->

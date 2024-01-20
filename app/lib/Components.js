@@ -1,4 +1,4 @@
-import { TouchableOpacity, Image, Text } from 'react-native';
+import { TouchableOpacity, Image, Text, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 
@@ -88,6 +88,14 @@ export const ImageButton = ({ onPress, imageSource }) => {
     );
 };
 
+export const InformationSheet = ({content}) => {
+    return (
+        <View style={styles.textContainer}>
+            <Text style={styles.textText}>{content}</Text>
+        </View>
+    );
+};
+
 
 const styles = {
     containerInterfaceBlock: {
@@ -111,6 +119,23 @@ const styles = {
     },
     button:{
         margin: 8,
-    }
+    },
+
+
+    textContainer: {
+        backgroundColor: '#fff',
+        borderColor: 'black',
+        borderWidth: 2,
+        borderRadius: 5,
+        padding: 16,
+        width: 200,
+        marginRight: 20,
+        marginTop: 10,
+    },
+    textText: {
+        color: 'black',
+        fontSize: 16,
+        textAlign: 'center',
+    },
 };
 

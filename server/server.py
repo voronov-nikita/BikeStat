@@ -74,6 +74,17 @@ async def main(websocket, path) -> None:
         elif task == "GetHistory":
             await  websocket.send(list(getHistory(data[1])))
         
+        
+        elif task == "GetUserStatic":
+            history = getHistory(data[1])
+            newdata = [
+                [elem[4] for elem in history],
+                [elem[7] for elem in history],
+                [elem[8] for elem in history],
+                [elem[10] for elem in history]
+            ]
+            await  websocket.send(json.dumps(newdata, ensure_ascii=False))
+            
         # получить данные о всех планах
         elif task == "GetPlans":
             result = getRoutes(data[1])
@@ -142,7 +153,8 @@ if __name__=="__main__":
     createDataBaseRoute()
     createDataBaseHistory()
 
-    addUsers("login", "1234")
+    # addUsers("login", "1234")
+    # addHistory("login", "name", 1, "2024-12-12", "5422352; 23424", "324234; 234324", 45.4, 11.4, 12, 12345.3, 1000)
     # обработчик запросов
     servercode = websockets.serve(main, IP, PORT)
     asyncio.get_event_loop().run_until_complete(servercode)

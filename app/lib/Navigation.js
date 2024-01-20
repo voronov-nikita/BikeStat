@@ -28,7 +28,7 @@ const AppNavigator = () => {
                     }}
                     >
 
-                    <Stack.Screen 
+                    <Stack.Screen
                         name="Logining" 
                         component={LoginingScreen}
                         options={{ headerShown: false }}
@@ -46,7 +46,9 @@ const AppNavigator = () => {
                     <Stack.Screen 
                         name="Profile" 
                         component={Profile}
-                        
+                        options={{
+                            headerTintColor: "#ffffff"
+                        }}
                     />
 
                     <Stack.Screen 
