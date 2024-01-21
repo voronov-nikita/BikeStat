@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ScrollView, View, Text, StyleSheet } from 'react-native';
+import { FlatList, View, Text, StyleSheet } from 'react-native';
 
 import { InteractiveBlock } from './Components';
 import FilterButton from './DropdownFilter';
@@ -49,23 +49,30 @@ const StartRoute = () => {
         }
     }
 
-    return (
+    const renderItem = ({ item }) => (
         <View>
-            {dataArray.length > 0 ? (
-                <View style={styles.container}>
-                    <View style={styles.filterbutton}>
-                        <FilterButton/>
-                    </View>
-                    <ScrollView>
-                        {dataArray.map((data, index) => (
-                            <InteractiveBlock key={index} data={data} id={"Starting"}/>
-                        ))}
-                    </ScrollView>
+            <InteractiveBlock data={item} id={"Starting"} />
+        </View>
+    );
+
+    return (
+        <View style={{flex:1}}>
+            <View>
+                <View style={styles.filterbutton}>
+                    <FilterButton />
                 </View>
-            ) : (
-                <Text style={styles.textNoneWay}>Маршрутов пока не запланировано</Text>
-            )
-            }
+            </View>
+            <View style={styles.container}>
+                {dataArray.length > 0 ? (
+                    <FlatList
+                            data={dataArray}
+                            renderItem={renderItem}
+                            keyExtractor={(item) => item.id}
+                        />
+                ) : (
+                    <Text style={styles.textNoneWay}>У вас нет запланированных маршрутов</Text>
+                )}
+            </View>
         </View>
     );
 };

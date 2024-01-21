@@ -72,7 +72,8 @@ async def main(websocket, path) -> None:
             
         # получение данных об истории
         elif task == "GetHistory":
-            await  websocket.send(list(getHistory(data[1])))
+            history = getHistory(data[1])
+            await  websocket.send(json.dumps(history))
         
         
         elif task == "GetUserStatic":
@@ -104,7 +105,6 @@ async def main(websocket, path) -> None:
             
             # дата в формет {ГОД-МЕСЯЦ-ДЕНЬ}
             date = data[3]
-            print(data)
             one = data[4]
             two = data[5]
             # пусть координаты будут выглядеть так:
@@ -154,7 +154,7 @@ if __name__=="__main__":
     createDataBaseHistory()
 
     # addUsers("login", "1234")
-    # addHistory("login", "name", 1, "2024-12-12", "5422352; 23424", "324234; 234324", 45.4, 11.4, 12, 12345.3, 1000)
+    # addHistory("login", "test", 1, "2024-12-12", "5422352; 23424", "324234; 234324", 45.4, 11.4, 12, 12345.3, 1000)
     # обработчик запросов
     servercode = websockets.serve(main, IP, PORT)
     asyncio.get_event_loop().run_until_complete(servercode)
