@@ -123,17 +123,18 @@ async def main(websocket, path) -> None:
             login = data[1]
             name = data[2]
             level = data[3]
-            startPoint = data[4]
-            endPoint = data[5]
-            maxPulse = data[6]
-            minPulse = data[7]
-            averagePulse = data[8]
-            lengthWay = data[9]
-            time = data[10]
+            date = data[4]
+            startPoint = data[5]
+            endPoint = data[6]
+            maxPulse = data[7]
+            minPulse = data[8]
+            averagePulse = data[9]
+            lengthWay = data[10]
+            time = data[11]
             
             
             deleteRoute(login, name)
-            addHistory(login, name, level, startPoint, endPoint, maxPulse, minPulse, averagePulse, lengthWay, time)
+            addHistory(login, name, level, date, startPoint, endPoint, maxPulse, minPulse, averagePulse, lengthWay, time)
             
             await websocket.send("Success")
         

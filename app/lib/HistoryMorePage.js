@@ -20,7 +20,7 @@ const InfoComponent = ({modalVisible, closeModal, data }) => {
               <Text> Дата поездки: {data.date} </Text>
               <Text> Длина пройденного пути: {data.len} км</Text>
               <Text> Затраченное время поездки: {data.time} </Text>
-              <Text> Сложность поездки: {data.date} </Text>
+              <Text> Сложность поездки: {data.level} </Text>
               <Text> Начальная точка: ( {data.startPoint} )</Text>
               <Text> Конечная точка: ( {data.endPoint} ) </Text>
 

@@ -10,6 +10,8 @@ import { getUserData } from "./LoginingPage";
 
 const Starting = () =>{
 
+    const navigation = useNavigation();
+
     const [maxPulse, changeMaxPulse] = useState(1);
     const [minPulse, changeMinPulse] = useState(10000);
 
@@ -43,16 +45,19 @@ const Starting = () =>{
         const login = getUserData()[0];
         const name = data.title;
         const level = data.level;
+        const date = data.date;
         const start = data.startPoint;
         const end = data.endPoint;
-        const lenway = data.lenway;
+        const lenway = data.len;
         const time = data.time;
 
         const avgPulse = (maxPulse+minPulse)/2;
 
         Sockets.sendServer(["CompletePlan",
-            login, name, level, start, end, maxPulse, minPulse, avgPulse, lenway, time
+            login, name, level, date, start, end, maxPulse, minPulse, avgPulse, lenway, time
         ]);
+
+        navigation.navigate("Main");
         
     };
     
