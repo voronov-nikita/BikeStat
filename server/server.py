@@ -132,7 +132,6 @@ async def main(websocket, path) -> None:
             lengthWay = data[10]
             time = data[11]
             
-            
             deleteRoute(login, name)
             addHistory(login, name, level, date, startPoint, endPoint, maxPulse, minPulse, averagePulse, lengthWay, time)
             
