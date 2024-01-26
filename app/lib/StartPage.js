@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { FlatList, View, Text, StyleSheet } from 'react-native';
+import { FlatList, View, Text, StyleSheet, ImageBackground } from 'react-native';
 
 import { InteractiveBlock } from './Components';
 import FilterButton from './DropdownFilter';
@@ -56,6 +56,13 @@ const StartRoute = () => {
     );
 
     return (
+        <ImageBackground
+                source={{ uri: require('../assets/images/bg1.png')}}
+                style={styles.container}
+            >
+        <Text style={styles.headText}>
+                Ваши запланированные поездки
+            </Text>
         <View style={{flex:1}}>
             <View>
                 <View style={styles.filterbutton}>
@@ -63,6 +70,7 @@ const StartRoute = () => {
                 </View>
             </View>
             <View style={styles.container}>
+                
                 {dataArray.length > 0 ? (
                     <FlatList
                             data={dataArray}
@@ -72,8 +80,10 @@ const StartRoute = () => {
                 ) : (
                     <Text style={styles.textNoneWay}>У вас нет запланированных маршрутов</Text>
                 )}
+                
             </View>
         </View>
+        </ImageBackground>
     );
 };
 
@@ -81,7 +91,8 @@ const StartRoute = () => {
 
 const styles = StyleSheet.create({
     container:{
-        flex:1
+        flex:1,
+        zIndex: -1,
     },
     textNoneWay:{
         textAlign: 'center',
@@ -94,8 +105,20 @@ const styles = StyleSheet.create({
         marginBottom: 4,
         marginTop: 4,
         alignSelf: 'flex-end',
-        zIndex: 3
-    }
+        zIndex: 10
+    },
+
+    headText:{
+        fontSize: 40,
+        fontWeight: 'bold',
+        marginTop: 10,
+        marginBottom: 10,
+        alignContent: 'center',
+        justifyContent: 'center',
+        textShadowColor: '#D0F0C0',
+        textShadowOffset:{width: 2, height: 2},
+
+    },
 });
 
 

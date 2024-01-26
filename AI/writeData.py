@@ -1,4 +1,4 @@
-from random import uniform, randrange
+from random import uniform
 
 with open('data.csv', 'w') as f:
     for i in range(300):
@@ -22,4 +22,5 @@ with open('data.csv', 'w') as f:
         else:
             target_time = round(uniform(1, 2), 1)
 
-        f.write(f'{last_rast};{last_speed};{last_pulse};{target_rast};{target_time};\n')
+        f.write(
+            f'{last_rast};{last_speed};{last_pulse};{target_rast};{target_time};\n')

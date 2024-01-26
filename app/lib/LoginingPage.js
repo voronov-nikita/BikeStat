@@ -1,4 +1,4 @@
-import { StyleSheet, Image, View, SafeAreaView, TextInput, Button, Text } from 'react-native';
+import { StyleSheet, Image, View, TextInput, Button, Text, ImageBackground } from 'react-native';
 import React, {useState} from 'react';
 
 import Sockets from './Socket';
@@ -80,60 +80,65 @@ export default function Logining({ navigation }) {
 
     // основной внешний вид
     return (
-        <SafeAreaView style={styles.container}>
-            {/* Иконка велосипедаиста */}
-            <Image
-                source={require('../assets/images/cycling.png')}
-                style={styles.image}
-            />
-
-            <View style={styles.space} />
-            {/* Сообщение о состоянии пользовательской авторизации */}
-            <Text>{message}</Text>
-
-            <View style={styles.space} />
-
-            {/* Поле ввода логина пользователя */}
-            <TextInput
-                style={styles.textInput}
-                placeholder="Login: "
-                autoFocus={true}
-                onChangeText={changeLogin}
-                value={login}
-            />
-
-
-            {/* Поле ввода пароля пользователя */}
-            <TextInput
-                style={styles.textInput}
-                placeholder="Password: "
-                secureTextEntry={true}
-                onChangeText={changePassword}
-                value={password}
-            />
-
-            <View>
-                {/* Кнопка отправки запроса на вход */}
-                <Button 
-                    style={styles.buttonInput}
-                    title="Войти"
-                    color="#000000"
-                    onPress={authorization} 
+        <ImageBackground
+                source={{ uri: require('../assets/images/bg1.png')}}
+                style={styles.container}
+            >
+            {/* <SafeAreaView style={styles.container}> */}
+            
+                {/* Иконка велосипедаиста */}
+                <Image
+                    source={require('../assets/images/cycling.png')}
+                    style={styles.image}
                 />
 
-                {/* Отступ между кнопками */}
+                <View style={styles.space} />
+                {/* Сообщение о состоянии пользовательской авторизации */}
+                <Text style={styles.headText}>{message}</Text>
+
                 <View style={styles.space} />
 
-                {/* Кнопка отправки запроса на регистрацию */}
-                <Button
-                    style={styles.buttonInput}
-                    color="#000000"
-                    title="Зарегистрироваться"
-                    onPress={registaration} 
+                {/* Поле ввода логина пользователя */}
+                <TextInput
+                    style={styles.textInput}
+                    placeholder="Login: "
+                    autoFocus={true}
+                    onChangeText={changeLogin}
+                    value={login}
                 />
-            </View>
 
-        </SafeAreaView>
+
+                {/* Поле ввода пароля пользователя */}
+                <TextInput
+                    style={styles.textInput}
+                    placeholder="Password: "
+                    secureTextEntry={true}
+                    onChangeText={changePassword}
+                    value={password}
+                />
+
+                <View>
+                    {/* Кнопка отправки запроса на вход */}
+                    <Button 
+                        style={styles.buttonInput}
+                        title="Войти"
+                        color="#000000"
+                        onPress={authorization} 
+                    />
+
+                    {/* Отступ между кнопками */}
+                    <View style={styles.space} />
+
+                    {/* Кнопка отправки запроса на регистрацию */}
+                    <Button
+                        style={styles.buttonInput}
+                        color="#000000"
+                        title="Зарегистрироваться"
+                        onPress={registaration} 
+                    />
+                </View>
+            {/* </SafeAreaView> */}
+        </ImageBackground>
     );
 }
 
@@ -154,10 +159,13 @@ const styles = StyleSheet.create({
 
     textInput: { 
         height: 40,
-        borderColor: 'gray', 
+        borderColor: 'black', 
         borderWidth: 1,
         marginBottom: 10,
         padding: 10,
+        backgroundColor: '#D0F0C0',
+        color: 'black',
+        fontWeight: 'bold',
     },
 
     buttonInput: {
@@ -175,5 +183,16 @@ const styles = StyleSheet.create({
         width: 80,
         height: 80,
         resizeMode: 'cover',
+    },
+
+    headText:{
+        fontSize: 24,
+        fontWeight: 'bold',
+        marginTop: 10,
+        alignContent: 'center',
+        justifyContent: 'center',
+        textShadowColor: '#D0F0C0',
+        textShadowOffset:{width: 2, height: 2},
+
     },
 });

@@ -1,4 +1,4 @@
-import { Button, TextInput, Text, View, StyleSheet } from 'react-native';
+import { Button, TextInput, Text, View, StyleSheet, ImageBackground } from 'react-native';
 import React, {useState} from 'react';
 
 import MyCalendar, {getDate} from './CalendarComponent';
@@ -52,10 +52,13 @@ const PlanWay = () => {
     }
 
     return (
-        <View style={styles.container}>
+        <ImageBackground
+                source={{ uri: require('../assets/images/bg1.png')}}
+                style={styles.container}
+            >
 
             <Text style={styles.headText}>
-                Введите необходимые данные для планирования поезки
+                Введите необходимые данные для планирования поездки
             </Text>
 
             <TextInput
@@ -78,14 +81,15 @@ const PlanWay = () => {
                     color="black"
                     onPress={savePlans}
                 />
-
+                <View style={styles.emptySpace}><Text></Text></View>
                 <Button
                     title='Отмена'
                     color="black"
                     onPress={clearPlans}
                 />
             </View>
-        </View>
+        
+        </ImageBackground>
     );
 };
 
@@ -114,33 +118,49 @@ const styles = StyleSheet.create({
     },
 
     containerMap:{
-        flex:1, 
-        width:"70%", 
-        height:"45%",
-        padding: 10,
+        
+        width:"40%", 
+        height:"70%",
+        padding: 15,
+        borderColor: '#D0F0C0',
+
     },
 
     textInput:{
-        height: 40,
-        borderColor: 'gray', 
-        borderWidth: 1,
+        height: 50,
+        width: 400,
+        borderColor: 'black', 
+        borderWidth: 2,
         marginBottom: 10,
         padding: 10,
+        backgroundColor: '#D0F0C0',
+        color: 'black',
+        fontWeight: 'bold',
+
     },
 
     headText:{
-        fontSize: 20,
+        fontSize: 40,
         fontWeight: 'bold',
         marginTop: 10,
         marginBottom: 10,
         alignContent: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        textShadowColor: '#D0F0C0',
+        textShadowOffset:{width: 2, height: 2},
+
     },
 
     buttons:{
         flexDirection: 'row',
         justifyContent: 'space-between',
+        alignContent: 'center',
         paddingHorizontal: 8,
+        marginBottom: 30,
+
+    },
+    emptySpace:{
+        margin: 15,
     }
 });
 

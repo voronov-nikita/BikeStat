@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, FlatList } from 'react-native';
+import { View, Text, StyleSheet, FlatList, ImageBackground } from 'react-native';
 
 import { InteractiveBlock } from './Components';
 import FilterButton from './DropdownFilter';
@@ -46,6 +46,10 @@ const UserHistory = () => {
     );
 
     return (
+        <ImageBackground
+                source={{ uri: require('../assets/images/bg1.png')}}
+                style={styles.container}
+            >
         <View style={{flex:1}}>
             <View>
                 <View style={styles.filterbutton}>
@@ -64,12 +68,14 @@ const UserHistory = () => {
                 )}
             </View>
         </View>
+        </ImageBackground>
     );
 };
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        zIndex: -1
     },
     textNoneWay: {
         textAlign: 'center',

@@ -1,4 +1,4 @@
-import { TouchableOpacity, Image, Text, View } from 'react-native';
+import { TouchableOpacity, Image, Text, View, ImageBackground } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import React, {useState} from 'react';
 
@@ -50,6 +50,25 @@ export const HomeButton = () => {
     );
 };
 
+export const LogOutButton = () => {
+    const navigation = useNavigation();
+
+    const navigateOut= () => {
+        navigation.navigate('Logining');
+    };
+
+    return (
+        <TouchableOpacity 
+            onPress={navigateOut}
+        >
+            <Image
+                source={require('../assets/images/logout.png')} 
+                style={{ width: 35, height: 35, marginRight: 25 }} 
+            />
+
+        </TouchableOpacity>
+    );
+};
 
 // Интерактивый блок с данными от пользовательской активности
 // нужно для отображения нескольких блоков одновременно
@@ -73,7 +92,6 @@ export const InteractiveBlock = ({ data, id }) => {
     };
 
     return (
-        <View>
             <TouchableOpacity 
                 style={styles.containerInterfaceBlock}
                 onPress={startWay}
@@ -82,10 +100,10 @@ export const InteractiveBlock = ({ data, id }) => {
                 <Text style={styles.textTitle}>Дата: {"\t"}{data.date}</Text>
                 <Text style={styles.textTitle}>Примерное время: {"\t"}{data.time} сек.</Text>
                 <Text style={styles.textTitle}>Сложность: {"\t"}{data.level}</Text>
+
+                <ModalHistory modalVisible={modalVisible} closeModal={closeModal} data={data} />
             </TouchableOpacity>
 
-            <ModalHistory modalVisible={modalVisible} closeModal={closeModal} data={data} />
-        </View>
     );
 };
 
@@ -107,11 +125,13 @@ export const InformationSheet = ({content}) => {
 };
 
 
+
+
 const styles = {
     containerInterfaceBlock: {
-        backgroundColor: 'white',
+        backgroundColor: '#D0F0C0',
         borderRadius: 10,
-        borderWidth: 1,
+        // borderWidth: 1,
         borderColor: '#cccccc',
         padding: 10,
         margin: 7,
@@ -120,7 +140,8 @@ const styles = {
         fontSize: 16,
         fontWeight: 'bold',
         alignContent: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        
     },
 
     image:{

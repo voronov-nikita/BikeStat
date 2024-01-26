@@ -2,7 +2,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
 
-import {ProfileButton, HomeButton} from './Components'
+import {ProfileButton, HomeButton, LogOutButton} from './Components'
 
 import LoginingScreen from './LoginingPage';
 import Profile from './ProfilePage';
@@ -47,13 +47,17 @@ const AppNavigator = () => {
                         name="Profile" 
                         component={Profile}
                         options={{
-                            headerTintColor: "#ffffff"
+                            headerTintColor: "#ffffff",
+                            headerRight: () => <LogOutButton />,
                         }}
                     />
 
                     <Stack.Screen 
                         name="Starting" 
                         component={Starting}
+                        options={{
+                            headerTintColor: "#ffffff",
+                        }}
                     />
                 </Stack.Navigator>
         </NavigationContainer>

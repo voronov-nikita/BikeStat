@@ -103,12 +103,15 @@ const styles = StyleSheet.create({
     oneLine:{
         flexDirection: 'row',
         justifyContent: 'space-around',
+    
+
     },
     textDate:{
         textAlign: 'center',
         justifyContent: 'center',
         marginLeft: 12,
         fontSize: 20,
+        fontWeight: 'bold',
     }
 });
 
