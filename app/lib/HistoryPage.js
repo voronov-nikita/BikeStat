@@ -23,8 +23,11 @@ const UserHistory = () => {
             level: rawData[4],
             startPoint: rawData[5],
             endPoint: rawData[6],
-            len: rawData[7],
-            time: rawData[8]
+            maxPulse: rawData[7],
+            minPulse: rawData[8],
+            avgPulse: rawData[9],
+            len: rawData[10],
+            time: (rawData[11] / 150).toFixed(2)
         };
     }
 

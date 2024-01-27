@@ -14,6 +14,7 @@ const Tab = createBottomTabNavigator();
 // По умолчанию откроется центральная вкладка (Начать поездку)
 const HomePage = () => {
 
+
     return (
         <Tab.Navigator 
             initialRouteName='Start Trip'

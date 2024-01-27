@@ -98,7 +98,7 @@ export const InteractiveBlock = ({ data, id }) => {
             >
                 <Text style={styles.textTitle}>Название: {"\t"}{data.title}</Text>
                 <Text style={styles.textTitle}>Дата: {"\t"}{data.date}</Text>
-                <Text style={styles.textTitle}>Примерное время: {"\t"}{data.time} сек.</Text>
+                <Text style={styles.textTitle}>Примерное время: {"\t"}{data.time} ч</Text>
                 <Text style={styles.textTitle}>Сложность: {"\t"}{data.level}</Text>
 
                 <ModalHistory modalVisible={modalVisible} closeModal={closeModal} data={data} />

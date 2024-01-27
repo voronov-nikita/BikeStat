@@ -1,4 +1,4 @@
-import { Button, TextInput, Text, View, StyleSheet, ImageBackground } from 'react-native';
+import { Button, TextInput, Text, View, StyleSheet, ImageBackground, ScrollView } from 'react-native';
 import React, {useState} from 'react';
 
 import MyCalendar, {getDate} from './CalendarComponent';
@@ -52,44 +52,44 @@ const PlanWay = () => {
     }
 
     return (
-        <ImageBackground
-                source={{ uri: require('../assets/images/bg1.png')}}
-                style={styles.container}
-            >
+        <ScrollView>
+            <ImageBackground
+                    source={{ uri: require('../assets/images/bg1.png')}}
+                    style={styles.container}
+                >
+                    <Text style={styles.headText}>
+                        Введите необходимые данные для планирования поездки
+                    </Text>
 
-            <Text style={styles.headText}>
-                Введите необходимые данные для планирования поездки
-            </Text>
+                    <TextInput
+                        style={styles.textInput}
+                        placeholder="Название для поездки: "
+                        autoFocus={true}
+                        onChangeText={changeName}
+                        value={nameWay}
+                    />
+                    
+                    <MyCalendar/>
+                    
+                    <View style={styles.containerMap}>
+                        <Map/>
+                    </View>
 
-            <TextInput
-                style={styles.textInput}
-                placeholder="Название для поездки: "
-                autoFocus={true}
-                onChangeText={changeName}
-                value={nameWay}
-            />
-            
-            <MyCalendar/>
-            
-            <View style={styles.containerMap}>
-                <Map/>
-            </View>
-
-            <View style={styles.buttons}>
-                <Button
-                    title='Сохранить'
-                    color="black"
-                    onPress={savePlans}
-                />
-                <View style={styles.emptySpace}><Text></Text></View>
-                <Button
-                    title='Отмена'
-                    color="black"
-                    onPress={clearPlans}
-                />
-            </View>
-        
-        </ImageBackground>
+                    <View style={styles.buttons}>
+                        <Button
+                            title='Сохранить'
+                            color="black"
+                            onPress={savePlans}
+                        />
+                        <View style={styles.emptySpace}><Text></Text></View>
+                        <Button
+                            title='Отмена'
+                            color="black"
+                            onPress={clearPlans}
+                        />
+                    </View>
+            </ImageBackground>
+        </ScrollView>
     );
 };
 
@@ -112,18 +112,16 @@ const showWebNotification = (title, options) => {
 
 const styles = StyleSheet.create({
     container:{
-        flex:1,
         alignItems:'center',
         alignContent:'center',
+        // height:"80%"
     },
 
     containerMap:{
-        
         width:"40%", 
         height:"70%",
         padding: 15,
         borderColor: '#D0F0C0',
-
     },
 
     textInput:{
@@ -156,7 +154,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         alignContent: 'center',
         paddingHorizontal: 8,
-        marginBottom: 30,
+        marginBottom: 70,
 
     },
     emptySpace:{

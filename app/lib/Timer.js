@@ -51,6 +51,7 @@ const Timer = ({time}) => {
     // обрабока кнопки "Начать заново"
     const handleReset = () => {
         setSeconds(time);
+        setState(startImage);
         setIsRunning(false);
     };
 

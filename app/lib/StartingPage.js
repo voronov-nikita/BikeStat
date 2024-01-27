@@ -11,8 +11,9 @@ import { getUserData } from "./LoginingPage";
 const Starting = () => {
     const navigation = useNavigation();
 
-    const [maxPulse, changeMaxPulse] = useState(1);
-    const [minPulse, changeMinPulse] = useState(1000);
+    const [maxPulse, changeMaxPulse] = useState(null);
+    const [minPulse, changeMinPulse] = useState(null);
+    const [curPulse, changeCurPulse] = useState(null);
 
     const route = useRoute();
     const { data } = route.params;
@@ -27,19 +28,18 @@ const Starting = () => {
             const newMax = newData[0];
             const newMin = newData[1];
 
-            console.log(newMax, newMin);
-
-            changeMaxPulse(Math.max(maxPulse, newMax));
-            changeMinPulse(Math.min(minPulse, newMin));
+            changeMaxPulse(Math.max(maxPulse, newMin));
+            changeMinPulse(Math.min(minPulse, newMax));
+            changeCurPulse((newMax + newMin) / 2);
         };
 
-        // задаем интервал с размерностью 2 секунды
-        const intervalId = setInterval(yourFunction, 2 * 1000);
+        // задаем интервал с размерностью 3 секунды
+        const intervalId = setInterval(yourFunction, 3 * 1000);
 
         return () => clearInterval(intervalId);
     }, []);
 
-    const func = () => {
+    const completeWay = () => {
         const login = getUserData()[0];
         const name = data.title;
         const level = data.level;
@@ -73,10 +73,19 @@ const Starting = () => {
         <SafeAreaView style={styles.container}>
             <Text style={styles.textTitle}>{data.title}</Text>
 
-            <Text>{maxPulse}</Text>
-            <Text>{minPulse}</Text>
+            <View style={styles.containerPulse}>
+                <Text style={styles.textPulse}>
+                    Текущий пульс: {curPulse}
+                </Text>
+                <Text style={styles.textPulse}>
+                    Максимальный пульс в пути: {maxPulse}
+                </Text>
+                <Text style={styles.textPulse}>
+                    Минимальный пульс в пути: {minPulse}
+                </Text>
+            </View>
 
-            <Timer time={data.time} />
+            <Timer time={data.time}/>
 
             <View style={styles.containerMap}>
                 <Map startPoint={data.startPoint} endPoint={data.endPoint} />
@@ -84,29 +93,52 @@ const Starting = () => {
 
             <Button
                 title="Завершить маршрут"
-                onPress={func}
+                onPress={completeWay}
                 color="#010101"
                 style={styles.buttonAction}
+                width="80%"
             />
         </SafeAreaView>
     );
 };
 
 const styles = {
-    container: {},
+    container: {
+        alignContent: "center",
+        alignItems: "center",
+    },
+
     containerMap: {
         width: "60%",
         height: "40%",
         padding: 10,
+        alignContent: "center",
+        justifyContent: "center",
     },
     textTitle: {
         fontSize: 30,
         fontWeight: "bold",
         alignContent: "center",
         justifyContent: "center",
+        marginBottom: 6,
     },
 
     buttonAction: {},
+
+    containerPulse:{
+        backgroundColor: '#ebebeb',
+        width: "80%",
+        borderColor: 'black', 
+        borderWidth: 2,
+        borderRadius: 2,
+    },
+
+    textPulse: {
+        fontSize: 16,
+        alignContent: "center",
+        justifyContent: "center",
+        margin: 8,
+    },
 };
 
 export default Starting;
