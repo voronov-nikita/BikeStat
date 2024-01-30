@@ -25,7 +25,7 @@ import socket
 import random
 import json
 
-import AI.study as network
+# import AI.study as network
 
 # получаем имя компьютера в сети и находим по ARP таблице его IP адресс
 IP:str = socket.gethostbyname(socket.gethostname())
