@@ -39,14 +39,4 @@ loss, accuracy = model.evaluate(X_test, y_test)
 print(f'Test Loss: {loss}, Test Accuracy: {accuracy}')
 
 # Шаг 9: Предсказание новых данных
-new_data = np.array([[39.1, 10.9, 67.4, 101.4, 8.3], [143.5,24.7,145.4,42.0,2.9],
-                    [53.9,16.9,128.2,90.1,4.3], [47.6,10.3,91.3,136.7, 7.2],
-                    [67.7, 15.2, 124.3, 144.7, 8.7]])
-new_data = scaler.transform(new_data)
-predictions = model.predict(new_data)
 
-# Преобразование предсказаний обратно в оригинальные метки
-predicted_labels = label_encoder.inverse_transform(predictions.argmax(axis=1))
-
-# Вывод предсказанных меток
-print(predicted_labels)

@@ -28,6 +28,7 @@ const UserHistory = () => {
             avgPulse: rawData[9],
             len: rawData[10],
             time: (rawData[11] / 150).toFixed(2)
+            // time: rawData[11].toFixed(2)
         };
     }
 

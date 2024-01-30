@@ -42,9 +42,9 @@ const StartRoute = () => {
         let answer = await Sockets.getServer(["GetPlans", login]);
         answer = JSON.parse(answer);
 
+        // собираем данные и формируем их в отдельный массив для отображения
         if (answer.length !== 0) {
             const newDataArray = answer.map(transformData);
-            console.log(newDataArray);
             changeDataArray(newDataArray);
         }
     }

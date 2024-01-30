@@ -30,6 +30,9 @@ const Starting = () => {
 
             changeMaxPulse(Math.max(maxPulse, newMin));
             changeMinPulse(Math.min(minPulse, newMax));
+            if (newMax != 0 && minPulse==0){
+                changeMinPulse(newMax);
+            }
             changeCurPulse((newMax + newMin) / 2);
         };
 
@@ -85,7 +88,7 @@ const Starting = () => {
                 </Text>
             </View>
 
-            <Timer time={data.time}/>
+            <Timer time={data.time * 150}/>
 
             <View style={styles.containerMap}>
                 <Map startPoint={data.startPoint} endPoint={data.endPoint} />
