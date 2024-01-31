@@ -24,9 +24,10 @@ const Timer = ({time}) => {
             }, 1000);
         }
 
-        if (seconds == 0 && isRunning){
+        if (seconds <= 0 && isRunning){
             handleStartPause();
             setIsRunning(false);
+            setSeconds(0);
             const title = 'Время вышло';
             const options = {
                 body: 'Проверьте показатели и результат,\nзатем завершите маршрут.',
@@ -57,6 +58,7 @@ const Timer = ({time}) => {
 
     // переделывает секунды в нормальный формат временного диапазона
     const formatTime = (totalSeconds) => {
+        totalSeconds*=150;  
         const hours = Math.floor(totalSeconds / 3600);
         const minutes = Math.floor((totalSeconds % 3600) / 60);
         const remainingSeconds = Math.floor(totalSeconds % 60);
