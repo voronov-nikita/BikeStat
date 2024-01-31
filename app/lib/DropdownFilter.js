@@ -1,18 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './DropdownWithCheckbox.css';
 import iconImage from "../assets/images/filter.png";
 
 
 let filterData = [];
 
-const DropdownWithCheckbox = () => {
+const DropdownWithCheckbox = ({changeFunction}) => {
     const [isDropdownOpen, setDropdownOpen] = useState(false);
-    const [selectedValues, setSelectedValues] = useState(['1', '2', '3']);
+    const [selectedValues, setSelectedValues] = useState([1, 2, 3]);
+
+
+    useEffect(() => {
+        changeFunction(selectedValues);
+    }, []);
 
     const data = [
-        { label: 'Легкий', value: '1' },
-        { label: 'Средний', value: '2' },
-        { label: 'Сложный', value: '3' },
+        { label: 'Легкий', value: 1 },
+        { label: 'Средний', value: 2 },
+        { label: 'Сложный', value: 3 },
     ];
 
     const toggleDropdown = () => {
@@ -29,14 +34,13 @@ const DropdownWithCheckbox = () => {
             newValues.splice(index, 1);
             setSelectedValues(newValues);
         }
+        
+        changeFunction(selectedValues);
     };
-    
-    // заполняем новый массив данных
-    filterData = selectedValues;
 
     return (
         <div className={`dropdown-container ${isDropdownOpen ? 'open' : ''}`}>
-            <button 
+            <button
                 className="dropdown-button"
                 onClick={toggleDropdown}
                 >

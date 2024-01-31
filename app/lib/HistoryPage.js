@@ -9,10 +9,17 @@ import Sockets from "./Socket";
 
 const UserHistory = () => {
     const [dataArray, changeDataArray] = useState([]);
+    const [filters, changeFilter] = useState([]);
+    const [filteredData, setFilteredData] = useState(dataArray);
+
 
     useEffect(() => {
         getArray();
     }, []);
+
+    useEffect(() => {
+        filterArray();
+    }, [filters]);
 
     const transformData = (rawData) => {
         return {
@@ -57,7 +64,7 @@ const UserHistory = () => {
         <View style={{flex:1}}>
             <View>
                 <View style={styles.filterbutton}>
-                    <FilterButton />
+                    <FilterButton changeFunction={changeFilter}/>
                 </View>
             </View>
             <View style={styles.container}>

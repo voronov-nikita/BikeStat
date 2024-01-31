@@ -16,11 +16,23 @@ import Sockets from "./Socket";
 export let timeArray = [];
 
 const StartRoute = () => {
+
     const [dataArray, changeDataArray] = useState([]);
+    const [filters, changeFilter] = useState([]);
+    const [filteredData, setFilteredData] = useState(dataArray);
+
 
     useEffect(() => {
         getArray();
+        filterArray();
+        setFilteredData(dataArray);
     }, []);
+
+
+    useEffect(() => {
+        filterArray();
+    }, [filters]);
+
 
     const transformData = (rawData) => {
         return {
@@ -49,11 +61,24 @@ const StartRoute = () => {
         }
     }
 
+    const filterArray = () => {
+        let newData = [];
+        if (filters.length > 0){
+            newData = dataArray.filter(item => filters.includes(parseInt(item.level, 10)));
+        }else{
+            newData = dataArray;
+        }
+        
+        setFilteredData(newData);
+    }
+
     const renderItem = ({ item }) => (
         <View>
             <InteractiveBlock data={item} id={"Starting"} />
         </View>
     );
+
+
 
     return (
         <ImageBackground
@@ -64,13 +89,13 @@ const StartRoute = () => {
             <View style={{ flex: 1 }}>
                 <View>
                     <View style={styles.filterbutton}>
-                        <FilterButton />
+                        <FilterButton changeFunction={changeFilter}/>
                     </View>
                 </View>
                 <View style={styles.container}>
-                    {dataArray.length > 0 ? (
+                    {filteredData.length > 0 ? (
                         <FlatList
-                            data={dataArray}
+                            data={filteredData}
                             renderItem={renderItem}
                             keyExtractor={(item) => item.id}
                         />
