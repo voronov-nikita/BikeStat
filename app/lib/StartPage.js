@@ -24,8 +24,6 @@ const StartRoute = () => {
 
     useEffect(() => {
         getArray();
-        filterArray();
-        setFilteredData(dataArray);
     }, []);
 
 
@@ -77,7 +75,6 @@ const StartRoute = () => {
             <InteractiveBlock data={item} id={"Starting"} />
         </View>
     );
-
 
 
     return (
@@ -137,7 +134,7 @@ const styles = StyleSheet.create({
         marginBottom: 10,
         alignContent: "center",
         justifyContent: "center",
-        textShadowColor: "#FFFFFFFF",
+        textShadowColor: "#FFFFFF",
         textShadowOffset: { width: 2, height: 2 },
         textAlign: 'center',
     },

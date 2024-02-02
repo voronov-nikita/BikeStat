@@ -1,11 +1,10 @@
-import { Button, TextInput, Text, View, StyleSheet, ImageBackground, ScrollView } from 'react-native';
+import { Button, TextInput, Text, View, StyleSheet, ImageBackground, ScrollView, SafeAreaView } from 'react-native';
 import React, {useState} from 'react';
 
 import MyCalendar, {getDate} from './CalendarComponent';
 import { getUserData} from './LoginingPage';
 import Map, {getMarkers, getDataWay} from './ElemMap';
 import Sockets from './Socket';
-import { SafeAreaView } from 'react-native-web';
 
 // основная функция обработки запроса пользователя на получение данных для регистрации
 // нового "плана"
@@ -53,7 +52,7 @@ const PlanWay = () => {
     }
 
     return (
-        <SafeAreaView>
+        <ScrollView>
             <ImageBackground
                     source={{ uri: require('../assets/images/bg1.png')}}
                     style={styles.container}
@@ -91,7 +90,7 @@ const PlanWay = () => {
                 </View>
                 </SafeAreaView>
             </ImageBackground>
-        </SafeAreaView>
+        </ScrollView>
     );
 };
 
@@ -143,7 +142,7 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         marginBottom: 10,
         padding: 10,
-        backgroundColor: '#FFFFFFFF',
+        backgroundColor: '#FFFFFF',
         // color: '#A5A5A5',
         color: 'black',
         fontWeight: 'bold',

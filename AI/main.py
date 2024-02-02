@@ -38,5 +38,7 @@ model.fit(X_train, y_train, epochs=50, batch_size=32, validation_data=(X_test, y
 loss, accuracy = model.evaluate(X_test, y_test)
 print(f'Test Loss: {loss}, Test Accuracy: {accuracy}')
 
-# Шаг 9: Предсказание новых данных
+# 
+def calculateLevel(newdara:list):
+    return 
 

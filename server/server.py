@@ -166,7 +166,8 @@ async def main(websocket, path) -> None:
             length = data[6]
             time = data[7]
             
-            level = network.generateLevel([])
+            level = random.randint(1, 4)
+            # level = network.generateLevel([])
             
             addRoute(login, name, level, date, startPoint, endPoint, length, time)
             await websocket.send("Success")

@@ -55,3 +55,23 @@
         transform: translateY(0);
     }
 }
+
+
+.apply-button {
+    background-color: #020025;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+.apply-button:hover {
+    background-color: #05005e;
+}
+
+.apply-button:active {
+    background-color: #020025;
+}
