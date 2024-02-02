@@ -18,7 +18,7 @@ export let timeArray = [];
 const StartRoute = () => {
 
     const [dataArray, changeDataArray] = useState([]);
-    const [filters, changeFilter] = useState([]);
+    const [filters, changeFilter] = useState([1, 2, 3]);
     const [filteredData, setFilteredData] = useState(dataArray);
 
 

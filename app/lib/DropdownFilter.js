@@ -7,7 +7,7 @@ let filterData = [];
 
 const DropdownWithCheckbox = ({changeFunction}) => {
     const [isDropdownOpen, setDropdownOpen] = useState(false);
-    const [selectedValues, setSelectedValues] = useState([1, 2, 3]);
+    const [selectedValues, setSelectedValues] = useState([]);   
 
 
     useEffect(() => {
