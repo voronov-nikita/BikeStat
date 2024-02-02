@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
-import { SafeAreaView, Text, View } from 'react-native';
+import { SafeAreaView, Text, View, ImageBackground } from 'react-native';
 import React, {useEffect, useState} from 'react';
 
 import Graphic, {MultiLineChart} from './ElemGraphics';
@@ -73,7 +73,12 @@ const Profile = () => {
     }, []);
 
     return (
+        
         <SafeAreaView>
+            <ImageBackground
+                    source={{ uri: require('../assets/images/bgbeige.png')}}
+                    style={styles.container}
+                >
             <View style={{flexDirection: 'row', justifyContent:"space-between", marginTop: 10}}>
                 <Text style={styles.textLogin}>Пользователь: {login}</Text>
                 <InformationSheet content={textRecomend} />
@@ -93,12 +98,18 @@ const Profile = () => {
                     <MultiLineChart data={dataPulse} />
                 </Box>
             </View>
+            </ImageBackground>
         </SafeAreaView>
+        // </ImageBackground>
     );
 };
 
 
 const styles = {
+    container: {
+        width: '100%',
+        height: '100%',
+    },
     box:{
         flexDirection: 'row',
         padding: 16,

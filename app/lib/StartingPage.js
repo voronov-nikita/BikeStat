@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useRoute } from "@react-navigation/native";
 import { useNavigation } from "@react-navigation/native";
-import { SafeAreaView, Button, Text, View } from "react-native";
+import { SafeAreaView, Button, Text, View, ImageBackground } from "react-native";
 
 import Timer from "./Timer";
 import Map from "./ElemMap";
@@ -73,18 +73,32 @@ const Starting = () => {
     };
 
     return (
+        <ImageBackground
+                    source={{ uri: require('../assets/images/bgbeige.png')}}
+                    style={styles.container}
+                >
         <SafeAreaView style={styles.container}>
-            <Text style={styles.textTitle}>{data.title}</Text>
+            <Text style={styles.headText}>{data.title}</Text>
 
             <View style={styles.containerPulse}>
                 <Text style={styles.textPulse}>
                     Текущий пульс: {curPulse}
                 </Text>
-                <Text style={styles.textPulse}>
+                {/* <Text style={styles.textPulse}>
                     Максимальный пульс в пути: {maxPulse}
                 </Text>
                 <Text style={styles.textPulse}>
                     Минимальный пульс в пути: {minPulse}
+                </Text> */}
+            </View>
+            <View style={styles.containerPulse}>
+                <Text style={styles.textPulse}>
+                    Ваша скорость: {curPulse}
+                </Text>
+            </View>
+            <View style={styles.containerPulse}>
+                <Text style={styles.textPulse}>
+                    Оставшееся время: {curPulse}
                 </Text>
             </View>
 
@@ -102,6 +116,7 @@ const Starting = () => {
                 width="80%"
             />
         </SafeAreaView>
+        </ImageBackground>
     );
 };
 
@@ -112,18 +127,23 @@ const styles = {
     },
 
     containerMap: {
-        width: "60%",
+        width: "200%",
         height: "40%",
         padding: 10,
         alignContent: "center",
         justifyContent: "center",
     },
-    textTitle: {
-        fontSize: 30,
-        fontWeight: "bold",
-        alignContent: "center",
-        justifyContent: "center",
-        marginBottom: 6,
+
+    headText:{
+        fontSize: 34,
+        fontWeight: 'bold',
+        marginTop: 10,
+        marginBottom: 10,
+        alignContent: 'center',
+        justifyContent: 'center',
+        textShadowColor: '#FFFFFFFF',
+        textShadowOffset:{width: 2, height: 2},
+
     },
 
     buttonAction: {},
@@ -141,6 +161,7 @@ const styles = {
         alignContent: "center",
         justifyContent: "center",
         margin: 8,
+        fontWeight: 'bold',
     },
 };
 

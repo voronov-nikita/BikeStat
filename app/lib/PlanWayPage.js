@@ -5,6 +5,7 @@ import MyCalendar, {getDate} from './CalendarComponent';
 import { getUserData} from './LoginingPage';
 import Map, {getMarkers, getDataWay} from './ElemMap';
 import Sockets from './Socket';
+import { SafeAreaView } from 'react-native-web';
 
 // основная функция обработки запроса пользователя на получение данных для регистрации
 // нового "плана"
@@ -52,25 +53,25 @@ const PlanWay = () => {
     }
 
     return (
-        <ScrollView>
+        <SafeAreaView>
             <ImageBackground
                     source={{ uri: require('../assets/images/bg1.png')}}
                     style={styles.container}
                 >
                     <Text style={styles.headText}>
-                        Введите необходимые данные для планирования поездки
+                        ЗАПЛАНИРУЙТЕ ПОЕЗДКУ
                     </Text>
-
+                    
                     <TextInput
                         style={styles.textInput}
-                        placeholder="Название для поездки: "
+                        placeholder="введите название для поездки"
                         autoFocus={true}
                         onChangeText={changeName}
                         value={nameWay}
                     />
                     
                     <MyCalendar/>
-                    
+                    <SafeAreaView style={styles.box}>
                     <View style={styles.containerMap}>
                         <Map/>
                     </View>
@@ -87,9 +88,10 @@ const PlanWay = () => {
                             color="black"
                             onPress={clearPlans}
                         />
-                    </View>
+                </View>
+                </SafeAreaView>
             </ImageBackground>
-        </ScrollView>
+        </SafeAreaView>
     );
 };
 
@@ -112,16 +114,26 @@ const showWebNotification = (title, options) => {
 
 const styles = StyleSheet.create({
     container:{
-        alignItems:'center',
-        alignContent:'center',
+        // alignItems:'center',
+        // alignContent:'center',
         // height:"80%"
+        // flexDirection: 'row',
+        // justifyContent: 'space-between',
     },
 
     containerMap:{
         width:"40%", 
         height:"70%",
-        padding: 15,
-        borderColor: '#D0F0C0',
+        //padding: 20,
+        borderColor: 'black',
+        borderWidth: 3,
+        marginHorizontal: 210,
+        
+    },
+    box:{
+        flexDirection: 'column',
+
+        //justifyContent: 'space-between',
     },
 
     textInput:{
@@ -131,30 +143,37 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         marginBottom: 10,
         padding: 10,
-        backgroundColor: '#D0F0C0',
+        backgroundColor: '#FFFFFFFF',
+        // color: '#A5A5A5',
         color: 'black',
         fontWeight: 'bold',
+        marginHorizontal: 1230,
+        marginTop: 80,
 
     },
 
     headText:{
-        fontSize: 40,
+        fontSize: 34,
         fontWeight: 'bold',
         marginTop: 10,
         marginBottom: 10,
+        textAlign: 'center',
         alignContent: 'center',
         justifyContent: 'center',
-        textShadowColor: '#D0F0C0',
+        textShadowColor: '#FFFFFFFF',
         textShadowOffset:{width: 2, height: 2},
+        
 
     },
 
     buttons:{
         flexDirection: 'row',
-        justifyContent: 'space-between',
+        justifyContent: 'space-round',
         alignContent: 'center',
         paddingHorizontal: 8,
         marginBottom: 70,
+        marginHorizontal: 480,
+        marginTop: 10,
 
     },
     emptySpace:{

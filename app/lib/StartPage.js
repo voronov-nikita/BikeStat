@@ -85,7 +85,7 @@ const StartRoute = () => {
             source={{ uri: require("../assets/images/bg1.png") }}
             style={styles.container}
         >
-            <Text style={styles.headText}>Ваши запланированные поездки</Text>
+            <Text style={styles.headText}>ЗАПЛАНИРОВАННЫЕ ПОЕЗДКИ</Text>
             <View style={{ flex: 1 }}>
                 <View>
                     <View style={styles.filterbutton}>
@@ -131,14 +131,15 @@ const styles = StyleSheet.create({
     },
 
     headText: {
-        fontSize: 40,
+        fontSize: 34,
         fontWeight: "bold",
         marginTop: 10,
         marginBottom: 10,
         alignContent: "center",
         justifyContent: "center",
-        textShadowColor: "#D0F0C0",
+        textShadowColor: "#FFFFFFFF",
         textShadowOffset: { width: 2, height: 2 },
+        textAlign: 'center',
     },
 });
 

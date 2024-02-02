@@ -50,6 +50,18 @@ const UserHistory = () => {
         }
     }
 
+    const filterArray = () => {
+        let newData = [];
+        if (filters.length > 0){
+            newData = dataArray.filter(item => filters.includes(parseInt(item.level, 10)));
+        }else{
+            newData = dataArray;
+        }
+        
+        setFilteredData(newData);
+    }
+
+
     const renderItem = ({ item }) => (
         <View>
             <InteractiveBlock data={item} id={"MoreHistory"} />
@@ -61,6 +73,9 @@ const UserHistory = () => {
                 source={{ uri: require('../assets/images/bg1.png')}}
                 style={styles.container}
             >
+            <Text style={styles.headText}>
+                        ЗАКОНЧЕННЫЕ ПОЕЗДКИ
+                    </Text>
         <View style={{flex:1}}>
             <View>
                 <View style={styles.filterbutton}>
@@ -86,7 +101,7 @@ const UserHistory = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        zIndex: -1
+        zIndex: -1,
     },
     textNoneWay: {
         textAlign: 'center',
@@ -100,6 +115,17 @@ const styles = StyleSheet.create({
         marginTop: 4,
         alignSelf: 'flex-end',
         zIndex: 3,
+    },
+    headText: {
+        fontSize: 34,
+        fontWeight: "bold",
+        marginTop: 10,
+        marginBottom: 10,
+        alignContent: "center",
+        justifyContent: "center",
+        textShadowColor: "#FFFFFFFF",
+        textShadowOffset: { width: 2, height: 2 },
+        textAlign: 'center',
     },
 });
 
