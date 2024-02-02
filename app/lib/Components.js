@@ -129,7 +129,8 @@ export const InformationSheet = ({content}) => {
 
 const styles = {
     containerInterfaceBlock: {
-        backgroundColor: '#FFFFFFFF',
+        backgroundColor: '#e3dfb8ff',
+        // backgroundColor: '#ABFFABFF',
         borderRadius: 20,
         // borderWidth: 1,
         borderColor: 'black',

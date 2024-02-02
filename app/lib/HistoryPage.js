@@ -125,6 +125,7 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         textShadowColor: "#FFFFFFFF",
         textShadowOffset: { width: 2, height: 2 },
+        textAlign: 'center',
     },
 });
 

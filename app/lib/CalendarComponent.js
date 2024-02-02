@@ -88,7 +88,8 @@ const styles = StyleSheet.create({
         backgroundColor: '#ffffff',
         borderRadius: 10,
         padding: 20,
-        width: '80%',
+        width: '60%',
+        borderWidth: 3,
     },
     selectedDateText: {
         textAlign: 'center',
@@ -102,15 +103,16 @@ const styles = StyleSheet.create({
     },
     oneLine:{
         flexDirection: 'row',
-        justifyContent: 'space-around',
-    
+        justifyContent: 'space-between',
+        marginHorizontal: 1300,
+
 
     },
     textDate:{
-        textAlign: 'center',
-        justifyContent: 'center',
+        textAlign: 'justify',
+        // justifyContent: 'center',
         marginLeft: 12,
-        fontSize: 20,
+        fontSize: 15,
         fontWeight: 'bold',
     }
 });

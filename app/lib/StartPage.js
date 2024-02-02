@@ -85,7 +85,7 @@ const StartRoute = () => {
             source={{ uri: require("../assets/images/bg1.png") }}
             style={styles.container}
         >
-            <Text style={styles.headText}>ВАШИ ЗАПЛАНИРОВАННЫЕ ПОЕЗДКИ</Text>
+            <Text style={styles.headText}>ЗАПЛАНИРОВАННЫЕ ПОЕЗДКИ</Text>
             <View style={{ flex: 1 }}>
                 <View>
                     <View style={styles.filterbutton}>
@@ -139,6 +139,7 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         textShadowColor: "#FFFFFFFF",
         textShadowOffset: { width: 2, height: 2 },
+        textAlign: 'center',
     },
 });
 

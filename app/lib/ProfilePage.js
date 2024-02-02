@@ -73,11 +73,12 @@ const Profile = () => {
     }, []);
 
     return (
-        <ImageBackground
-                    source={{ uri: require('../assets/images/bggreen1.png')}}
+        
+        <SafeAreaView>
+            <ImageBackground
+                    source={{ uri: require('../assets/images/bgbeige.png')}}
                     style={styles.container}
                 >
-        <SafeAreaView>
             <View style={{flexDirection: 'row', justifyContent:"space-between", marginTop: 10}}>
                 <Text style={styles.textLogin}>Пользователь: {login}</Text>
                 <InformationSheet content={textRecomend} />
@@ -97,13 +98,18 @@ const Profile = () => {
                     <MultiLineChart data={dataPulse} />
                 </Box>
             </View>
+            </ImageBackground>
         </SafeAreaView>
-        </ImageBackground>
+        // </ImageBackground>
     );
 };
 
 
 const styles = {
+    container: {
+        width: '100%',
+        height: '100%',
+    },
     box:{
         flexDirection: 'row',
         padding: 16,
