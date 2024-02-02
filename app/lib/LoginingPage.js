@@ -27,7 +27,7 @@ const showWebNotification = (title, options) => {
 // основная функция обработки пользовательского запроса на домашнюю страницу
 export default function Logining({ navigation }) {
 
-    const [message, setMessage] = useState('Введите логин и пароль');
+    const [message, setMessage] = useState('ВВЕДИТЕ ЛОГИН И ПАРОЛЬ');
     const [login, setInputLogin] = useState('');
     const [password, setInputPassword] = useState('');
 
@@ -101,7 +101,7 @@ export default function Logining({ navigation }) {
                 {/* Поле ввода логина пользователя */}
                 <TextInput
                     style={styles.textInput}
-                    placeholder="Login: "
+                    placeholder="login"
                     autoFocus={true}
                     onChangeText={changeLogin}
                     value={login}
@@ -111,7 +111,7 @@ export default function Logining({ navigation }) {
                 {/* Поле ввода пароля пользователя */}
                 <TextInput
                     style={styles.textInput}
-                    placeholder="Password: "
+                    placeholder="password"
                     secureTextEntry={true}
                     onChangeText={changePassword}
                     value={password}
@@ -163,7 +163,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         marginBottom: 10,
         padding: 10,
-        backgroundColor: '#D0F0C0',
+        backgroundColor: '#FFFFFFFF',
         color: 'black',
         fontWeight: 'bold',
     },
@@ -186,12 +186,12 @@ const styles = StyleSheet.create({
     },
 
     headText:{
-        fontSize: 24,
+        fontSize: 18,
         fontWeight: 'bold',
         marginTop: 10,
         alignContent: 'center',
         justifyContent: 'center',
-        textShadowColor: '#D0F0C0',
+        textShadowColor: '#FFFFFFFF',
         textShadowOffset:{width: 2, height: 2},
 
     },

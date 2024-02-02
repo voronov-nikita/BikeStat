@@ -58,12 +58,12 @@ const PlanWay = () => {
                     style={styles.container}
                 >
                     <Text style={styles.headText}>
-                        Введите необходимые данные для планирования поездки
+                        ЗАПЛАНИРУЙТЕ ПОЕЗДКУ
                     </Text>
 
                     <TextInput
                         style={styles.textInput}
-                        placeholder="Название для поездки: "
+                        placeholder="введите название для поездки"
                         autoFocus={true}
                         onChangeText={changeName}
                         value={nameWay}
@@ -131,20 +131,20 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         marginBottom: 10,
         padding: 10,
-        backgroundColor: '#D0F0C0',
+        backgroundColor: '#FFFFFFFF',
         color: 'black',
         fontWeight: 'bold',
 
     },
 
     headText:{
-        fontSize: 40,
+        fontSize: 34,
         fontWeight: 'bold',
         marginTop: 10,
         marginBottom: 10,
         alignContent: 'center',
         justifyContent: 'center',
-        textShadowColor: '#D0F0C0',
+        textShadowColor: '#FFFFFFFF',
         textShadowOffset:{width: 2, height: 2},
 
     },

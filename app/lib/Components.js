@@ -98,7 +98,7 @@ export const InteractiveBlock = ({ data, id }) => {
             >
                 <Text style={styles.textTitle}>Название: {"\t"}{data.title}</Text>
                 <Text style={styles.textTitle}>Дата: {"\t"}{data.date}</Text>
-                <Text style={styles.textTitle}>Примерное время: {"\t"}{data.time} ч</Text>
+                {/* <Text style={styles.textTitle}>Примерное время: {"\t"}{data.time} ч</Text> */}
                 <Text style={styles.textTitle}>Сложность: {"\t"}{data.level}</Text>
 
                 <ModalHistory modalVisible={modalVisible} closeModal={closeModal} data={data} />
@@ -129,12 +129,14 @@ export const InformationSheet = ({content}) => {
 
 const styles = {
     containerInterfaceBlock: {
-        backgroundColor: '#D0F0C0',
-        borderRadius: 10,
+        backgroundColor: '#FFFFFFFF',
+        borderRadius: 20,
         // borderWidth: 1,
-        borderColor: '#cccccc',
+        borderColor: 'black',
         padding: 10,
         margin: 7,
+        borderWidth:3,
+        
     },
     textTitle:{
         fontSize: 16,

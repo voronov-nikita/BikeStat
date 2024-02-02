@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useRoute } from "@react-navigation/native";
 import { useNavigation } from "@react-navigation/native";
-import { SafeAreaView, Button, Text, View } from "react-native";
+import { SafeAreaView, Button, Text, View, ImageBackground } from "react-native";
 
 import Timer from "./Timer";
 import Map from "./ElemMap";
@@ -73,6 +73,10 @@ const Starting = () => {
     };
 
     return (
+        <ImageBackground
+                    source={{ uri: require('../assets/images/bggreen1.png')}}
+                    style={styles.container}
+                >
         <SafeAreaView style={styles.container}>
             <Text style={styles.textTitle}>{data.title}</Text>
 
@@ -102,6 +106,7 @@ const Starting = () => {
                 width="80%"
             />
         </SafeAreaView>
+        </ImageBackground>
     );
 };
 
