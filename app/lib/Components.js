@@ -119,6 +119,7 @@ export const ImageButton = ({ onPress, imageSource }) => {
 export const InformationSheet = ({content}) => {
     return (
         <View style={styles.textContainer}>
+            <Text style={[styles.textText, {fontWeight: 'bold'}]}>Рекомендации:</Text>
             <Text style={styles.textText}>{content}</Text>
         </View>
     );
@@ -162,7 +163,7 @@ const styles = {
         borderWidth: 2,
         borderRadius: 5,
         padding: 16,
-        width: 200,
+        width: 500,
         marginRight: 20,
         marginTop: 10,
     },
