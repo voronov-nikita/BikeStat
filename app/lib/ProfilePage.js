@@ -83,6 +83,7 @@ const Profile = () => {
                 <Text style={styles.textLogin}>Пользователь: {login}</Text>
                 <InformationSheet content={textRecomend} />
             </View>
+            <Text style={styles.header}>СТАТИСТИКА</Text>
             {/* <View style={styles.boxmaxi}>
                 <Box>
                 <Graphic width={400} height={200} color={"orange"} dataArray={dataLength.slice(-10)} title={"График длины маршрутов"}/>
@@ -140,8 +141,8 @@ const styles = {
         justifyContent: 'space-between',
         width: 1000,
         height: 320,
-        marginBottom: 100,
-        marginTop: 30,
+        marginBottom: 70,
+        marginTop: 10,
     },
     boxmaxi:{
         flexDirection: 'row',
@@ -159,10 +160,17 @@ const styles = {
         margin: 18,
     },
 
-    item:{
-        width: 400,
-        height: 200,
-    },
+    header:{
+        fontSize: 34,
+        fontWeight: 'bold',
+        marginTop: 10,
+        marginBottom: 10,
+        alignContent: 'center',
+        justifyContent: 'center',
+        textShadowColor: '#FFFFFFFF',
+        textShadowOffset:{width: 2, height: 2},
+        textAlign: 'center',
+    }
 };
 
 export default Profile;
