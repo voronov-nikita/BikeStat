@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import { View, Text, Modal, TouchableOpacity } from 'react-native';
 
-
 const InfoComponent = ({modalVisible, closeModal, data }) => {
 
   const [startName, changeStart] = useState('');
@@ -80,8 +79,26 @@ const InfoComponent = ({modalVisible, closeModal, data }) => {
                   <Text> {(data.len / (data.time)).toFixed(1)} км/ч</Text>
                 </View>
                 <View style={{flexDirection:"row"}}>
+                  <Text style={{fontWeight: 'bold'}}>
+                    Максимальный пульс в пути:
+                </Text>
+                </View>
+                <View style={{flexDirection:"row"}}>
+                <Text style={{fontWeight: 'bold'}}>
+                    Минимальный пульс в пути:
+                </Text>
+                </View>
+              
+                
+                <View style={{flexDirection:"row"}}>
                   <Text style={{fontWeight: 'bold'}}> 
-                    Сложность поездки: 
+                    Сложность поездки(расчетная): 
+                  </Text>
+                  <Text> {data.level}</Text>
+                </View>
+                <View style={{flexDirection:"row"}}>
+                  <Text style={{fontWeight: 'bold'}}> 
+                    Сложность поездки(реальная): 
                   </Text>
                   <Text> {data.level}</Text>
                 </View>

@@ -104,15 +104,14 @@ const styles = StyleSheet.create({
     oneLine:{
         flexDirection: 'row',
         justifyContent: 'space-between',
-        marginHorizontal: 1300,
+        marginHorizontal: 1230,
+        height: 35,
 
 
     },
     textDate:{
-        textAlign: 'justify',
-        // justifyContent: 'center',
         marginLeft: 12,
-        fontSize: 15,
+        fontSize: 20,
         fontWeight: 'bold',
     }
 });

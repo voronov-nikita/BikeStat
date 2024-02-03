@@ -8,12 +8,20 @@ import Map from "./ElemMap";
 import Sockets from "./Socket";
 import { getUserData } from "./LoginingPage";
 
+import { ImageButton } from './Components';
+
+
+const resetImage = require("../assets/reset.png");
+const startImage = require("../assets/start.png");
+const pauseImage = require("../assets/pause.png");
+
 const Starting = () => {
     const navigation = useNavigation();
 
     const [maxPulse, changeMaxPulse] = useState(null);
     const [minPulse, changeMinPulse] = useState(null);
     const [curPulse, changeCurPulse] = useState(null);
+    const [curentImage, setState] = useState(startImage);
 
     const route = useRoute();
     const { data } = route.params;
@@ -41,6 +49,24 @@ const Starting = () => {
 
         return () => clearInterval(intervalId);
     }, []);
+
+    // обработка на кнопку паузы
+    const handleStartPause = () => {
+
+        if (curentImage===startImage){
+            setState(pauseImage);
+        }else{
+            setState(startImage);
+        }
+
+        setIsRunning(prevState => !prevState);
+    };
+    // обрабока кнопки "Начать заново"
+    const handleReset = () => {
+        setSeconds(time);
+        setState(startImage);
+        setIsRunning(false);
+    };
 
     const completeWay = () => {
         const login = getUserData()[0];
@@ -71,67 +97,81 @@ const Starting = () => {
 
         navigation.navigate("Main");
     };
-
     return (
+        <SafeAreaView style={styles.container}>
         <ImageBackground
                     source={{ uri: require('../assets/images/bgbeige.png')}}
                     style={styles.container}
                 >
-        <SafeAreaView style={styles.container}>
-            <Text style={styles.headText}>{data.title}</Text>
+        <Text style={styles.headText}>{data.title}</Text>
+        <SafeAreaView style={styles.box}>
+            
 
             <View style={styles.containerPulse}>
                 <Text style={styles.textPulse}>
                     Текущий пульс: {curPulse}
                 </Text>
-                {/* <Text style={styles.textPulse}>
-                    Максимальный пульс в пути: {maxPulse}
-                </Text>
-                <Text style={styles.textPulse}>
-                    Минимальный пульс в пути: {minPulse}
-                </Text> */}
             </View>
             <View style={styles.containerPulse}>
                 <Text style={styles.textPulse}>
-                    Ваша скорость: {curPulse}
+                    Ваша скорость: {(data.len / (data.time)).toFixed(1)}
                 </Text>
             </View>
             <View style={styles.containerPulse}>
                 <Text style={styles.textPulse}>
-                    Оставшееся время: {curPulse}
+                    Оставшееся время: 
+                    <Timer time={data.time * 150}/>
                 </Text>
             </View>
-
-            <Timer time={data.time * 150}/>
-
+        </SafeAreaView>
+        <SafeAreaView style={styles.box}>
             <View style={styles.containerMap}>
                 <Map startPoint={data.startPoint} endPoint={data.endPoint} />
             </View>
-
-            <Button
+            <View style={styles.buttonsContainer}>
+                <ImageButton onPress={handleStartPause} imageSource={curentImage} />
+                <ImageButton onPress={handleReset} imageSource={resetImage} />
+                <View style={{height: 10, paddingTop: 15}}><Button
                 title="Завершить маршрут"
                 onPress={completeWay}
                 color="#010101"
-                style={styles.buttonAction}
-                width="80%"
-            />
+                style={{height: 10}}
+                /></View>
+                
+            </View>
         </SafeAreaView>
         </ImageBackground>
+        </SafeAreaView>
     );
 };
 
 const styles = {
     container: {
-        alignContent: "center",
-        alignItems: "center",
+        // alignContent: "center",
+        // alignItems: "center",
+        justifyContent: 'space-between',
+        display: 'flex',
+        width: '100%',
+        height: '100vh',
+        margin: 0,
+
+    },
+    box: {
+        // alignContent: "center",
+        // alignItems: "center",
+        width: '50%'
+
     },
 
     containerMap: {
-        width: "200%",
-        height: "40%",
+        width: "100%",
+        height: "80%",
         padding: 10,
         alignContent: "center",
         justifyContent: "center",
+        marginHorizontal: 100,
+        borderColor: 'black',
+        borderWidth: 3,
     },
 
     headText:{
@@ -143,17 +183,32 @@ const styles = {
         justifyContent: 'center',
         textShadowColor: '#FFFFFFFF',
         textShadowOffset:{width: 2, height: 2},
-
+        textAlign: 'center',
     },
-
-    buttonAction: {},
 
     containerPulse:{
         backgroundColor: '#ebebeb',
-        width: "80%",
+        width: "50%",
         borderColor: 'black', 
         borderWidth: 2,
         borderRadius: 2,
+        marginHorizontal: 1230,
+    },
+
+    buttonsContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        marginTop: 10,
+        marginHorizontal: 600,
+    },
+
+    button: {
+        marginHorizontal: 10,
+        padding: 10,
+        paddingLeft: 10,
+        backgroundColor: '#dddddd',
+        borderRadius: 5,
+        borderWidth: 2,
     },
 
     textPulse: {
