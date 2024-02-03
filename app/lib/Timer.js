@@ -71,10 +71,10 @@ const Timer = ({time}) => {
     return (
         <View style={styles.container}>
             <Text style={styles.timerText}>{formatTime(seconds)}</Text>
-            <View style={styles.buttonsContainer}>
+            {/* <View style={styles.buttonsContainer}>
                 <ImageButton onPress={handleStartPause} imageSource={curentImage} />
                 <ImageButton onPress={handleReset} imageSource={resetImage} />
-            </View>
+            </View> */}
         </View>
     );
 };
@@ -102,7 +102,11 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     timerText: {
-        fontSize: 24,
+        fontSize: 16,
+        alignContent: "center",
+        justifyContent: "center",
+        margin: 8,
+        fontWeight: 'bold',
     },
     buttonsContainer: {
         flexDirection: 'row',
