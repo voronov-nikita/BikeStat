@@ -19,7 +19,7 @@ const StartRoute = () => {
 
     const [dataArray, changeDataArray] = useState([]);
     const [filters, changeFilter] = useState([1, 2, 3]);
-    const [filteredData, setFilteredData] = useState(dataArray);
+    const [filteredData, setFilteredData] = useState([]);
 
 
     useEffect(() => {
@@ -66,7 +66,6 @@ const StartRoute = () => {
         }else{
             newData = dataArray;
         }
-        
         setFilteredData(newData);
     }
 
@@ -96,10 +95,17 @@ const StartRoute = () => {
                             renderItem={renderItem}
                             keyExtractor={(item) => item.id}
                         />
+                    ) : (dataArray.length > 0 ? (
+                        <FlatList
+                            data={dataArray}
+                            renderItem={renderItem}
+                            keyExtractor={(item) => item.id}
+                        />
                     ) : (
                         <Text style={styles.textNoneWay}>
                             У вас нет запланированных маршрутов
                         </Text>
+                    )
                     )}
                 </View>
             </View>

@@ -193,11 +193,9 @@ async def main(websocket, path) -> None:
             await websocket.send("Success")
         
         # отправка ответа на запрос на получение рекомендаций пользователю
-        elif task == "GetRecomm":
+        elif task == "GetRecomend":
             info = data[1]
-            
             await websocket.send(random.choices(RECOMMENDATION[str(info)]))
-            
             
         else:
             print(f"Неизвестный тип запроса: {task}")

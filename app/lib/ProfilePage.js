@@ -41,7 +41,8 @@ const Profile = () => {
 
 
     const getRecomned = async () => {
-        const answer = await Sockets.getServer(['GetRecomend', login]);
+        const avg = 1;
+        const answer = await Sockets.getServer(['GetRecomend', avg]);
         changeRecomend(answer);
     }
 
@@ -69,7 +70,7 @@ const Profile = () => {
 
     useEffect(() => {
         getDataForGraf();
-        // getRecomned();
+        getRecomned();
     }, []);
 
     return (

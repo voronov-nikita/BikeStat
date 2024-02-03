@@ -1,17 +1,22 @@
-import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, FlatList, ImageBackground } from 'react-native';
+import React, { useEffect, useState } from "react";
+import {
+    View,
+    Text,
+    StyleSheet,
+    FlatList,
+    ImageBackground,
+} from "react-native";
 
-import { InteractiveBlock } from './Components';
-import FilterButton from './DropdownFilter';
+import { InteractiveBlock } from "./Components";
+import FilterButton from "./DropdownFilter";
 
-import { getUserData } from './LoginingPage';
+import { getUserData } from "./LoginingPage";
 import Sockets from "./Socket";
 
 const UserHistory = () => {
     const [dataArray, changeDataArray] = useState([]);
-    const [filters, changeFilter] = useState([]);
-    const [filteredData, setFilteredData] = useState(dataArray);
-
+    const [filters, changeFilter] = useState([1, 2, 3]);
+    const [filteredData, setFilteredData] = useState([]);
 
     useEffect(() => {
         getArray();
@@ -34,10 +39,10 @@ const UserHistory = () => {
             minPulse: rawData[8],
             avgPulse: rawData[9],
             len: rawData[10],
-            time: (rawData[11] / 150).toFixed(2)
+            time: (rawData[11] / 150).toFixed(2),
             // time: rawData[11].toFixed(2)
         };
-    }
+    };
 
     const getArray = async () => {
         const login = getUserData()[0];
@@ -48,7 +53,7 @@ const UserHistory = () => {
             const newDataArray = answer.map(transformData);
             changeDataArray(newDataArray);
         }
-    }
+    };
 
     const filterArray = () => {
         let newData = [];
@@ -57,10 +62,9 @@ const UserHistory = () => {
         }else{
             newData = dataArray;
         }
-        
+        console.log(newData);
         setFilteredData(newData);
     }
-
 
     const renderItem = ({ item }) => (
         <View>
@@ -70,30 +74,34 @@ const UserHistory = () => {
 
     return (
         <ImageBackground
-                source={{ uri: require('../assets/images/bg1.png')}}
-                style={styles.container}
-            >
-            <Text style={styles.headText}>
-                        ЗАКОНЧЕННЫЕ ПОЕЗДКИ
-                    </Text>
-        <View style={{flex:1}}>
-            <View>
+            source={{ uri: require("../assets/images/bg1.png") }}
+            style={styles.container}
+        >
+            <Text style={styles.headText}>ЗАКОНЧЕННЫЕ ПОЕЗДКИ</Text>
+            <View style={{ flex: 1 }}>
                 <View style={styles.filterbutton}>
-                    <FilterButton changeFunction={changeFilter}/>
+                    <FilterButton changeFunction={changeFilter} />
                 </View>
-            </View>
-            <View style={styles.container}>
-                {dataArray.length > 0 ? (
-                    <FlatList
+                <View style={styles.container}>
+                    {filteredData.length > 0 ? (
+                        <FlatList
+                            data={filteredData}
+                            renderItem={renderItem}
+                            keyExtractor={(item) => item.id}
+                        />
+                    ) : dataArray.length > 0 ? (
+                        <FlatList
                             data={dataArray}
                             renderItem={renderItem}
                             keyExtractor={(item) => item.id}
                         />
-                ) : (
-                    <Text style={styles.textNoneWay}>Вы пока не завершили ни одного маршрута</Text>
-                )}
+                    ) : (
+                        <Text style={styles.textNoneWay}>
+                            Вы пока не завершили ни одного маршрута
+                        </Text>
+                    )}
+                </View>
             </View>
-        </View>
         </ImageBackground>
     );
 };
@@ -104,8 +112,8 @@ const styles = StyleSheet.create({
         zIndex: -1,
     },
     textNoneWay: {
-        textAlign: 'center',
-        justifyContent: 'center',
+        textAlign: "center",
+        justifyContent: "center",
         fontSize: 26,
         margin: 30,
     },
@@ -113,7 +121,7 @@ const styles = StyleSheet.create({
         marginRight: 15,
         marginBottom: 4,
         marginTop: 4,
-        alignSelf: 'flex-end',
+        alignSelf: "flex-end",
         zIndex: 3,
     },
     headText: {
@@ -123,9 +131,9 @@ const styles = StyleSheet.create({
         marginBottom: 10,
         alignContent: "center",
         justifyContent: "center",
-        textShadowColor: "#FFFFFFFF",
+        textShadowColor: "#FFFFFF",
         textShadowOffset: { width: 2, height: 2 },
-        textAlign: 'center',
+        textAlign: "center",
     },
 });
 

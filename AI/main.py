@@ -39,6 +39,6 @@ loss, accuracy = model.evaluate(X_test, y_test)
 print(f'Test Loss: {loss}, Test Accuracy: {accuracy}')
 
 # 
-def calculateLevel(newdara:list):
+def calculateLevel(data:list):
     return 
 
