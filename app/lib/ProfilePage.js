@@ -73,53 +73,96 @@ const Profile = () => {
     }, []);
 
     return (
-        
-        <SafeAreaView>
-            <ImageBackground
+        <ImageBackground
                     source={{ uri: require('../assets/images/bgbeige.png')}}
                     style={styles.container}
                 >
+        <SafeAreaView style={styles.container}>
+            
             <View style={{flexDirection: 'row', justifyContent:"space-between", marginTop: 10}}>
                 <Text style={styles.textLogin}>Пользователь: {login}</Text>
                 <InformationSheet content={textRecomend} />
             </View>
-            
-            <View style={styles.box}>
-                <Box style={styles.item}>
-                    <Graphic width={400} height={200} color={"orange"} dataArray={dataLength.slice(-10)} title={"График длины маршрутов"}/>
-                </Box>
-                <Box style={styles.item}>
-                    <Graphic width={400} height={200} color={"red"} dataArray={dataLevel.slice(-10)} title={"График сложности маршрутов"} />
+            {/* <View style={styles.boxmaxi}>
+                <Box>
+                <Graphic width={400} height={200} color={"orange"} dataArray={dataLength.slice(-10)} title={"График длины маршрутов"}/>
                 </Box>
             </View>
+            <View style={styles.boxmaxi}>
+                <Box>
+                <Graphic width={400} height={200} color={"red"} dataArray={dataLevel.slice(-10)} title={"График сложности маршрутов"} />
+                </Box>
+            </View> */}
+            
+            <View style={styles.boxmini}>
+                <View style={{marginHorizontal: 130}}>
+                    <Box>
+                    <Graphic width={700} height={300} color={"orange"} dataArray={dataLength.slice(-10)} title={"График длины маршрутов"}/>
+                    </Box>
+                </View>
+                {/* <Box>
+                    <Graphic width={400} height={200} color={"orange"} dataArray={dataLength.slice(-10)} title={"График длины маршрутов"}/>
+                </Box> */}
+                <View style={{marginHorizontal: 100}}>
+                    <Box>
+                    <Graphic width={700} height={300} color={"red"} dataArray={dataLevel.slice(-10)} title={"График сложности маршрутов"} />
+                    </Box>
+                </View>
+                {/* <Box style={{width: '50%'}}>
+                    <Graphic width={400} height={200} color={"red"} dataArray={dataLevel.slice(-10)} title={"График сложности маршрутов"} />
+                </Box> */}
+            </View>
 
-            <View style={styles.box}>
+            <View style={styles.boxmaxi}>
                 <Box>
                     <MultiLineChart data={dataPulse} />
                 </Box>
             </View>
-            </ImageBackground>
+            
         </SafeAreaView>
-        // </ImageBackground>
+        </ImageBackground>
     );
 };
 
 
 const styles = {
     container: {
+        justifyContent: 'space-between',
+        display: 'flex',
         width: '100%',
-        height: '100%',
+        height: '100vh',
+        margin: 0,
     },
-    box:{
+    boxmini:{
+        flexDirection: 'row',
+        // padding: 10,
+        // paddingRight: 20,
+        justifyContent: 'space-between',
+        width: 1000,
+        height: 320,
+        marginBottom: 100,
+        marginTop: 30,
+    },
+    boxmaxi:{
         flexDirection: 'row',
         padding: 16,
+        justifyContent: 'space-between',
+        width: 900,
+        height: 300,
+        marginBottom: 100,
+        marginHorizontal: 130,
     },
     textLogin:{
         fontWeight: 'bold',
         fontSize: 26,
         textDecorationLine: 'underline',
         margin: 18,
-    }
+    },
+
+    item:{
+        width: 400,
+        height: 200,
+    },
 };
 
 export default Profile;
