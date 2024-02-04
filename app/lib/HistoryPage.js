@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useIsFocused } from '@react-navigation/native';
 import {
     View,
     Text,
@@ -18,6 +19,8 @@ const UserHistory = () => {
     const [filters, changeFilter] = useState([1, 2, 3]);
     const [filteredData, setFilteredData] = useState([]);
 
+    const isFocused = useIsFocused();
+
     useEffect(() => {
         getArray();
     }, []);
@@ -25,6 +28,13 @@ const UserHistory = () => {
     useEffect(() => {
         filterArray();
     }, [filters]);
+
+    useEffect(() => {
+        if (isFocused) {
+            // Ваш код, который нужно выполнить при фокусе на вкладке
+            getArray();
+        }
+    }, [isFocused]);
 
     const transformData = (rawData) => {
         return {

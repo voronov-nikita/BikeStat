@@ -1,4 +1,3 @@
-import { useNavigation } from '@react-navigation/native';
 import { SafeAreaView, Text, View, ImageBackground } from 'react-native';
 import React, {useEffect, useState} from 'react';
 

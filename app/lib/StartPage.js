@@ -6,6 +6,7 @@ import {
     StyleSheet,
     ImageBackground,
 } from "react-native";
+import { useIsFocused } from '@react-navigation/native';
 
 import { InteractiveBlock } from "./Components";
 import FilterButton from "./DropdownFilter";
@@ -13,13 +14,21 @@ import FilterButton from "./DropdownFilter";
 import { getUserData } from "./LoginingPage";
 import Sockets from "./Socket";
 
-export let timeArray = [];
 
 const StartRoute = () => {
 
     const [dataArray, changeDataArray] = useState([]);
     const [filters, changeFilter] = useState([1, 2, 3]);
     const [filteredData, setFilteredData] = useState([]);
+
+    const isFocused = useIsFocused();
+
+    useEffect(() => {
+        if (isFocused) {
+            // Ваш код, который нужно выполнить при фокусе на вкладке
+            getArray();
+        }
+    }, [isFocused]);
 
 
     useEffect(() => {
@@ -60,6 +69,8 @@ const StartRoute = () => {
     }
 
     const filterArray = () => {
+
+        getArray();
         let newData = [];
         if (filters.length > 0){
             newData = dataArray.filter(item => filters.includes(parseInt(item.level, 10)));
@@ -75,7 +86,7 @@ const StartRoute = () => {
         </View>
     );
 
-
+    // setTimeArray(timeArray + [1]);
     return (
         <ImageBackground
             source={{ uri: require("../assets/images/bg1.png") }}

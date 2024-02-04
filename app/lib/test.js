@@ -1,47 +1,47 @@
 import React, { useState } from 'react';
-import { FlatList, TextInput, View, Text } from 'react-native';
+import { View, Text, Button } from 'react-native';
 
-const YourComponent = () => {
-  const [data, setData] = useState([
-    { id: 1, name: 'Item 1', level: 1 },
-    { id: 2, name: 'Item 2', level: 2 },
-    { id: 3, name: 'Item 3', level: 1 },
-    { id: 4, name: 'Item 4', level: 1 },
-    { id: 5, name: 'Item 5', level: 3 },
-    { id: 6, name: 'Item 6', level: 3 },
-    // Добавьте остальные элементы списка
-  ]);
+const MapScreen = () => {
+  const apiKey = '57c7a565-032b-462e-a08a-7a39eff08ebb';
 
-  const [filteredData, setFilteredData] = useState(data);
-  const [labelsFilters, setLabelsFilters] = useState([]);
+  const [points, setPoints] = useState([]);
+  const [route, setRoute] = useState(null);
 
-  const filterDataByLevels = () => {
-    const newData = data.filter(item => labelsFilters.includes(item.level));
-    setFilteredData(newData);
+  const handleAddPoint = (latitude, longitude) => {
+    const newPoints = [...points, { latitude, longitude }];
+    setPoints(newPoints);
+
+    if (newPoints.length >= 2) {
+      calculateRoute(newPoints);
+    }
+  };
+
+  const calculateRoute = async (points) => {
+    const url = `https://route.api.maps.yandex.net/v1/distancematrix?apikey=${apiKey}&mode=pedestrian&origins=${points[0].latitude},${points[0].longitude}&destinations=${points[1].latitude},${points[1].longitude}&format=json`;
+
+    try {
+      const response = await fetch(url);
+      const data = await response.json();
+
+      if (data.status === 'OK') {
+        setRoute(data);
+      } else {
+        console.error('Error calculating route:', data);
+      }
+    } catch (error) {
+      console.error('Error fetching route:', error);
+    }
   };
 
   return (
     <View>
-      <TextInput
-        placeholder="Filter by levels (comma-separated)"
-        onChangeText={text => {
-          const levels = [1, 3]
-          setLabelsFilters(levels);
-          filterDataByLevels();
-        }}
-      />
-      <FlatList
-        data={filteredData}
-        keyExtractor={item => item.id.toString()}
-        renderItem={({ item }) => (
-          <View>
-            <Text>{item.name}</Text>
-            <Text>{`Level: ${item.level}`}</Text>
-          </View>
-        )}
-      />
+      <Text>React Native Map with Yandex Routes</Text>
+      <Button title="Add Point" onPress={() => handleAddPoint(55.753215, 37.622504)} />
+      {/* Add more buttons or UI for adding points */}
+      <Text>Points: {JSON.stringify(points)}</Text>
+      {route && <Text>Route: {JSON.stringify(route)}</Text>}
     </View>
   );
 };
 
-export default YourComponent;
+export default MapScreen;

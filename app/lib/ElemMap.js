@@ -70,6 +70,7 @@ const MapWithRoute = ({startPoint, endPoint}) => {
                 console.error('Произошла ошибка при получении информации о маршруте:', error.message);
                 setRouteInfo(null);
             }
+
         }
     };
 
@@ -88,7 +89,7 @@ const MapWithRoute = ({startPoint, endPoint}) => {
             <Map
                 defaultState={{
                     center: [55.751574, 37.573856],
-                    zoom: 10,
+                    zoom: 13,
                 }}
                 width="100%"
                 height="600px"
@@ -104,7 +105,7 @@ const MapWithRoute = ({startPoint, endPoint}) => {
                     />
                 ))}
 
-                {route && <RoutePanel route={route} />}
+                {route && <RoutePanel route={routeInfo} />}
 
             </Map>
         </YMaps>

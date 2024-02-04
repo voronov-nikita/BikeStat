@@ -26,6 +26,9 @@ const Starting = () => {
     const route = useRoute();
     const { data } = route.params;
 
+    // const startPoint = data.startpoint;
+    // const endPoint = data.endPoint;
+
     useEffect(() => {
         // отправка запроса и прием, обработка ответов
         const yourFunction = async () => {
@@ -63,7 +66,7 @@ const Starting = () => {
     };
     // обрабока кнопки "Начать заново"
     const handleReset = () => {
-        setSeconds(time);
+        setSeconds(data.time);
         setState(startImage);
         setIsRunning(false);
     };
@@ -97,6 +100,17 @@ const Starting = () => {
 
         navigation.navigate("Main");
     };
+
+
+    const getSpeed = () => {
+        const base = (data.len / (data.time)).toFixed(1);
+        const randomFraction = Math.random();
+        // Масштабируем и сдвигаем число в нужный диапазон
+        const speed = base*0.6 + randomFraction * (base*1.4 - base*0.6);
+        
+        return speed.toFixed(1);
+    }
+
     return (
         <SafeAreaView style={styles.container}>
         <ImageBackground
@@ -114,7 +128,7 @@ const Starting = () => {
             </View>
             <View style={styles.containerPulse}>
                 <Text style={styles.textPulse}>
-                    Ваша скорость: {(data.len / (data.time)).toFixed(1)}
+                    Ваша скорость: {getSpeed()} км/ч
                 </Text>
             </View>
             <View style={styles.containerPulse}>
@@ -181,7 +195,7 @@ const styles = {
         marginBottom: 10,
         alignContent: 'center',
         justifyContent: 'center',
-        textShadowColor: '#FFFFFFFF',
+        textShadowColor: '#FFFFFF',
         textShadowOffset:{width: 2, height: 2},
         textAlign: 'center',
     },

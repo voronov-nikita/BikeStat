@@ -58,7 +58,6 @@ const Timer = ({time}) => {
 
     // переделывает секунды в нормальный формат временного диапазона
     const formatTime = (totalSeconds) => {
-        totalSeconds*=150;  
         const hours = Math.floor(totalSeconds / 3600);
         const minutes = Math.floor((totalSeconds % 3600) / 60);
         const remainingSeconds = Math.floor(totalSeconds % 60);
@@ -71,10 +70,10 @@ const Timer = ({time}) => {
     return (
         <View style={styles.container}>
             <Text style={styles.timerText}>{formatTime(seconds)}</Text>
-            {/* <View style={styles.buttonsContainer}>
+            <View style={styles.buttonsContainer}>
                 <ImageButton onPress={handleStartPause} imageSource={curentImage} />
                 <ImageButton onPress={handleReset} imageSource={resetImage} />
-            </View> */}
+            </View>
         </View>
     );
 };
