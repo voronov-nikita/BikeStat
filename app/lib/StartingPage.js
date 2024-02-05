@@ -143,8 +143,24 @@ const Starting = () => {
                 <Map startPoint={data.startPoint} endPoint={data.endPoint} />
             </View>
             <View style={styles.buttonsContainer}>
-                <ImageButton onPress={handleStartPause} imageSource={curentImage} />
+            <View style={{height: 10, paddingTop: 15}}><Button
+                title="Начать маршрут"
+                onPress={handleStartPause}
+                color="#010101"
+                style={{height: 10}}
+                /></View>
+                <View style={styles.emptySpase}></View>
+                <View style={{height: 10, paddingTop: 15}}><Button
+                title="Начать заново"
+                onPress={handleReset}
+                color="#010101"
+                style={{height: 10}}
+                /></View>
+                <View style={styles.emptySpase}></View>
+                {/* <ImageButton onPress={handleStartPause} imageSource={curentImage} />
+                <View style={styles.emptySpase}></View> 
                 <ImageButton onPress={handleReset} imageSource={resetImage} />
+                <View style={styles.emptySpase}></View>  */}
                 <View style={{height: 10, paddingTop: 15}}><Button
                 title="Завершить маршрут"
                 onPress={completeWay}
@@ -173,13 +189,14 @@ const styles = {
     box: {
         // alignContent: "center",
         // alignItems: "center",
-        width: '50%'
+        width: '50%',
+        marginBottom: 30,
 
     },
 
     containerMap: {
-        width: "100%",
-        height: "80%",
+        width: 900,
+        height: 600,
         padding: 10,
         alignContent: "center",
         justifyContent: "center",
@@ -213,7 +230,7 @@ const styles = {
         flexDirection: 'row',
         justifyContent: 'space-around',
         marginTop: 10,
-        marginHorizontal: 600,
+        marginHorizontal: 550,
     },
 
     button: {
@@ -232,6 +249,10 @@ const styles = {
         margin: 8,
         fontWeight: 'bold',
     },
+
+    emptySpase: {
+        margin: 15
+    }
 };
 
 export default Starting;

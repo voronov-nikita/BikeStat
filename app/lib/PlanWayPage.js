@@ -94,14 +94,7 @@ const PlanWay = () => {
                             color="black"
                             onPress={savePlans}
                         />
-                        <View style={styles.emptySpace}>
-                            <Text></Text>
-                        </View>
-                        <Button
-                            title="Отмена"
-                            color="black"
-                            onPress={clearPlans}
-                        />
+                        
                     </View>
                 {/* </ScrollView> */}
             </SafeAreaView>
@@ -134,12 +127,12 @@ const styles = StyleSheet.create({
     },
 
     containerMap: {
-        width: "40%",
-        height: "70%",
+        width: 900,
+        height: 500,
         //padding: 20,
         borderColor: "black",
         borderWidth: 3,
-        marginHorizontal: 210,
+        marginHorizontal: 170,
     },
     box: {
         flexDirection: "column",
@@ -180,11 +173,8 @@ const styles = StyleSheet.create({
         alignContent: "center",
         paddingHorizontal: 8,
         marginBottom: 70,
-        marginHorizontal: 480,
+        marginHorizontal: 550,
         marginTop: 10,
-    },
-    emptySpace: {
-        margin: 15,
     },
 });
 

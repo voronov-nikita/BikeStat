@@ -92,7 +92,7 @@ const MapWithRoute = ({startPoint, endPoint}) => {
                     zoom: 13,
                 }}
                 width="100%"
-                height="600px"
+                height="100%"
                 onClick={handleMapClick}
             >
                 {markers.map((marker, index) => (

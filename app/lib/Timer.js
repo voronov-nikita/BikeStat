@@ -70,10 +70,10 @@ const Timer = ({time}) => {
     return (
         <View style={styles.container}>
             <Text style={styles.timerText}>{formatTime(seconds)}</Text>
-            <View style={styles.buttonsContainer}>
+            {/* <View style={styles.buttonsContainer}>
                 <ImageButton onPress={handleStartPause} imageSource={curentImage} />
                 <ImageButton onPress={handleReset} imageSource={resetImage} />
-            </View>
+            </View> */}
         </View>
     );
 };

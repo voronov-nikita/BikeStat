@@ -87,7 +87,7 @@ const UserHistory = () => {
             source={{ uri: require("../assets/images/bg1.png") }}
             style={styles.container}
         >
-            <Text style={styles.headText}>ЗАКОНЧЕННЫЕ ПОЕЗДКИ</Text>
+            <Text style={styles.headText}>ЗАВЕРШЁННЫЕ ПОЕЗДКИ</Text>
             <View style={{ flex: 1 }}>
                 <View style={styles.filterbutton}>
                     <FilterButton changeFunction={changeFilter} />
