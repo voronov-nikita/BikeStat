@@ -1,8 +1,7 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { useIsFocused } from '@react-navigation/native';
-import React, { useEffect } from 'react';
+import { useIsFocused } from "@react-navigation/native";
+import React, { useEffect } from "react";
 import { Image } from "react-native";
-
 
 import History from "./HistoryPage";
 import Plan from "./PlanWayPage";
@@ -14,7 +13,6 @@ const Tab = createBottomTabNavigator();
 // обработчик основного запроса пользователя на страницу
 // По умолчанию откроется центральная вкладка (Начать поездку)
 const HomePage = () => {
-
     return (
         <Tab.Navigator
             initialRouteName="Start Trip"

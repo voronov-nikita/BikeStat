@@ -29,7 +29,7 @@ import json
 
 # получаем имя компьютера в сети и находим по ARP таблице его IP адресс
 IP:str = socket.gethostbyname(socket.gethostname())
-# 0-65535, но не {22, 23, 80, 443, 1, 5000, 8000}
+# 1-65535, но не {22, 23, 80, 443, 1, 5000, 8000}
 PORT:int = 8090
 
 SENDREQUEST:bool = False
@@ -147,6 +147,16 @@ async def main(websocket, path) -> None:
             else:
                 await websocket.send("Failed")
         
+        # удалить поездку, если она не нужна
+        elif task == "DeleteWay":
+            # получаем логин и название для поздки
+            login = data[1]
+            name = data[2]
+            # удаляем ее из БД
+            deleteRoute(login, name)
+            # отправляем ответ
+            await websocket.send("Success")
+        
         # запланировать поездку и добавить ее в базу данных поездок
         elif task == "AddPlan":
             login = data[1]
@@ -213,7 +223,7 @@ if __name__=="__main__":
     createDataBaseRoute()
     createDataBaseHistory()
 
-    # addUsers("login", "1234")
+    addUsers("login", "1234")
     # addHistory("login", "test", 1, "2024-12-12", "5422352; 23424", "324234; 234324", 45.4, 11.4, 12, 12345.3, 1000)
     # обработчик запросов
     servercode = websockets.serve(main, IP, PORT)

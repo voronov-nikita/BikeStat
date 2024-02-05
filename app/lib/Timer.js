@@ -9,7 +9,7 @@ const startImage = require("../assets/start.png");
 const pauseImage = require("../assets/pause.png");
 
 
-const Timer = ({time}) => {
+const Timer = ({time, funcActivate}) => {
     const [curentImage, setState] = useState(startImage);
     const [seconds, setSeconds] = useState(time);
     const [isRunning, setIsRunning] = useState(false);
@@ -37,6 +37,15 @@ const Timer = ({time}) => {
 
         return () => clearInterval(interval);
     }, [isRunning, seconds]);
+
+    useEffect(() => {
+        if (funcActivate){
+            setIsRunning(true);
+        }else{
+            setIsRunning(false);
+        }
+        
+    }, [funcActivate]);
 
     // обработка на кнопку паузы
     const handleStartPause = () => {

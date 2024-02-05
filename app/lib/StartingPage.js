@@ -1,19 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { useRoute } from "@react-navigation/native";
 import { useNavigation } from "@react-navigation/native";
-import { SafeAreaView, Button, Text, View, ImageBackground } from "react-native";
+import {
+    SafeAreaView,
+    Button,
+    Text,
+    View,
+    ImageBackground,
+} from "react-native";
 
 import Timer from "./Timer";
 import Map from "./ElemMap";
 import Sockets from "./Socket";
 import { getUserData } from "./LoginingPage";
-
-import { ImageButton } from './Components';
-
-
-const resetImage = require("../assets/reset.png");
-const startImage = require("../assets/start.png");
-const pauseImage = require("../assets/pause.png");
 
 const Starting = () => {
     const navigation = useNavigation();
@@ -21,13 +20,13 @@ const Starting = () => {
     const [maxPulse, changeMaxPulse] = useState(null);
     const [minPulse, changeMinPulse] = useState(null);
     const [curPulse, changeCurPulse] = useState(null);
-    const [curentImage, setState] = useState(startImage);
+
+    const [isRunning, setIsRunning] = useState(false);
+    const [StartStopWay, changeState] = useState("Начать поездку");
 
     const route = useRoute();
     const { data } = route.params;
-
-    // const startPoint = data.startpoint;
-    // const endPoint = data.endPoint;
+    const [seconds, setSeconds] = useState(data.time);
 
     useEffect(() => {
         // отправка запроса и прием, обработка ответов
@@ -41,7 +40,7 @@ const Starting = () => {
 
             changeMaxPulse(Math.max(maxPulse, newMin));
             changeMinPulse(Math.min(minPulse, newMax));
-            if (newMax != 0 && minPulse==0){
+            if (newMax != 0 && minPulse == 0) {
                 changeMinPulse(newMax);
             }
             changeCurPulse((newMax + newMin) / 2);
@@ -55,19 +54,18 @@ const Starting = () => {
 
     // обработка на кнопку паузы
     const handleStartPause = () => {
-
-        if (curentImage===startImage){
-            setState(pauseImage);
-        }else{
-            setState(startImage);
+        if (StartStopWay === "Начать поездку") {
+            changeState("Остановить поздку");
+            setIsRunning(true);
+        } else {
+            changeState("Начать поездку");
+            setIsRunning(false);
         }
-
-        setIsRunning(prevState => !prevState);
     };
     // обрабока кнопки "Начать заново"
     const handleReset = () => {
         setSeconds(data.time);
-        setState(startImage);
+        changeState("Начать поездку");
         setIsRunning(false);
     };
 
@@ -101,97 +99,95 @@ const Starting = () => {
         navigation.navigate("Main");
     };
 
-
     const getSpeed = () => {
-        const base = (data.len / (data.time)).toFixed(1);
+        const base = (data.len / data.time).toFixed(1);
         const randomFraction = Math.random();
         // Масштабируем и сдвигаем число в нужный диапазон
-        const speed = base*0.6 + randomFraction * (base*1.4 - base*0.6);
-        
+        const speed = base * 0.6 + randomFraction * (base * 1.4 - base * 0.6);
+
         return speed.toFixed(1);
-    }
+    };
 
     return (
         <SafeAreaView style={styles.container}>
-        <ImageBackground
-                    source={{ uri: require('../assets/images/bgbeige.png')}}
-                    style={styles.container}
-                >
-        <Text style={styles.headText}>{data.title}</Text>
-        <SafeAreaView style={styles.box}>
-            
-
-            <View style={styles.containerPulse}>
-                <Text style={styles.textPulse}>
-                    Текущий пульс: {curPulse}
-                </Text>
-            </View>
-            <View style={styles.containerPulse}>
-                <Text style={styles.textPulse}>
-                    Ваша скорость: {getSpeed()} км/ч
-                </Text>
-            </View>
-            <View style={styles.containerPulse}>
-                <Text style={styles.textPulse}>
-                    Оставшееся время: 
-                    <Timer time={data.time * 150}/>
-                </Text>
-            </View>
-        </SafeAreaView>
-        <SafeAreaView style={styles.box}>
-            <View style={styles.containerMap}>
-                <Map startPoint={data.startPoint} endPoint={data.endPoint} />
-            </View>
-            <View style={styles.buttonsContainer}>
-            <View style={{height: 10, paddingTop: 15}}><Button
-                title="Начать маршрут"
-                onPress={handleStartPause}
-                color="#010101"
-                style={{height: 10}}
-                /></View>
-                <View style={styles.emptySpase}></View>
-                <View style={{height: 10, paddingTop: 15}}><Button
-                title="Начать заново"
-                onPress={handleReset}
-                color="#010101"
-                style={{height: 10}}
-                /></View>
-                <View style={styles.emptySpase}></View>
-                {/* <ImageButton onPress={handleStartPause} imageSource={curentImage} />
-                <View style={styles.emptySpase}></View> 
-                <ImageButton onPress={handleReset} imageSource={resetImage} />
-                <View style={styles.emptySpase}></View>  */}
-                <View style={{height: 10, paddingTop: 15}}><Button
-                title="Завершить маршрут"
-                onPress={completeWay}
-                color="#010101"
-                style={{height: 10}}
-                /></View>
-                
-            </View>
-        </SafeAreaView>
-        </ImageBackground>
+            <ImageBackground
+                source={{ uri: require("../assets/images/bgbeige.png") }}
+                style={styles.container}
+            >
+                <Text style={styles.headText}>{data.title}</Text>
+                <SafeAreaView style={styles.box}>
+                    <View style={styles.containerPulse}>
+                        <Text style={styles.textPulse}>
+                            Текущий пульс: {curPulse}
+                        </Text>
+                    </View>
+                    <View style={styles.containerPulse}>
+                        <Text style={styles.textPulse}>
+                            Ваша скорость: {getSpeed()} км/ч
+                        </Text>
+                    </View>
+                    <View style={styles.containerPulse}>
+                        <Text style={styles.textPulse}>
+                            Оставшееся время:
+                            <Timer
+                                time={seconds * 125}
+                                funcActivate={isRunning}
+                            />
+                        </Text>
+                    </View>
+                </SafeAreaView>
+                <SafeAreaView style={styles.box}>
+                    <View style={styles.containerMap}>
+                        <Map
+                            startPoint={data.startPoint}
+                            endPoint={data.endPoint}
+                        />
+                    </View>
+                    <View style={styles.buttonsContainer}>
+                        <View style={{ height: 10, paddingTop: 15 }}>
+                            <Button
+                                title={StartStopWay}
+                                onPress={handleStartPause}
+                                color="#010101"
+                                style={{ height: 10 }}
+                            />
+                        </View>
+                        <View style={styles.emptySpase}></View>
+                        <View style={{ height: 10, paddingTop: 15 }}>
+                            <Button
+                                title="Начать заново"
+                                onPress={handleReset}
+                                color="#010101"
+                                style={{ height: 10 }}
+                            />
+                        </View>
+                        <View style={styles.emptySpase}></View>
+                        <View style={{ height: 10, paddingTop: 15 }}>
+                            <Button
+                                title="Завершить маршрут"
+                                onPress={completeWay}
+                                color="#010101"
+                                style={{ height: 10 }}
+                            />
+                        </View>
+                    </View>
+                </SafeAreaView>
+            </ImageBackground>
         </SafeAreaView>
     );
 };
 
 const styles = {
     container: {
-        // alignContent: "center",
-        // alignItems: "center",
-        justifyContent: 'space-between',
-        display: 'flex',
-        width: '100%',
-        height: '100vh',
+        justifyContent: "space-between",
+        display: "flex",
+        width: "100%",
+        height: "100vh",
         margin: 0,
-
     },
     box: {
-        // alignContent: "center",
-        // alignItems: "center",
-        width: '50%',
+        width: "50%",
         marginBottom: 30,
-
     },
 
     containerMap: {
@@ -201,34 +197,34 @@ const styles = {
         alignContent: "center",
         justifyContent: "center",
         marginHorizontal: 100,
-        borderColor: 'black',
+        borderColor: "black",
         borderWidth: 3,
     },
 
-    headText:{
+    headText: {
         fontSize: 34,
-        fontWeight: 'bold',
+        fontWeight: "bold",
         marginTop: 10,
         marginBottom: 10,
-        alignContent: 'center',
-        justifyContent: 'center',
-        textShadowColor: '#FFFFFF',
-        textShadowOffset:{width: 2, height: 2},
-        textAlign: 'center',
+        alignContent: "center",
+        justifyContent: "center",
+        textShadowColor: "#FFFFFF",
+        textShadowOffset: { width: 2, height: 2 },
+        textAlign: "center",
     },
 
-    containerPulse:{
-        backgroundColor: '#ebebeb',
+    containerPulse: {
+        backgroundColor: "#ebebeb",
         width: "50%",
-        borderColor: 'black', 
+        borderColor: "black",
         borderWidth: 2,
         borderRadius: 2,
         marginHorizontal: 1230,
     },
 
     buttonsContainer: {
-        flexDirection: 'row',
-        justifyContent: 'space-around',
+        flexDirection: "row",
+        justifyContent: "space-around",
         marginTop: 10,
         marginHorizontal: 550,
     },
@@ -237,7 +233,7 @@ const styles = {
         marginHorizontal: 10,
         padding: 10,
         paddingLeft: 10,
-        backgroundColor: '#dddddd',
+        backgroundColor: "#dddddd",
         borderRadius: 5,
         borderWidth: 2,
     },
@@ -247,12 +243,12 @@ const styles = {
         alignContent: "center",
         justifyContent: "center",
         margin: 8,
-        fontWeight: 'bold',
+        fontWeight: "bold",
     },
 
     emptySpase: {
-        margin: 15
-    }
+        margin: 15,
+    },
 };
 
 export default Starting;

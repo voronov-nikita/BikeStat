@@ -49,8 +49,6 @@ const PlanWay = () => {
                 body: "Вы успешно запланировали поездку.",
             };
             showWebNotification(title, options);
-
-
         } else {
             const title = "Ошибка";
             const options = {
@@ -60,43 +58,34 @@ const PlanWay = () => {
         }
     };
 
-    // обработчик кнопки отмена
-    // удалить данные об имени и дате поездки
-    const clearPlans = () => {
-        changeName("");
-    };
-
     return (
         <ImageBackground
             source={{ uri: require("../assets/images/bg1.png") }}
             style={styles.container}
         >
             <SafeAreaView style={styles.box}>
-            <Text style={styles.headText}>ЗАПЛАНИРУЙТЕ ПОЕЗДКУ</Text>
+                <Text style={styles.headText}>ЗАПЛАНИРУЙТЕ ПОЕЗДКУ</Text>
 
-            <TextInput
-                style={styles.textInput}
-                placeholder="введите название для поездки"
-                autoFocus={true}
-                onChangeText={changeName}
-                value={nameWay}
-            />
+                <TextInput
+                    style={styles.textInput}
+                    placeholder="введите название для поездки"
+                    autoFocus={true}
+                    onChangeText={changeName}
+                    value={nameWay}
+                />
 
-            <MyCalendar />
-                {/* <ScrollView> */}
-                    <View style={styles.containerMap}>
-                        <Map />
-                    </View>
+                <MyCalendar />
+                <View style={styles.containerMap}>
+                    <Map />
+                </View>
 
-                    <View style={styles.buttons}>
-                        <Button
-                            title="Сохранить"
-                            color="black"
-                            onPress={savePlans}
-                        />
-                        
-                    </View>
-                {/* </ScrollView> */}
+                <View style={styles.buttons}>
+                    <Button
+                        title="Сохранить"
+                        color="black"
+                        onPress={savePlans}
+                    />
+                </View>
             </SafeAreaView>
         </ImageBackground>
     );
@@ -119,25 +108,22 @@ const showWebNotification = (title, options) => {
 
 const styles = StyleSheet.create({
     container: {
-        justifyContent: 'space-between',
-        display: 'flex',
-        width: '100%',
-        height: '100vh',
+        justifyContent: "space-between",
+        display: "flex",
+        width: "100%",
+        height: "100vh",
         margin: 0,
     },
 
     containerMap: {
         width: 900,
         height: 500,
-        //padding: 20,
         borderColor: "black",
         borderWidth: 3,
         marginHorizontal: 170,
     },
     box: {
         flexDirection: "column",
-
-        //justifyContent: 'space-between',
     },
 
     textInput: {
@@ -148,7 +134,6 @@ const styles = StyleSheet.create({
         marginBottom: 10,
         padding: 10,
         backgroundColor: "#FFFFFF",
-        // color: '#A5A5A5',
         color: "black",
         fontWeight: "bold",
         marginHorizontal: 1230,
