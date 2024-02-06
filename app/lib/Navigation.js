@@ -38,7 +38,7 @@ const AppNavigator = () => {
                     options={{
                         headerTitle: " ",
                         headerRight: () => <ProfileButton />,
-                        headerLeft: () => <HomeButton />,
+                        // headerLeft: () => <HomeButton />,
                     }}
                 />
                 <Stack.Screen
