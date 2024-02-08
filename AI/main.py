@@ -1,9 +1,10 @@
 import pandas as pd
-import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler, LabelEncoder
 from keras.models import Sequential
 from keras.layers import Dense
+
+import random
 
 # Шаг 1: Загрузка данных из CSV файла
 data = pd.read_csv('data.csv', delimiter=';')
@@ -38,7 +39,17 @@ model.fit(X_train, y_train, epochs=50, batch_size=32, validation_data=(X_test, y
 loss, accuracy = model.evaluate(X_test, y_test)
 print(f'Test Loss: {loss}, Test Accuracy: {accuracy}')
 
-# 
-def calculateLevel(data:list):
-    return 
+class Network():
+    def __init__(self, file:str) -> None:
+        pass
+    
+    def fit(self) -> None:
+        '''
+        
+        '''
+        pass
+    
+    def getNewResult(self, data:list) -> int:
+        answer = 0
+        return random.randint(1, 3)
 
