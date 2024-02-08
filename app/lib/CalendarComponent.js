@@ -36,8 +36,10 @@ const MyCalendar = () => {
                 color="#000000"
                 onPress={() => setIsVisible(true)} 
             />
-
+            <View style={{height: 10}}>
             <Text style={styles.textDate}>{selectedDate}</Text>
+            </View>
+            
 
         </View>
 
@@ -113,6 +115,8 @@ const styles = StyleSheet.create({
         marginLeft: 12,
         fontSize: 20,
         fontWeight: 'bold',
+        textShadowColor: "#FFFFFFFF",
+        textShadowOffset: { width: 1, height: 1 },
     }
 });
 

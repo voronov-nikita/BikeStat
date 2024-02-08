@@ -55,7 +55,7 @@ const Starting = () => {
     // обработка на кнопку паузы
     const handleStartPause = () => {
         if (StartStopWay === "Начать поездку") {
-            changeState("Остановить поздку");
+            changeState("Остановить поездку");
             setIsRunning(true);
         } else {
             changeState("Начать поездку");
