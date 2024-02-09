@@ -44,6 +44,7 @@ export const HomeButton = () => {
     );
 };
 
+
 export const LogOutButton = () => {
     const navigation = useNavigation();
 
@@ -81,9 +82,16 @@ export const InteractiveBlock = ({ data, id }) => {
         setModalVisible(false);
     };
 
+    // отправить запрос на удаление каких-то данных из БД на сервере
     const deleteWay = async () => {
-        const answer = await Sockets.getServer(["DeleteWay", data.login, data.title]);
-        console.log(answer);
+        if (id === "Starting") {
+            const answer = await Sockets.getServer(["DeleteWay", data.login, data.title]);
+            console.log(answer);
+        }else{
+            const answer = await Sockets.getServer(["DeleteHistory", data.login, data.title]);
+            console.log(answer);
+        }
+        
     };
 
     return (
@@ -118,12 +126,12 @@ export const InteractiveBlock = ({ data, id }) => {
                     />
                 </View>
 
-                {id==="Starting" && <View style={{ flex: 1, alignItems: "flex-end" }}>
+                <View style={{ flex: 1, alignItems: "flex-end" }}>
                     <ImageButton
                         onPress={deleteWay}
                         imageSource={require("../assets/images/garbage.png")}
                     />
-                </View>}
+                </View>
             </View>
         </TouchableOpacity>
     );
@@ -148,12 +156,11 @@ export const InformationSheet = ({ content }) => {
     );
 };
 
+
 const styles = {
     containerInterfaceBlock: {
         backgroundColor: "#e3dfb8ff",
-        // backgroundColor: '#ABFFABFF',
         borderRadius: 20,
-        // borderWidth: 1,
         borderColor: "black",
         padding: 10,
         margin: 7,

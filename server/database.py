@@ -175,6 +175,28 @@ def addHistory(login:str, name:str, level:int, date:str, startPoint:str, endPoin
     
     db.commit()
     db.close()
+    
+
+def deleteHistory(login:str, name:str) -> bool:
+    '''
+    Deletes a route from the current one. 
+    It is used in cases when the route has already been completed and 
+    it needs to be moved to the history table.
+    
+    It takes into account the NAME of our route.
+    '''
+    
+    db = sqlite3.connect("users.db")
+    cursor = db.cursor()
+    
+    cursor.execute(f"""
+        DELETE FROM history WHERE name='{name}' AND login='{login}'
+    """)
+    
+    db.commit()
+    db.close()
+
+    return True
 
 
 def getHistory(login:str) -> list:

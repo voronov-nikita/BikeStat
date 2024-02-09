@@ -14,7 +14,9 @@
 
 
 import sys
-sys.path.append('../AI')
+sys.path.append('../')
+
+from AI.main import Network
 
 from datarequest import *
 from database import *
@@ -25,7 +27,6 @@ import socket
 import random
 import json
 
-# import AI.study as network
 
 # получаем имя компьютера в сети и находим по ARP таблице его IP адресс
 IP:str = socket.gethostbyname(socket.gethostname())
@@ -78,8 +79,8 @@ RECOMMENDATION:dict = {
     ]
 }
 
-
-network = Network()
+# реализация модели нейронной сети
+# network = Network()
 
 
 async def main(websocket, path) -> None:
@@ -159,6 +160,19 @@ async def main(websocket, path) -> None:
             deleteRoute(login, name)
             # отправляем ответ
             await websocket.send("Success")
+            
+        # удалить поездку, если она не нужна
+        elif task == "DeleteHistory":
+            # получаем логин и название для поздки
+            login = data[1]
+            name = data[2]
+            print("OK")
+            # удаляем ее из БД
+            deleteHistory(login, name)
+            print("OK")
+            # отправляем ответ
+            await websocket.send("Success")
+            print("OK")
         
         # запланировать поездку и добавить ее в базу данных поездок
         elif task == "AddPlan":
@@ -179,7 +193,7 @@ async def main(websocket, path) -> None:
             length = data[6]
             time = data[7]
             
-            level = network.getNewResult()
+            level = 1
             # level = network.generateLevel([])
             
             addRoute(login, name, level, date, startPoint, endPoint, length, time)
