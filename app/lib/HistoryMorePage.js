@@ -79,13 +79,13 @@ const InfoComponent = ({ modalVisible, closeModal, data }) => {
                             <Text style={{ fontWeight: "bold" }}>
                                 Максимальный пульс в пути: 
                             </Text>
-                            <Text> { data.maxPulse}</Text>
+                            <Text> { data.minPulse}</Text>
                         </View>
                         <View style={{ flexDirection: "row" }}>
                             <Text style={{ fontWeight: "bold" }}>
                                 Минимальный пульс в пути: 
                             </Text>
-                            <Text> { data.minPulse}</Text>
+                            <Text> { data.maxPulse}</Text>
                         </View>
 
                         <View style={{ flexDirection: "row" }}>

@@ -6,7 +6,7 @@ import {
     StyleSheet,
     ImageBackground,
 } from "react-native";
-import { useIsFocused } from '@react-navigation/native';
+import { useIsFocused } from "@react-navigation/native";
 
 import { InteractiveBlock } from "./Components";
 import FilterButton from "./DropdownFilter";
@@ -14,11 +14,9 @@ import FilterButton from "./DropdownFilter";
 import { getUserData } from "./LoginingPage";
 import Sockets from "./Socket";
 
-
 const StartRoute = () => {
-
     const [dataArray, changeDataArray] = useState([]);
-    const [filters, changeFilter] = useState([1, 2, 3]);
+    const [filters, changeFilter] = useState([]);
     const [filteredData, setFilteredData] = useState([]);
 
     const isFocused = useIsFocused();
@@ -26,20 +24,20 @@ const StartRoute = () => {
     useEffect(() => {
         if (isFocused) {
             // Ваш код, который нужно выполнить при фокусе на вкладке
-            getArray();
+            filterArray();
+            console.log("FOCUS");
         }
     }, [isFocused]);
 
-
     useEffect(() => {
         getArray();
+        filterArray();
+        changeFilter(filters);
     }, []);
-
 
     useEffect(() => {
         filterArray();
     }, [filters]);
-
 
     const transformData = (rawData) => {
         return {
@@ -51,7 +49,7 @@ const StartRoute = () => {
             startPoint: rawData[5],
             endPoint: rawData[6],
             len: rawData[7],
-            time: (rawData[8] / 150).toFixed(2)
+            time: (rawData[8] / 150).toFixed(2),
         };
     };
 
@@ -66,27 +64,31 @@ const StartRoute = () => {
             const newDataArray = answer.map(transformData);
             changeDataArray(newDataArray);
         }
-    }
+    };
 
     const filterArray = () => {
-
         getArray();
         let newData = [];
-        if (filters.length > 0){
-            newData = dataArray.filter(item => filters.includes(parseInt(item.level, 10)));
-        }else{
+        if (filters.length > 0) {
+            newData = dataArray.filter((item) =>
+                filters.includes(parseInt(item.level, 10))
+            );
+        } else {
             newData = dataArray;
         }
         setFilteredData(newData);
-    }
+    };
 
     const renderItem = ({ item }) => (
         <View>
-            <InteractiveBlock data={item} id={"Starting"} />
+            <InteractiveBlock
+                data={item}
+                id={"Starting"}
+                otherFunction={isFocused}
+            />
         </View>
     );
 
-    // setTimeArray(timeArray + [1]);
     return (
         <ImageBackground
             source={{ uri: require("../assets/images/bg1.png") }}
@@ -96,17 +98,17 @@ const StartRoute = () => {
             <View style={{ flex: 1 }}>
                 <View>
                     <View style={styles.filterbutton}>
-                        <FilterButton changeFunction={changeFilter}/>
+                        <FilterButton changeFunction={changeFilter} />
                     </View>
                 </View>
                 <View style={styles.container}>
-                    {filteredData.length > 0 ? (
+                    {filteredData.length > 0 && filters.length > 0 ? (
                         <FlatList
                             data={filteredData}
                             renderItem={renderItem}
                             keyExtractor={(item) => item.id}
                         />
-                    ) : (dataArray.length > 0 ? (
+                    ) : (filters.length === 0 && dataArray.length !== 0 ? (
                         <FlatList
                             data={dataArray}
                             renderItem={renderItem}
@@ -124,7 +126,6 @@ const StartRoute = () => {
     );
 };
 
-
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -133,8 +134,9 @@ const styles = StyleSheet.create({
     textNoneWay: {
         textAlign: "center",
         justifyContent: "center",
-        fontSize: 26,
+        fontSize: 36,
         margin: 30,
+        fontWeight: "bold",
     },
     filterbutton: {
         marginRight: 15,
@@ -153,7 +155,7 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         textShadowColor: "#FFFFFF",
         textShadowOffset: { width: 2, height: 2 },
-        textAlign: 'center',
+        textAlign: "center",
     },
 });
 

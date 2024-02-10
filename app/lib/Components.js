@@ -65,7 +65,7 @@ export const LogOutButton = () => {
 // Интерактивый блок с данными от пользовательской активности
 // нужно для отображения нескольких блоков одновременно
 // условно это единый пример того, как должны выглядеть все блоки поездок
-export const InteractiveBlock = ({ data, id }) => {
+export const InteractiveBlock = ({ data, id, otherFunction}) => {
     const [modalVisible, setModalVisible] = useState(false);
 
     const navigation = useNavigation();
@@ -83,15 +83,17 @@ export const InteractiveBlock = ({ data, id }) => {
     };
 
     // отправить запрос на удаление каких-то данных из БД на сервере
-    const deleteWay = async () => {
+    const FuncDeleteWay = async () => {
+        let answer = "";
         if (id === "Starting") {
-            const answer = await Sockets.getServer(["DeleteWay", data.login, data.title]);
-            console.log(answer);
+            answer = await Sockets.getServer(["DeleteWay", data.login, data.title]);
         }else{
-            const answer = await Sockets.getServer(["DeleteHistory", data.login, data.title]);
-            console.log(answer);
+            answer = await Sockets.getServer(["DeleteHistory", data.login, data.title]);
         }
-        
+        if (answer == "Success"){
+            // двойной вызов
+        otherFunction(true);
+        }
     };
 
     return (
@@ -128,7 +130,7 @@ export const InteractiveBlock = ({ data, id }) => {
 
                 <View style={{ flex: 1, alignItems: "flex-end" }}>
                     <ImageButton
-                        onPress={deleteWay}
+                        onPress={FuncDeleteWay}
                         imageSource={require("../assets/images/garbage.png")}
                     />
                 </View>

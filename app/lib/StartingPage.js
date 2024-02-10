@@ -38,11 +38,12 @@ const Starting = () => {
             const newMax = newData[0];
             const newMin = newData[1];
 
-            changeMaxPulse(Math.max(maxPulse, newMin));
-            changeMinPulse(Math.min(minPulse, newMax));
-            if (newMax != 0 && minPulse == 0) {
-                changeMinPulse(newMax);
+            changeMaxPulse(Math.max(maxPulse, newMax));
+            changeMinPulse(Math.min(150, newMax));
+            if (newMax < 100) {
+                changeMinPulse(100);
             }
+            console.log(minPulse);
             changeCurPulse((newMax + newMin) / 2);
         };
 

@@ -80,7 +80,7 @@ RECOMMENDATION:dict = {
 }
 
 # реализация модели нейронной сети
-# network = Network()
+network = Network(file="data.csv")
 
 
 async def main(websocket, path) -> None:
@@ -154,10 +154,13 @@ async def main(websocket, path) -> None:
         # удалить поездку, если она не нужна
         elif task == "DeleteWay":
             # получаем логин и название для поздки
+            
             login = data[1]
             name = data[2]
+            
             # удаляем ее из БД
             deleteRoute(login, name)
+            
             # отправляем ответ
             await websocket.send("Success")
             
@@ -166,13 +169,13 @@ async def main(websocket, path) -> None:
             # получаем логин и название для поздки
             login = data[1]
             name = data[2]
-            print("OK")
+            
             # удаляем ее из БД
             deleteHistory(login, name)
-            print("OK")
+            
             # отправляем ответ
             await websocket.send("Success")
-            print("OK")
+            
         
         # запланировать поездку и добавить ее в базу данных поездок
         elif task == "AddPlan":
@@ -193,8 +196,7 @@ async def main(websocket, path) -> None:
             length = data[6]
             time = data[7]
             
-            level = 1
-            # level = network.generateLevel([])
+            level = network.getNewResult()
             
             addRoute(login, name, level, date, startPoint, endPoint, length, time)
             await websocket.send("Success")

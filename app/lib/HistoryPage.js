@@ -16,8 +16,11 @@ import Sockets from "./Socket";
 
 const UserHistory = () => {
     const [dataArray, changeDataArray] = useState([]);
-    const [filters, changeFilter] = useState([1, 2, 3]);
+    const [filters, changeFilter] = useState([]);
     const [filteredData, setFilteredData] = useState([]);
+
+    const [isDelete, isDeleteChange] = useState(false);
+    
 
     const isFocused = useIsFocused();
 
@@ -27,12 +30,16 @@ const UserHistory = () => {
 
     useEffect(() => {
         filterArray();
-    }, [filters]);
+    }, [isDelete]);
+
+    useEffect(() => {
+        isDeleteChange(false);
+    }, [filters, isDelete]);
 
     useEffect(() => {
         if (isFocused) {
             // Ваш код, который нужно выполнить при фокусе на вкладке
-            getArray();
+            filterArray();
         }
     }, [isFocused]);
 
@@ -50,7 +57,6 @@ const UserHistory = () => {
             avgPulse: rawData[9],
             len: rawData[10],
             time: (rawData[11] / 150).toFixed(2),
-            // time: rawData[11].toFixed(2)
         };
     };
 
@@ -78,7 +84,7 @@ const UserHistory = () => {
 
     const renderItem = ({ item }) => (
         <View>
-            <InteractiveBlock data={item} id={"MoreHistory"} />
+            <InteractiveBlock data={item} id={"MoreHistory"} otherFunction={isDeleteChange}/>
         </View>
     );
 
@@ -99,7 +105,7 @@ const UserHistory = () => {
                             renderItem={renderItem}
                             keyExtractor={(item) => item.id}
                         />
-                    ) : dataArray.length > 0 ? (
+                    ) : (filters.length === 0 && dataArray.length !== 0 ? (
                         <FlatList
                             data={dataArray}
                             renderItem={renderItem}
@@ -109,6 +115,7 @@ const UserHistory = () => {
                         <Text style={styles.textNoneWay}>
                             Вы пока не завершили ни одного маршрута
                         </Text>
+                    )
                     )}
                 </View>
             </View>
@@ -126,6 +133,7 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         fontSize: 26,
         margin: 30,
+        fontWeight: "bold",
     },
     filterbutton: {
         marginRight: 15,

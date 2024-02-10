@@ -29,14 +29,6 @@ const Profile = () => {
 
     const login = getUserData()[0];
 
-    const transData = (lst) => {
-        const time = [];
-        for (let i = 0; i < lst.length; i++) {
-            time.push({ name: i, value: lst[i] });
-        }
-        return time;
-    };
-
     const getRecomned = async () => {
         const avg = 1;
         const answer = await Sockets.getServer(["GetRecomend", avg]);
@@ -46,17 +38,22 @@ const Profile = () => {
     const getDataForGraf = async () => {
         const p = await Sockets.getServer(["GetUserStatic", login]);
         let r = JSON.parse(p);
-        changeDataLevel(transData(r[0]));
+
+        const time0 = [];
+        for (let i = 0; i < r[0].length; i++) {
+            time0.push({ name: i, value: r[0][i]});
+        }
+        changeDataLevel(time0);
 
         const time1 = [];
-        for (let i = 0; i < r[0].length; i++) {
+        for (let i = 0; i < r[1].length; i++) {
             time1.push({ name: i, maxPulse: r[1][i], minPulse: r[2][i] });
         }
         changePulse(time1);
 
         const time2 = [];
-        for (let i = 0; i < r[2].length; i++) {
-            time2.push({ name: i, value: r[2][i] });
+        for (let i = 0; i < r[3].length; i++) {
+            time2.push({ name: i, value: r[3][i] });
         }
         changeLength(time2);
 
@@ -122,9 +119,6 @@ const Profile = () => {
                             />
                         </Box>
                     </View>
-                    {/* <Box style={{width: '50%'}}>
-                    <Graphic width={400} height={200} color={"red"} dataArray={dataLevel.slice(-10)} title={"График сложности маршрутов"} />
-                </Box> */}
                 </View>
 
                 <View style={styles.boxmaxi}>
