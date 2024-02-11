@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/BikeStat/static/css/main.2bf080ad.css",
-    "main.js": "/BikeStat/static/js/main.9e1c0534.js",
+    "main.js": "/BikeStat/static/js/main.5651c9ef.js",
     "static/js/799.36ec960f.js": "/BikeStat/static/js/799.36ec960f.js",
     "static/media/bgbeige.png": "/BikeStat/static/media/bgbeige.82e23fd690cc1f8397d0.png",
     "static/media/profile.png": "/BikeStat/static/media/profile.b92407e2ba9a9f77a172.png",
@@ -22,12 +22,12 @@
     "serve.json": "/BikeStat/serve.json",
     "manifest.json": "/BikeStat/manifest.json",
     "main.2bf080ad.css.map": "/BikeStat/static/css/main.2bf080ad.css.map",
-    "main.9e1c0534.js.map": "/BikeStat/static/js/main.9e1c0534.js.map",
+    "main.5651c9ef.js.map": "/BikeStat/static/js/main.5651c9ef.js.map",
     "799.36ec960f.js.map": "/BikeStat/static/js/799.36ec960f.js.map"
   },
   "entrypoints": [
     "static/js/799.36ec960f.js",
     "static/css/main.2bf080ad.css",
-    "static/js/main.9e1c0534.js"
+    "static/js/main.5651c9ef.js"
   ]
 }
