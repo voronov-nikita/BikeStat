@@ -1,6 +1,7 @@
 {
   "name": "bikestat",
   "version": "1.0.0",
+  "homepage": "https://voronov-nikita.github.io/BikeStat/app",
   "description": "![mosh-image](https://predprof.olimpiada.ru/images/logo-predporf.svg)",
   "main": "index.js",
   "directories": {
