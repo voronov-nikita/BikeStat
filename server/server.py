@@ -23,9 +23,11 @@ from database import *
 
 import websockets
 import asyncio
+import pathlib
 import socket
 import random
 import json
+import ssl
 
 
 # получаем имя компьютера в сети и находим по ARP таблице его IP адресс
@@ -233,7 +235,7 @@ async def main(websocket, path) -> None:
     except:
         print("Disconnect")
     
-    
+
 
 
 if __name__=="__main__":
@@ -245,7 +247,12 @@ if __name__=="__main__":
     addUsers("login", "1234")
     # addHistory("login", "test", 1, "2024-12-12", "5422352; 23424", "324234; 234324", 45.4, 11.4, 12, 12345.3, 1000)
     # обработчик запросов
-    servercode = websockets.serve(main, IP, PORT)
+    
+    ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
+    ssl_context.load_cert_chain(certfile=pathlib.Path(__file__).with_name("server.crt"),
+                            keyfile=pathlib.Path(__file__).with_name("server.key")) 
+
+    servercode = websockets.serve(main, IP, PORT, ssl=ssl_context)
     asyncio.get_event_loop().run_until_complete(servercode)
     asyncio.get_event_loop().run_forever()
 
