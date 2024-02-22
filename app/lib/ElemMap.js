@@ -2,13 +2,17 @@ import { YMaps, Map, Placemark, RoutePanel } from '@pbe/react-yandex-maps';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
+// константная переменная API ключа
+const apiKey = "57c7a565-032b-462e-a08a-7a39eff08ebb";
 
+// переменные и окружение
 let routeData;
 let listMarkers = [];
 
 
+// принимает в себя начальную и конечную точки
 const MapWithRoute = ({startPoint, endPoint}) => {
-    const apiKey = "57c7a565-032b-462e-a08a-7a39eff08ebb";
+    
 
     const [route, setRoute] = useState(null);
     const [routeInfo, setRouteInfo] = useState(null);
@@ -112,14 +116,17 @@ const MapWithRoute = ({startPoint, endPoint}) => {
     );
 };
 
+// получить состояние текущего маршрута
 export const getRoute = () => {
     return route;
 }
 
+// получить список марок в дейтлоне
 export const getMarkers = () => {
     return listMarkers;
 };
 
+// получить список текущих дат пользователей
 export const getDataWay = () =>{
     return routeData;
 }

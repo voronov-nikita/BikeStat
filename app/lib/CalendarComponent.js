@@ -2,29 +2,34 @@ import { View, StyleSheet, Button, Modal, Text } from 'react-native';
 import { Calendar } from 'react-native-calendars';
 import React, { useState } from 'react';
 
-
+// переменная для храния выбранной даты
+// переменная потом импортируется константным типом, поэтому 
 let GlobalDate = "";
 
 
+// инициализация обьекта календаря
 const MyCalendar = () => {
 
+    // переменные константы состояния даты и состояния скрытия
     const [selectedDate, setSelectedDate] = useState('');
     const [isVisible, setIsVisible] = useState(false);
 
+    // 
     const onDayPress = (day) => {
         setSelectedDate(day.dateString);
-        console.log(selectedDate);
     };
 
+    // если нажали "OK", то сохранить и свернуть календарь
     const handleOkPress = () => {
-        // Выводим дату в консоль
+        // сохраняем
         GlobalDate = selectedDate;
         // Закрываем модальное окно
         setIsVisible(false);
     };
 
+    // Обработка нажатия кнопки "Отмена"
     const handleCancelPress = () => {
-        // Обработка нажатия кнопки "Отмена"
+        // свернуть календарь
         setIsVisible(false);
     };
 
@@ -37,7 +42,7 @@ const MyCalendar = () => {
                 onPress={() => setIsVisible(true)} 
             />
             <View style={{height: 10}}>
-            <Text style={styles.textDate}>{selectedDate}</Text>
+                <Text style={styles.textDate}>{selectedDate}</Text>
             </View>
             
 
@@ -75,6 +80,8 @@ const MyCalendar = () => {
     );
 };
 
+// функция получения выбранной даты
+// является общедоступной функцией
 export const getDate = () => {
     return (GlobalDate);
 }

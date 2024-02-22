@@ -3,7 +3,11 @@ import { View, StyleSheet } from 'react-native';
 import React from 'react';
 
 
-
+// Отображение блока одной линии с возмонжостью регулирования
+// первым и вторым аргументами явлются размеры
+// третий аргумент - это цвет линии
+// четвертый - это список параметров по которым смотрят на распределение
+// пятый - название под графиком 
 const LineChartExample = ({width=500, height=500, color="red", dataArray, title}) => {
 
     return (
@@ -21,7 +25,8 @@ const LineChartExample = ({width=500, height=500, color="red", dataArray, title}
     );
 };
 
-
+// Отображение блока несколькими линии
+// функция глобальная и принимает в себя данных из хеш-таблицы
 export const MultiLineChart = ({data}) => {
         return (
         <View style={styles.container}>
