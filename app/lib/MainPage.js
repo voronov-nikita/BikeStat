@@ -15,13 +15,13 @@ const Tab = createBottomTabNavigator();
 const HomePage = () => {
     return (
         <Tab.Navigator
-            initialRouteName="Start Trip"
+            initialRouteName="Начать поездку"
             tabBarOptions={{
                 labelStyle: styles.labelStyle,
             }}
         >
             <Tab.Screen
-                name="Plan Trip"
+                name="Запланировать"
                 component={Plan}
                 options={{
                     headerShown: false,
@@ -35,7 +35,7 @@ const HomePage = () => {
             />
 
             <Tab.Screen
-                name="Start Trip"
+                name="Начать поездку"
                 component={Start}
                 options={{
                     headerShown: false,
@@ -55,7 +55,7 @@ const HomePage = () => {
             />
 
             <Tab.Screen
-                name="History"
+                name="История"
                 component={History}
                 options={{
                     headerShown: false,
